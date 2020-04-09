@@ -24,4 +24,17 @@ Note: The symbols supported by exchange will differ.
 Currently supports over 400 symbols including:
 
 Symbol | Description
---------
+-------- | -----
+BTCAUD | Bitcoin / Australian Dollar
+BTCUSD | Bitcoin / U.S Dollar
+BTCUSDLONGS | Open long positions in BTCUSD on Bitfinex
+BTCUSDSHORTS | Open short positions in BTCUSD on Bitfinex 
+BTCUSDT | Bitcoin / Tether USD
+ETCAUD | Ethereum Classic / Australian Dollar
+ETHAUD | Ethereum / Australian Dollar
+ETHBTC | Ethereum / Bitcoin
+ETHBTCLONGS | Open long positions in ETHBTC on Bitfinex 
+ETHBTCSHORTS | Open short positions in ETHBTC on Bitfinex
+ETHUSD | Ethereum / U.S. Dollar
+ETHUSDLONGS | Open long positions in ETHUSD on Bitfinex
+ETHUSDSHORTS | Open short positions in BTCUSD on Bi
