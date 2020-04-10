@@ -37,4 +37,20 @@ ETHBTCLONGS | Open long positions in ETHBTC on Bitfinex
 ETHBTCSHORTS | Open short positions in ETHBTC on Bitfinex
 ETHUSD | Ethereum / U.S. Dollar
 ETHUSDLONGS | Open long positions in ETHUSD on Bitfinex
-ETHUSDSHORTS | Open short positions in BTCUSD on Bi
+ETHUSDSHORTS | Open short positions in BTCUSD on Bitfinex 
+ETHUSDT | Ethereum / Tether USD
+LTCAUD | Litecoin / Australian Dollar
+LTCBTC | Litecoin / Bitcoin
+LTCBTCLONGS | Open long positions in LTCBTC on Bitfinex 
+LTCBTCSHORTS | Open short positions in LTCBTC on Bitfinex 
+LTCUSD | Litecoin / U.S. Dollar
+LTCUSDLONGS | Open long positions in LTCUSD on Bitfinex 
+LTCUSDSHORTS | Open short positions in LTCUSD on Bitfinex 
+LTCUSDT | Litecoin / Tether USD
+XLMBTC | Stellar Lumens / Bitcoin
+XLMETH | Stellar Lumens / Ethereum
+
+## Supported OHLC intervals
+Interval Key | Label
+-------------|----------
+1m | 1 min
