@@ -72,4 +72,17 @@ Interval Key | Label
 ### Installation
 1. Run the database script found in src\CryptoCurrency.HistorianService\create_historian.sql on a MySQL instance
 2. Create a user in MySQL with the following permissions on the schema: CREATE TEMPORARY TABLES, DELETE, EXECUTE, GRANT OPTION, INSERT, LOCK TABLES, SELECT, SHOW VIEW, UPDATE
-3. In src\CryptoCurrency.HistorianService\ap
+3. In src\CryptoCurrency.HistorianService\appsettings.json:
+    * Modify the Historian connection string to point to the above schema you just created
+    * Modify the list of exchanges to get trades from (optional)
+         * Note: The required hardware resources increases with every exchange worker that is running
+4. Compile the HistorianService project
+5. Run dotnet CryptoCurrency.HistorianService.dll
+
+## Code examples
+
+### C#
+Get daily trade aggregate data for Kraken/BTCUSD for January 2019.
+
+``` C#
+var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json",
