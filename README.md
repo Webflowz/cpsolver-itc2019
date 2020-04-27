@@ -85,4 +85,22 @@ Interval Key | Label
 Get daily trade aggregate data for Kraken/BTCUSD for January 2019.
 
 ``` C#
-var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json",
+var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
+
+var appConfig = builder.Build();
+
+var historianConnectionString = appConfig.GetConnectionString("Historian");
+
+var serviceProvider = new ServiceCollection()
+	.AddFactories()
+	.AddExchangeFactory()
+	.AddRepositories(historianConnectionString, historianConnectionString);
+	
+var intervalFactory = serviceProvider.GetService<IIntervalFactory>();
+var marketRepository = serviceProvider.GetService<IMarketRepository>();
+
+var intervalKey = intervalFactory.GetIntervalKey("1D");
+
+var from = new Epoch(new DateTime(2019, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+
+var tradeAggregates = await
