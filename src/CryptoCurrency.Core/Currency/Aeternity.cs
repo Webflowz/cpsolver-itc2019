@@ -6,4 +6,6 @@ namespace CryptoCurrency.Core.Currency
         
         public string Label => "Aeternity";
 
-    
+        public string Symbol => "AE";
+    }
+}
