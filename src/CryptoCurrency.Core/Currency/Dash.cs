@@ -2,4 +2,10 @@
 {
     public class Dash : ICurrency
     {
-        public CurrencyCodeEnum Code => CurrencyCode
+        public CurrencyCodeEnum Code => CurrencyCodeEnum.DASH;
+
+        public string Label => "Dash";
+
+        public string Symbol => "DASH";
+    }
+}
