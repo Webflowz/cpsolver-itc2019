@@ -6,4 +6,6 @@ namespace CryptoCurrency.Core.Currency
         
         public string Label => "Dent";
 
-        
+        public string Symbol => "DENT";
+    }
+}
