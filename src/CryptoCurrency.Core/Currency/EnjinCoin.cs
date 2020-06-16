@@ -4,3 +4,8 @@ namespace CryptoCurrency.Core.Currency
     {
         public CurrencyCodeEnum Code => CurrencyCodeEnum.ENJ;
         
+        public string Label => "EnjinCoin";
+
+        public string Symbol => "ENJ";
+    }
+}
