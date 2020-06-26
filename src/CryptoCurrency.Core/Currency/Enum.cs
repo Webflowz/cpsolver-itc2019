@@ -143,4 +143,12 @@
         HOT = 141,
         NPXS = 142,
         MTL = 143,
-        USD
+        USDS = 144,
+        RVN = 145,
+        QKC = 146,
+        USDC = 147,
+        WAN = 148,
+        YOYOW = 149,
+        ETHOS = 150
+    }
+}
