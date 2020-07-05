@@ -4,4 +4,8 @@
     {
         public CurrencyCodeEnum Code => CurrencyCodeEnum.IOTA;
 
-        public string Label => "Iot
+        public string Label => "Iota";
+
+        public string Symbol => "IOTA";
+    }
+}
