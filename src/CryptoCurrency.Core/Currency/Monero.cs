@@ -4,4 +4,8 @@ namespace CryptoCurrency.Core.Currency
     {
         public CurrencyCodeEnum Code => CurrencyCodeEnum.XMR;
         
-        public string Label => "Mo
+        public string Label => "Monero";
+
+        public string Symbol => "XMR";
+    }
+}
