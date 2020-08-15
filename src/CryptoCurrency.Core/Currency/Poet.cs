@@ -4,4 +4,8 @@ namespace CryptoCurrency.Core.Currency
     {
         public CurrencyCodeEnum Code => CurrencyCodeEnum.POE;
         
-        pu
+        public string Label => "Poet";
+
+        public string Symbol => "POE";
+    }
+}
