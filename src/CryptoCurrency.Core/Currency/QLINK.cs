@@ -7,3 +7,5 @@ namespace CryptoCurrency.Core.Currency
         public string Label => "QLINK";
 
         public string Symbol => "QLC";
+    }
+}
