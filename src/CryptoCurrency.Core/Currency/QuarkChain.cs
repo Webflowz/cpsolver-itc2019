@@ -2,4 +2,10 @@ namespace CryptoCurrency.Core.Currency
 {
     public class QuarkChain : ICurrency
     {
-        publi
+        public CurrencyCodeEnum Code => CurrencyCodeEnum.QKC;
+        
+        public string Label => "QuarkChain";
+
+        public string Symbol => "QKC";
+    }
+}
