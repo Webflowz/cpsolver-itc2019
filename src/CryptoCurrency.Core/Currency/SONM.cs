@@ -4,4 +4,8 @@ namespace CryptoCurrency.Core.Currency
     {
         public CurrencyCodeEnum Code => CurrencyCodeEnum.SNM;
         
-        public string Label =
+        public string Label => "SONM";
+
+        public string Symbol => "SNM";
+    }
+}
