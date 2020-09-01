@@ -4,4 +4,8 @@ namespace CryptoCurrency.Core.Currency
     {
         public CurrencyCodeEnum Code => CurrencyCodeEnum.STRAT;
         
-        public strin
+        public string Label => "Stratis";
+
+        public string Symbol => "STRAT";
+    }
+}
