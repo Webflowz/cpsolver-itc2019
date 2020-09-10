@@ -1,3 +1,11 @@
 namespace CryptoCurrency.Core.Currency
 {
-    public class WaB
+    public class WaBi : ICurrency
+    {
+        public CurrencyCodeEnum Code => CurrencyCodeEnum.WABI;
+        
+        public string Label => "WaBi";
+
+        public string Symbol => "WABI";
+    }
+}
