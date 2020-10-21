@@ -19,4 +19,16 @@ namespace CryptoCurrency.Core.Exchange
 
         bool MultiTickSupported { get; }
         
-        string Ini
+        string InitialTradeFilter { get; }
+
+        void SetApiAccess(string privateKey, string publicKey, string passphrase);
+
+        Task<WrappedResponse<MarketTick>> GetTick(ISymbol symbol);
+
+        Task<WrappedResponse<ICollection<MarketTick>>> GetTicks(ICollection<ISymbol> symbols);
+
+        Task<WrappedResponse<ICollection<AccountBalance>>> GetBalance();
+
+        Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum orderType, OrderSideEnum orderSide, decimal price, decimal volume);
+
+        Task<WrappedResponse<TradeFee>> GetTradeFee(Order
