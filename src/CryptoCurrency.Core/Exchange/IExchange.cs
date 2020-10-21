@@ -24,4 +24,6 @@ namespace CryptoCurrency.Core.Exchange
 
         IExchangeHttpClient GetHttpClient();
 
-        IExchangeWebSocketClient GetWebSo
+        IExchangeWebSocketClient GetWebSocketClient();
+    }
+}
