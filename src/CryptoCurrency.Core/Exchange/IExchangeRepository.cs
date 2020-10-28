@@ -8,4 +8,6 @@ namespace CryptoCurrency.Core.Exchange
     {
         Task Add(IExchange exchange);
 
-        Task
+        Task AddSymbol(ExchangeEnum exchange, SymbolCodeEnum symbolCode);
+    }
+}
