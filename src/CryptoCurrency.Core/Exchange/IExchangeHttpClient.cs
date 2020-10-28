@@ -41,4 +41,12 @@ namespace CryptoCurrency.Core.Exchange
 
         Task<WrappedResponse<WithdrawCrypto>> WithdrawCrypto(CurrencyCodeEnum cryptoCurrencyCode, decimal withdrawalFee, decimal volume, string address);
 
-        Task<WrappedResponse<ICollection<Deposit>>> GetDeposits(Cur
+        Task<WrappedResponse<ICollection<Deposit>>> GetDeposits(CurrencyCodeEnum currencyCode, int limit);
+
+        Task<WrappedResponse<Deposit>> GetDeposit(CurrencyCodeEnum currencyCode, string transactionId);
+
+        Task<WrappedResponse<TradeResult>> GetTrades(ISymbol symbol, int limit, string filter);
+
+        Task<WrappedResponse<ICollection<ExchangeStats>>> GetStats(ISymbol symbol, ExchangeStatsKeyEnum statsKey);
+    }
+}
