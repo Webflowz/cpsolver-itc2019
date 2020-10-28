@@ -31,4 +31,14 @@ namespace CryptoCurrency.Core.Exchange
 
         Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum orderType, OrderSideEnum orderSide, decimal price, decimal volume);
 
-        Task<WrappedResponse<TradeFee>> GetTradeFee(Order
+        Task<WrappedResponse<TradeFee>> GetTradeFee(OrderSideEnum orderSide, ISymbol symbol);
+
+        Task<WrappedResponse<ICollection<TradeItem>>> GetTradeHistory(ISymbol symbol, int pageNumber, int pageSize, string fromTradeId);
+
+        Task<WrappedResponse<ICollection<OrderItem>>> GetOpenOrders(ISymbol symbol, int pageNumber, int pageSize);
+
+        Task<WrappedResponse<CancelOrder>> CancelOrder(ISymbol symbol, string[] orderIds);
+
+        Task<WrappedResponse<WithdrawCrypto>> WithdrawCrypto(CurrencyCodeEnum cryptoCurrencyCode, decimal withdrawalFee, decimal volume, string address);
+
+        Task<WrappedResponse<ICollection<Deposit>>> GetDeposits(Cur
