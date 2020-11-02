@@ -12,4 +12,22 @@ namespace CryptoCurrency.Core.Exchange
 
         bool IsSubscribeModel { get; }
 
- 
+        event EventHandler OnOpen;
+
+        event EventHandler<CloseEventArgs> OnClose;
+
+        event EventHandler<TradesReceivedEventArgs> OnTradesReceived;
+
+        event EventHandler<TickerReceivedEventArgs> OnTickerReceived;
+
+        void SetApiAccess(string privateKey, string publicKey, string passphrase);
+
+        Task Begin();
+
+        void Connect();
+
+        void BeginListenTrades(ICollection<ISymbol> symbols);
+
+        void BeginListenTicker(ICollection<ISymbol> symbols);
+    }
+}
