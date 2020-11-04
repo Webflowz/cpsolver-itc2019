@@ -8,4 +8,29 @@ using CryptoCurrency.Core.Symbol;
 
 namespace CryptoCurrency.Core.Exchange.Model
 {
-    
+    public class OrderBookItem
+    {
+        public long Id { get; set; }
+
+        public OrderSideEnum Side { get; set; }
+
+        public OrderTypeEnum Type { get; set; }
+
+        public decimal Price { get; set; }
+
+        public decimal AvgPrice { get; set; }
+
+        public OrderStateEnum State { get; set; }
+
+        public DateTime OrderTime { get; set; }
+
+        public decimal Volume { get; set; }
+
+        public decimal RemainingVolume { get; set; }
+    }
+
+    public class OrderBook
+    {
+        public ExchangeEnum Exchange { get; set; }
+
+        public SymbolCodeE
