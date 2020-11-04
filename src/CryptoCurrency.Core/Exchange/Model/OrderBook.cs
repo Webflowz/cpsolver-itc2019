@@ -33,4 +33,10 @@ namespace CryptoCurrency.Core.Exchange.Model
     {
         public ExchangeEnum Exchange { get; set; }
 
-        public SymbolCodeE
+        public SymbolCodeEnum SymbolCode { get; set; }
+
+        public ICollection<OrderBookItem> Ask { get; set; }
+
+        public ICollection<OrderBookItem> Bid { get; set; }
+    }
+}
