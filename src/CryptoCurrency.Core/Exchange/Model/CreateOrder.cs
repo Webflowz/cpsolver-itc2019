@@ -23,4 +23,6 @@ namespace CryptoCurrency.Core.Exchange.Model
 
         public decimal Price { get; set; }
 
-        public decimal Vo
+        public decimal Volume { get; set; }
+    }
+}
