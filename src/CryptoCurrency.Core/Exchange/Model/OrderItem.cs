@@ -12,4 +12,26 @@ namespace CryptoCurrency.Core.Exchange.Model
     {
         public ExchangeEnum Exchange { get; set; }
 
-        public SymbolCodeEnu
+        public SymbolCodeEnum SymbolCode { get; set; }
+
+        public string Id { get; set; }
+
+        public OrderSideEnum Side { get; set; }
+
+        public OrderTypeEnum Type { get; set; }
+
+        public decimal Price { get; set; }
+
+        public decimal AvgPrice { get; set; }
+
+        public OrderStateEnum State { get; set; }
+
+        public decimal Volume { get; set; }
+
+        public decimal RemainingVolume { get; set; }
+
+        public CurrencyCodeEnum FeeCurrencyCode { get; set; }
+
+        public decimal Fee { get; set; }
+
+        public Epoch OrderEpoch 
