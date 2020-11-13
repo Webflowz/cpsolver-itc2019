@@ -21,4 +21,14 @@ namespace CryptoCurrency.Core.Extensions
         {
             var currency = ex.CurrencyConverter.Where(c => c.CurrencyCode == currencyCode).FirstOrDefault();
 
-            return currency != null && currency.AltCurrencyCode != null ? currency.AltCurrencyCod
+            return currency != null && currency.AltCurrencyCode != null ? currency.AltCurrencyCode : currencyCode.ToString();
+        }
+
+        public static CurrencyCodeEnum GetStandardisedCurrencyCode(this IExchange ex, ICurrencyFactory currencyFactory, string currencyCode)
+        {
+            var currency = ex.CurrencyConverter.Where(c => c.AltCurrencyCode == currencyCode).FirstOrDefault();
+
+            return currency != null ? currency.CurrencyCode : currencyFactory.Get(currencyCode).Code;
+        }
+    }
+}
