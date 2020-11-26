@@ -18,4 +18,7 @@ namespace CryptoCurrency.Core.Extensions
                     return MAType.Ema;
                 default:
                     throw new NotSupportedException();
-   
+            }
+        }
+    }
+}
