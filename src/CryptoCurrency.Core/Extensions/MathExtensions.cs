@@ -21,4 +21,15 @@ namespace CryptoCurrency.Core.Extensions
             var S = 0.0;
             var k = 1;
 
-  
+            foreach (double value in values)
+            {
+                var tmpM = M;
+                M += (value - tmpM) / k;
+                S += (value - tmpM) * (value - M);
+                k++;
+            }
+
+            return Math.Sqrt(S / (k - 2));
+        }
+    }
+}
