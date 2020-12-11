@@ -36,4 +36,20 @@ namespace CryptoCurrency.Core
 
                     foreach (var header in headers.AllKeys)
                     {
-                        request.Headers.Add(head
+                        request.Headers.Add(header, headers[header]);
+                    }
+                }
+
+                var response = await client.SendAsync(request);
+
+                var contents = await response.Content.ReadAsStringAsync();
+
+                response.Dispose();
+
+                return contents;
+            }
+        }
+
+        public async static Task<T> SendJson<T>(string url, HttpMethod method, NameValueCollection headers, string postData, string requestContentType = "application/json")
+        {
+            var contents = await Send(url, method, headers, postDat
