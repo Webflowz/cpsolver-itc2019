@@ -1,23 +1,24 @@
+
 ﻿using System;
 using System.Collections.Generic;
 
 namespace CryptoCurrency.Core.Interval.Group
 {
-    public class Day : IIntervalGroup
+    public class Hour : IIntervalGroup
     {
-        public IntervalGroupEnum IntervalGroup => IntervalGroupEnum.Day;
+        public IntervalGroupEnum IntervalGroup => IntervalGroupEnum.Hour;
 
-        public string SuffixKey => "D";
+        public string SuffixKey => "h";
 
-        public string SuffixLabel => "day";
+        public string SuffixLabel => "hour";
 
-        public string Label => "Day";
+        public string Label => "Hour";
 
-        public ICollection<int> SupportedDuration => new List<int> { 1 };
+        public ICollection<int> SupportedDuration => new List<int> { 1, 2, 3, 4, 6, 12 };
         
         public Interval GetInterval(IntervalKey intervalKey, Epoch epoch)
         {
-            var ts = TimeSpan.FromDays(intervalKey.Duration);
+            var ts = TimeSpan.FromHours(intervalKey.Duration);
 
             return new Interval
             {

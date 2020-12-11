@@ -1,29 +1,30 @@
+
 ﻿using System;
 using System.Collections.Generic;
 
 namespace CryptoCurrency.Core.Interval.Group
 {
-    public class Day : IIntervalGroup
+    public class Month : IIntervalGroup
     {
-        public IntervalGroupEnum IntervalGroup => IntervalGroupEnum.Day;
+        public IntervalGroupEnum IntervalGroup => IntervalGroupEnum.Month;
 
-        public string SuffixKey => "D";
+        public string SuffixKey => "M";
 
-        public string SuffixLabel => "day";
+        public string SuffixLabel => "month";
 
-        public string Label => "Day";
+        public string Label => "Month";
 
         public ICollection<int> SupportedDuration => new List<int> { 1 };
         
         public Interval GetInterval(IntervalKey intervalKey, Epoch epoch)
         {
-            var ts = TimeSpan.FromDays(intervalKey.Duration);
+            var startOfMonth = new DateTime(epoch.DateTime.Year, epoch.DateTime.Month, 1, 0, 0, 0, DateTimeKind.Utc);
 
             return new Interval
             {
                 IntervalKey = intervalKey,
-                From = epoch.RoundDown(ts),
-                To = epoch.AddSeconds(1).RoundUp(ts)
+                From = new Epoch(startOfMonth),
+                To = new Epoch(startOfMonth.AddMonths(1))
             };
         }
 
