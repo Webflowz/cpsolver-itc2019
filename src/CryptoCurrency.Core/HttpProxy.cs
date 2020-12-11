@@ -52,4 +52,14 @@ namespace CryptoCurrency.Core
 
         public async static Task<T> SendJson<T>(string url, HttpMethod method, NameValueCollection headers, string postData, string requestContentType = "application/json")
         {
-            var contents = await Send(url, method, headers, postDat
+            var contents = await Send(url, method, headers, postData, requestContentType);    
+
+            return JsonConvert.DeserializeObject<T>(contents);
+        }
+
+        public static async Task<T> GetJson<T>(string url, NameValueCollection headers)
+        {
+            return await SendJson<T>(url, HttpMethod.Get, headers, null);
+        }
+    }
+}
