@@ -22,4 +22,19 @@ namespace CryptoCurrency.Core.Interval.Group
             return new Interval
             {
                 IntervalKey = intervalKey,
-  
+                From = new Epoch(from),
+                To = new Epoch(from.AddDays(7))
+            };
+        }
+
+        public Interval Next(Interval interval)
+        {
+            return GetInterval(interval.IntervalKey, interval.To);
+        }
+
+        public Interval Previous(Interval interval)
+        {
+            return GetInterval(interval.IntervalKey, interval.From.AddSeconds(-1));
+        }
+    }
+}
