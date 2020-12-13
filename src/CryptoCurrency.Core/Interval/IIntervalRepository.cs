@@ -7,4 +7,6 @@ namespace CryptoCurrency.Core.Interval
     {
         Task Add(IntervalKey intervalKey);
 
-       
+        Task AddInterval(ICollection<Interval> interval);
+    }
+}
