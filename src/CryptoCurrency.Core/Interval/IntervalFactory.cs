@@ -59,4 +59,21 @@ namespace CryptoCurrency.Core.Interval
 
         public IntervalKey GetIntervalKey(string intervalKey)
         {
-            foreach(var group in Int
+            foreach(var group in IntervalKey)
+            {
+                if (group.Value.ContainsKey(intervalKey))
+                    return group.Value[intervalKey];
+            }
+
+            throw new ArgumentException($"Unable to find '{intervalKey}'");
+        }
+
+        public ICollection<Interval> GenerateIntervals(IntervalKey intervalKey, Epoch from, Epoch to)
+        {
+            var group = GetGroup(intervalKey.IntervalGroup);
+
+            var intervals = new List<Interval>();
+
+            var lastInterval = group.GetInterval(intervalKey, to);
+
+            var intervalCursor = group.GetInterval(interv
