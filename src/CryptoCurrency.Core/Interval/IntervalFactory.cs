@@ -24,4 +24,19 @@ namespace CryptoCurrency.Core.Interval
                 {
                     var key = $"{duration}{group.SuffixKey}";
 
-         
+                    keys.Add(key, new IntervalKey()
+                    {
+                        IntervalGroup = group.IntervalGroup,
+                        Key = key,
+                        Duration = duration,
+                        Label = $"{duration} {group.SuffixLabel}{(duration > 1 ? "s" : "")}"
+                    });
+                }
+
+                IntervalKey.Add(group.IntervalGroup, keys);
+            }
+        }
+
+        public IIntervalGroup GetGroup(IntervalGroupEnum group)
+        {
+            var match = IntervalGroup.Where(g => 
