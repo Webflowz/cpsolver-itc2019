@@ -39,4 +39,24 @@ namespace CryptoCurrency.Core.Interval
 
         public IIntervalGroup GetGroup(IntervalGroupEnum group)
         {
-            var match = IntervalGroup.Where(g => 
+            var match = IntervalGroup.Where(g => g.IntervalGroup == group).FirstOrDefault();
+
+            if (match == null)
+                throw new Exception($"Unable to find group '{group}'");
+
+            return match;
+        }
+
+        public ICollection<IIntervalGroup> ListGroups()
+        {
+            return IntervalGroup;
+        }
+
+        public ICollection<IntervalKey> ListIntervalKeys(IntervalGroupEnum intervalGroup)
+        {
+            return IntervalKey[intervalGroup].Values;
+        }
+
+        public IntervalKey GetIntervalKey(string intervalKey)
+        {
+            foreach(var group in Int
