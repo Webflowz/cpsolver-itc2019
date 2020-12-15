@@ -76,4 +76,22 @@ namespace CryptoCurrency.Core.Interval
 
             var lastInterval = group.GetInterval(intervalKey, to);
 
-            var intervalCursor = group.GetInterval(interv
+            var intervalCursor = group.GetInterval(intervalKey, from);
+
+            while (intervalCursor.From.DateTime < lastInterval.To.DateTime)
+            {
+                intervals.Add(intervalCursor);
+
+                intervalCursor = group.Next(intervalCursor);
+            }
+
+            return intervals;
+        }
+
+        public ICollection<Interval> GenerateIntervals(IntervalKey intervalKey, Epoch from, int dataPoints)
+        {
+            var group = GetGroup(intervalKey.IntervalGroup);
+
+            var intervals = new List<Interval>();
+
+            var inter
