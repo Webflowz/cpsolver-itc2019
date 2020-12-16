@@ -94,4 +94,20 @@ namespace CryptoCurrency.Core.Interval
 
             var intervals = new List<Interval>();
 
-            var inter
+            var intervalCursor = group.GetInterval(intervalKey, from);
+
+            for(var i = 0; i < dataPoints; i++)
+            {
+                intervals.Add(intervalCursor);
+
+                intervalCursor = group.Next(intervalCursor);
+            }
+
+            return intervals.OrderBy(i => i.From.TimestampMilliseconds).ToList();
+        }
+
+        public Interval GetInterval(IntervalKey intervalKey, Epoch epoch, int offset = 0)
+        {
+            var group = GetGroup(intervalKey.IntervalGroup);
+
+            var cursor = group.GetInterval(inte
