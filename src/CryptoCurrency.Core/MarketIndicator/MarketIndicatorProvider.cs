@@ -47,4 +47,22 @@ namespace CryptoCurrency.Core.MarketIndicator
 
             var validAggValues = aggValues.Skip(aggValues.Count - dataPoints).Take(dataPoints).ToArray();
 
-            if (retCode == Re
+            if (retCode == RetCode.Success)
+            {
+                var dp = new List<MovingAverageDataPoint>();
+
+                for (var i = 0; i < validAggValues.Length; i++)
+                {
+                    var agg = validAggValues[i];
+
+                    dp.Add(new MovingAverageDataPoint
+                    {
+                        Epoch = agg.Epoch,
+                        Value = validSmaValues[i]
+                    });
+                }
+
+                return dp;
+            }
+
+            throw new Exception("Unable to calculate SMA - " + retCod
