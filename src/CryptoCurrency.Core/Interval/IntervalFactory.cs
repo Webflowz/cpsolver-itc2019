@@ -110,4 +110,23 @@ namespace CryptoCurrency.Core.Interval
         {
             var group = GetGroup(intervalKey.IntervalGroup);
 
-            var cursor = group.GetInterval(inte
+            var cursor = group.GetInterval(intervalKey, epoch);
+
+            if (offset == 0)
+                return cursor;
+
+            if(offset > 0)
+            {
+                for(var i = 0; i < offset; i++)
+                    cursor = group.Next(cursor);
+            }
+            else
+            {
+                for (var i = 0; i > offset; i--)
+                    cursor = group.Previous(cursor);
+            }
+
+            return cursor;
+        }
+    }
+}
