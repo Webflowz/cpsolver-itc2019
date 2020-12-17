@@ -24,4 +24,13 @@ namespace CryptoCurrency.Core.MarketIndicator
         {
             IntervalFactory = intervalFactory;
 
-           
+            MarketRepository = marketRepository;
+        }
+
+        public async Task<ICollection<MovingAverageDataPoint>> Sma(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int period)
+        {
+            var periodOffset = period - 1;
+
+            var fromOffset = IntervalFactory.GetInterval(intervalKey, from, periodOffset * -1);
+
+            var aggValues = await MarketRepository.GetTradeAggregates(exchange, symbolCode, intervalKey, fromOffset.From, per
