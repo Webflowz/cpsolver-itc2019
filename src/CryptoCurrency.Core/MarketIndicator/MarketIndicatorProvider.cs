@@ -65,4 +65,17 @@ namespace CryptoCurrency.Core.MarketIndicator
                 return dp;
             }
 
-            throw new Exception("Unable to calculate SMA - " + retCod
+            throw new Exception("Unable to calculate SMA - " + retCode);
+        }
+
+        public async Task<ICollection<MovingAverageDataPoint>> Ema(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int period)
+        {
+            var periodOffset = period - 1;
+
+            var fromOffset = IntervalFactory.GetInterval(intervalKey, from, periodOffset * -1);
+
+            var aggValues = await MarketRepository.GetTradeAggregates(exchange, symbolCode, intervalKey, fromOffset.From, periodOffset + dataPoints);
+
+            var values = aggValues.GetValues(candleType);
+
+            int outBegIdx, 
