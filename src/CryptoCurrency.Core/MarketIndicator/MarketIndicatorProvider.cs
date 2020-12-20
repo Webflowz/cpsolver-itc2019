@@ -78,4 +78,18 @@ namespace CryptoCurrency.Core.MarketIndicator
 
             var values = aggValues.GetValues(candleType);
 
-            int outBegIdx, 
+            int outBegIdx, outNbElement;
+
+            var smaValues = new double[dataPoints];
+
+            var retCode = TicTacTec.TA.Library.Core.Ema(0, values.Length - 1, values, period, out outBegIdx, out outNbElement, smaValues);
+
+            var validSmaValues = smaValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+
+            var validAggValues = aggValues.Skip(aggValues.Count - dataPoints).Take(dataPoints).ToArray();
+
+            if (retCode == RetCode.Success)
+            {
+                var dp = new List<MovingAverageDataPoint>();
+
+                for (var i = 0; i < v
