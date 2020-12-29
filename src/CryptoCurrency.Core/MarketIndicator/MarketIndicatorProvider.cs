@@ -92,4 +92,21 @@ namespace CryptoCurrency.Core.MarketIndicator
             {
                 var dp = new List<MovingAverageDataPoint>();
 
-                for (var i = 0; i < v
+                for (var i = 0; i < validAggValues.Length; i++)
+                {
+                    var agg = validAggValues[i];
+
+                    dp.Add(new MovingAverageDataPoint
+                    {
+                        Epoch = agg.Epoch,
+                        Value = validSmaValues[i]
+                    });
+                }
+
+                return dp;
+            }
+
+            throw new Exception("Unable to calculate EMA - " + retCode);
+        }
+
+        public async Task<ICollection<RsiDataPoint>> Rsi(ExchangeEnum exchange, SymbolCodeEnum symbol
