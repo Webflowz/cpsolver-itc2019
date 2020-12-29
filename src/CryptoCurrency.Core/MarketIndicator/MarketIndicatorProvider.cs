@@ -109,4 +109,16 @@ namespace CryptoCurrency.Core.MarketIndicator
             throw new Exception("Unable to calculate EMA - " + retCode);
         }
 
-        public async Task<ICollection<RsiDataPoint>> Rsi(ExchangeEnum exchange, SymbolCodeEnum symbol
+        public async Task<ICollection<RsiDataPoint>> Rsi(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int rsiPeriod)
+        {
+            var fromOffset = IntervalFactory.GetInterval(intervalKey, from, rsiPeriod * -1);
+
+            var aggValues = await MarketRepository.GetTradeAggregates(exchange, symbolCode, intervalKey, fromOffset.From, rsiPeriod + dataPoints);
+
+            var values = aggValues.GetValues(candleType);
+
+            int outBegIdx, outNbElement;
+
+            var rsiValues = new double[dataPoints];
+
+            var retCode = TicTacTec.TA.Lib
