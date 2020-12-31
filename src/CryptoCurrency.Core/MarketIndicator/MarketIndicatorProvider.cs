@@ -133,4 +133,19 @@ namespace CryptoCurrency.Core.MarketIndicator
 
                 for (var i = 0; i < validAggValues.Length; i++)
                 {
-                    var agg = 
+                    var agg = validAggValues[i];
+
+                    dp.Add(new RsiDataPoint
+                    {
+                        Epoch = agg.Epoch,
+                        Rsi = validRsiValues[i]
+                    });
+                }
+
+                return dp;
+            }
+
+            throw new Exception("Unable to calculate RSI - " + retCode);
+        }
+
+        public async Task<ICollection<MacdDataPoint>> Macd(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int fastEmaPeriod, int slowEmaPeriod, 
