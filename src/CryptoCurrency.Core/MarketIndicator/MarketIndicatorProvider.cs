@@ -121,4 +121,16 @@ namespace CryptoCurrency.Core.MarketIndicator
 
             var rsiValues = new double[dataPoints];
 
-            var retCode = TicTacTec.TA.Lib
+            var retCode = TicTacTec.TA.Library.Core.Rsi(0, values.Length - 1, values, rsiPeriod, out outBegIdx, out outNbElement, rsiValues);
+
+            var validRsiValues = rsiValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+            
+            var validAggValues = aggValues.Skip(aggValues.Count - dataPoints).Take(dataPoints).ToArray();
+
+            if (retCode == RetCode.Success)
+            {
+                var dp = new List<RsiDataPoint>();
+
+                for (var i = 0; i < validAggValues.Length; i++)
+                {
+                    var agg = 
