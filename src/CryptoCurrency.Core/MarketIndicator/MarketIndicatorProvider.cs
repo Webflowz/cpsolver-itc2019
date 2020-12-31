@@ -148,4 +148,18 @@ namespace CryptoCurrency.Core.MarketIndicator
             throw new Exception("Unable to calculate RSI - " + retCode);
         }
 
-        public async Task<ICollection<MacdDataPoint>> Macd(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int fastEmaPeriod, int slowEmaPeriod, 
+        public async Task<ICollection<MacdDataPoint>> Macd(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int fastEmaPeriod, int slowEmaPeriod, int signalPeriod)
+        {
+            var periodOffset = (slowEmaPeriod + signalPeriod) - 2;
+
+            var fromOffset = IntervalFactory.GetInterval(intervalKey, from, periodOffset * -1);
+
+            var aggValues = await MarketRepository.GetTradeAggregates(exchange, symbolCode, intervalKey, fromOffset.From, periodOffset + dataPoints);
+
+            var values = aggValues.GetValues(candleType);
+
+            int outBegIdx, outNbElement;
+
+            var macdValues = new double[dataPoints];
+            var signalValues = new double[dataPoints];
+            var histogramValues = new double[da
