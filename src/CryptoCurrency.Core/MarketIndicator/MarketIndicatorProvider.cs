@@ -246,4 +246,14 @@ namespace CryptoCurrency.Core.MarketIndicator
         public async Task<ICollection<StochasticDataPoint>> Stochastic(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, MovingAverageTypeEnum kMaType, int kFastPeriod, int kSlowPeriod, MovingAverageTypeEnum dMaType, int dSlowPeriod)
         {
             var dMaTypeConverted = dMaType.ToTaLib();
-           
+            var kMaTypeConverted = kMaType.ToTaLib();
+
+            var periodOffset = kSlowPeriod + 1;
+
+            var fromOffset = IntervalFactory.GetInterval(intervalKey, from, periodOffset * -1);
+
+            var aggValues = await MarketRepository.GetTradeAggregates(exchange, symbolCode, intervalKey, fromOffset.From, periodOffset + dataPoints);
+
+            var highPoints = aggValues.GetValues(CandleTypeEnum.High);
+            var lowPoints = aggValues.GetValues(CandleTypeEnum.Low);
+            var closePoints = aggValues.GetValues(CandleType
