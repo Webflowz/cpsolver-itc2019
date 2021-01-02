@@ -256,4 +256,14 @@ namespace CryptoCurrency.Core.MarketIndicator
 
             var highPoints = aggValues.GetValues(CandleTypeEnum.High);
             var lowPoints = aggValues.GetValues(CandleTypeEnum.Low);
-            var closePoints = aggValues.GetValues(CandleType
+            var closePoints = aggValues.GetValues(CandleTypeEnum.Close);
+
+            int outBegIdx, outNbElement;
+
+            var kValues = new double[dataPoints];
+            var dValues = new double[dataPoints];
+
+            var retCode = Stoch(0, closePoints.Length - 1, highPoints, lowPoints, closePoints, kFastPeriod, kSlowPeriod, kMaTypeConverted, dSlowPeriod, dMaTypeConverted, out outBegIdx, out outNbElement, kValues, dValues);
+
+            var validKValues = kValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+            var validDValues = dValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArr
