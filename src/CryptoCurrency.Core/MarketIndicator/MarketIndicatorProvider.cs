@@ -232,4 +232,18 @@ namespace CryptoCurrency.Core.MarketIndicator
                     {
                         Epoch = agg.Epoch,
                         Upper = upperBandValues[i],
-                        Middle = mi
+                        Middle = middleBandValues[i],
+                        Lower = lowerBandValues[i]
+                    });
+                }
+
+                return dp;
+            }
+
+            throw new Exception("Unable to calculate Bollinger Bands - " + retCode);
+        }
+
+        public async Task<ICollection<StochasticDataPoint>> Stochastic(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, MovingAverageTypeEnum kMaType, int kFastPeriod, int kSlowPeriod, MovingAverageTypeEnum dMaType, int dSlowPeriod)
+        {
+            var dMaTypeConverted = dMaType.ToTaLib();
+           
