@@ -183,4 +183,17 @@ namespace CryptoCurrency.Core.MarketIndicator
                     {
                         Epoch = agg.Epoch,
                         Macd = validMacdValues[i],
-                        Signal = validSignalValues[i]
+                        Signal = validSignalValues[i],
+                        Histogram = validHistogramValues[i]
+                    });
+                }
+
+                return dp;
+            }
+
+            throw new Exception("Unable to calculate MACD - " + retCode);
+        }
+
+        public async Task<ICollection<BollingerBandsDataPoint>> BollingerBands(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int period, MovingAverageTypeEnum maType, double stdDevUp, double stdDevDown)
+        {
+            var maTypeConverted = maType.ToTaLib();
