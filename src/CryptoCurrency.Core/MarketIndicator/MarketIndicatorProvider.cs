@@ -216,4 +216,20 @@ namespace CryptoCurrency.Core.MarketIndicator
 
             var validUpperBandValues = upperBandValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
             var validMiddleBandValues = middleBandValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
-            var validLowerBandValues = lowerBandValues.Skip(outNbElement - dataPoints).Take(dataPoints)
+            var validLowerBandValues = lowerBandValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+
+            var validAggValues = aggValues.Skip(aggValues.Count - dataPoints).Take(dataPoints).ToArray();
+
+            if (retCode == RetCode.Success)
+            {
+                var dp = new List<BollingerBandsDataPoint>();
+
+                for (var i = 0; i < validAggValues.Length; i++)
+                {
+                    var agg = validAggValues[i];
+
+                    dp.Add(new BollingerBandsDataPoint
+                    {
+                        Epoch = agg.Epoch,
+                        Upper = upperBandValues[i],
+                        Middle = mi
