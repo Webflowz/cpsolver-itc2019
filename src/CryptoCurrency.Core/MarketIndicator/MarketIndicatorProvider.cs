@@ -197,3 +197,17 @@ namespace CryptoCurrency.Core.MarketIndicator
         public async Task<ICollection<BollingerBandsDataPoint>> BollingerBands(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints, CandleTypeEnum candleType, int period, MovingAverageTypeEnum maType, double stdDevUp, double stdDevDown)
         {
             var maTypeConverted = maType.ToTaLib();
+
+            var periodOffset = period - 1;
+
+            var fromOffset = IntervalFactory.GetInterval(intervalKey, from, periodOffset * -1);
+
+            var aggValues = await MarketRepository.GetTradeAggregates(exchange, symbolCode, intervalKey, fromOffset.From, periodOffset + dataPoints);
+
+            var values = aggValues.GetValues(candleType);
+
+            int outBegIdx, outNbElement;
+
+            var upperBandValues = new double[dataPoints];
+            var middleBandValues = new double[dataPoints];
+            var lowerBandValues = new double[dataPoints];
