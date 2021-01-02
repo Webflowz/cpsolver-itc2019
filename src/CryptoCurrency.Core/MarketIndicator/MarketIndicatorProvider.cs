@@ -169,4 +169,18 @@ namespace CryptoCurrency.Core.MarketIndicator
             var validMacdValues = macdValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
             var validSignalValues = signalValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
             var validHistogramValues = histogramValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
-      
+            var validAggValues = aggValues.Skip(aggValues.Count - dataPoints).Take(dataPoints).ToArray();
+
+            if (retCode == RetCode.Success)
+            {
+                var dp = new List<MacdDataPoint>();
+
+                for (var i = 0; i < validAggValues.Length; i++)
+                {
+                    var agg = validAggValues[i];
+
+                    dp.Add(new MacdDataPoint
+                    {
+                        Epoch = agg.Epoch,
+                        Macd = validMacdValues[i],
+                        Signal = validSignalValues[i]
