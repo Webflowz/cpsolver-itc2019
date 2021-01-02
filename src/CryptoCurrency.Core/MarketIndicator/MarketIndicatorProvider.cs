@@ -211,3 +211,9 @@ namespace CryptoCurrency.Core.MarketIndicator
             var upperBandValues = new double[dataPoints];
             var middleBandValues = new double[dataPoints];
             var lowerBandValues = new double[dataPoints];
+
+            var retCode = Bbands(0, values.Length - 1, values, period, stdDevUp, stdDevDown, maTypeConverted, out outBegIdx, out outNbElement, upperBandValues, middleBandValues, lowerBandValues);
+
+            var validUpperBandValues = upperBandValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+            var validMiddleBandValues = middleBandValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+            var validLowerBandValues = lowerBandValues.Skip(outNbElement - dataPoints).Take(dataPoints)
