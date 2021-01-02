@@ -162,4 +162,11 @@ namespace CryptoCurrency.Core.MarketIndicator
 
             var macdValues = new double[dataPoints];
             var signalValues = new double[dataPoints];
-            var histogramValues = new double[da
+            var histogramValues = new double[dataPoints];
+
+            var retCode = TicTacTec.TA.Library.Core.Macd(0, values.Length - 1, values, fastEmaPeriod, slowEmaPeriod, signalPeriod, out outBegIdx, out outNbElement, macdValues, signalValues, histogramValues);
+
+            var validMacdValues = macdValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+            var validSignalValues = signalValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+            var validHistogramValues = histogramValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+      
