@@ -266,4 +266,21 @@ namespace CryptoCurrency.Core.MarketIndicator
             var retCode = Stoch(0, closePoints.Length - 1, highPoints, lowPoints, closePoints, kFastPeriod, kSlowPeriod, kMaTypeConverted, dSlowPeriod, dMaTypeConverted, out outBegIdx, out outNbElement, kValues, dValues);
 
             var validKValues = kValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
-            var validDValues = dValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArr
+            var validDValues = dValues.Skip(outNbElement - dataPoints).Take(dataPoints).ToArray();
+
+            var validAggValues = aggValues.Skip(aggValues.Count - dataPoints).Take(dataPoints).ToArray();
+
+            if (retCode == RetCode.Success)
+            {
+                var dp = new List<StochasticDataPoint>();
+
+                for (var i = 0; i < validAggValues.Length; i++)
+                {
+                    var agg = validAggValues[i];
+
+                    dp.Add(new StochasticDataPoint
+                    {
+                        Epoch = agg.Epoch,
+                        D = validKValues[i],
+                        K = validDValues[i],
+                  
