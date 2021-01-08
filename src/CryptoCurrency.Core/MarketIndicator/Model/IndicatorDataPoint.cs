@@ -2,4 +2,6 @@
 {
     public class IndicatorDataPoint
     {
-        public Epoch Epoch { get;
+        public Epoch Epoch { get; set; }
+    }
+}
