@@ -283,4 +283,13 @@ namespace CryptoCurrency.Core.MarketIndicator
                         Epoch = agg.Epoch,
                         D = validKValues[i],
                         K = validDValues[i],
-                  
+                    });
+                }
+
+                return dp;
+            }
+
+            throw new Exception("Unable to calculate Stochastic - " + retCode);
+        }
+    }
+}
