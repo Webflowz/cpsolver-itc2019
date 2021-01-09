@@ -124,3 +124,66 @@ namespace CryptoCurrency.Core
                 .AddSingleton<ICurrency, INSEcosystem>()
                 .AddSingleton<ICurrency, Everex>()
                 .AddSingleton<ICurrency, Groestlcoin>()
+                .AddSingleton<ICurrency, RaidenNetworkToken>()
+                .AddSingleton<ICurrency, ThetaToken>()
+                .AddSingleton<ICurrency, Aeternity>()
+                .AddSingleton<ICurrency, Nuls>()
+                .AddSingleton<ICurrency, Populous>()
+                .AddSingleton<ICurrency, Nexus>()
+                .AddSingleton<ICurrency, Ambrosus>()
+                .AddSingleton<ICurrency, Aeron>()
+                .AddSingleton<ICurrency, ZenCash>()
+                .AddSingleton<ICurrency, WaBi>()
+                .AddSingleton<ICurrency, Etherparty>()
+                .AddSingleton<ICurrency, OpenAnx>()
+                .AddSingleton<ICurrency, POANetwork>()
+                .AddSingleton<ICurrency, Bread>()
+                .AddSingleton<ICurrency, Agrello>()
+                .AddSingleton<ICurrency, Monetha>()
+                .AddSingleton<ICurrency, Mithril>()
+                .AddSingleton<ICurrency, WePower>()
+                .AddSingleton<ICurrency, GXShares>()
+                .AddSingleton<ICurrency, MoedaLoyaltyPoints>()
+                .AddSingleton<ICurrency, Dent>()
+                .AddSingleton<ICurrency, Skycoin>()
+                .AddSingleton<ICurrency, QLINK>()
+                .AddSingleton<ICurrency, SingularityNET>()
+                .AddSingleton<ICurrency, RepublicProtocol>()
+                .AddSingleton<ICurrency, Selfkey>()
+                .AddSingleton<ICurrency, TrueUSD>()
+                .AddSingleton<ICurrency, StreamrDATAcoin>()
+                .AddSingleton<ICurrency, Polymath>()
+                .AddSingleton<ICurrency, PhoenixCoin>()
+                .AddSingleton<ICurrency, VeChain>()
+                .AddSingleton<ICurrency, Dock>()
+                .AddSingleton<ICurrency, GoChain>()
+                .AddSingleton<ICurrency, onGsocial>()
+                .AddSingleton<ICurrency, PaxosStandardToken>()
+                .AddSingleton<ICurrency, HyperCash>()
+                .AddSingleton<ICurrency, IoTeX>()
+                .AddSingleton<ICurrency, Mainframe>()
+                .AddSingleton<ICurrency, LoomNetwork>()
+                .AddSingleton<ICurrency, Holo>()
+                .AddSingleton<ICurrency, PundiX>()
+                .AddSingleton<ICurrency, MalteseLira>()
+                .AddSingleton<ICurrency, StableUSD>()
+                .AddSingleton<ICurrency, Ravencoin>()
+                .AddSingleton<ICurrency, QuarkChain>()
+                .AddSingleton<ICurrency, USDC>()
+                .AddSingleton<ICurrency, Wanchain>()
+                .AddSingleton<ICurrency, Yoyow>()
+                .AddSingleton<ICurrency, Ethos>()
+                .AddSingleton<ICurrencyFactory, CurrencyFactory>();
+
+            // Symbol factory
+            serviceCollection.AddSingleton<ISymbolFactory, SymbolFactory>();
+
+            serviceCollection.AddSingleton<IExchangeTradeStatProvider, ExchangeTradeStatProvider>();
+
+            // Order Side factory
+            serviceCollection.AddSingleton<IOrderSideFactory, OrderSideFactory>();
+
+            return serviceCollection;
+        }
+    }
+}
