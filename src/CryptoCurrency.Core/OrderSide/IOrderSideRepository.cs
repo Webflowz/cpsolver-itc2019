@@ -1,3 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-namespace CryptoCurrency.Core.O
+namespace CryptoCurrency.Core.OrderSide
+{
+    public interface IOrderSideRepository
+    {
+        Task Add(OrderSideEnum orderSide);
+    }
+}
