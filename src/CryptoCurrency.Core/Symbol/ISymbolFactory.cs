@@ -10,4 +10,8 @@ namespace CryptoCurrency.Core.Symbol
 
         ICollection<ISymbol> ListTradable();
 
-        ISymbol Get(C
+        ISymbol Get(CurrencyCodeEnum baseCurrencyCode, CurrencyCodeEnum quoteCurrencyCode);
+
+        ISymbol Get(SymbolCodeEnum symbolCode);
+    }
+}
