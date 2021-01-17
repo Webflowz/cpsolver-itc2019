@@ -444,4 +444,16 @@
         OMGUSDT = 351,
         OMGBNB = 352,
         THETAUSDT = 352,
-        IOSTBNB =
+        IOSTBNB = 353,
+        IOSTUSDT = 354,
+        ZECBNB = 355,
+        ZECUSDT = 356,
+        ZECPAX = 357,
+        ZECTUSD = 358,
+        ZECUSDC = 359,
+        XMRBNB = 360,
+        XMRUSDT = 361,
+        ZRXBNB = 362,
+        ZRXUSDT = 363
+    }
+}
