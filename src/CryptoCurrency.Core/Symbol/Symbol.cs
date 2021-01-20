@@ -8,4 +8,21 @@ namespace CryptoCurrency.Core.Symbol
 
         public CurrencyCodeEnum BaseCurrencyCode { get; set; }
 
-        public Curre
+        public CurrencyCodeEnum QuoteCurrencyCode { get; set; }
+
+        public bool Tradable { get; private set; }
+
+        public Symbol()
+        {
+
+        }
+
+        public Symbol(SymbolCodeEnum code, CurrencyCodeEnum baseCurrencyCode, CurrencyCodeEnum quoteCurrencyCode, bool tradable)
+        {
+            Code = code;
+            BaseCurrencyCode = baseCurrencyCode;
+            QuoteCurrencyCode = quoteCurrencyCode;
+            Tradable = tradable;
+        }
+    }
+}
