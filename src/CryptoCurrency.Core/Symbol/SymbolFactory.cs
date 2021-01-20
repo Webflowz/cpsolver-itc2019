@@ -20,4 +20,19 @@ namespace CryptoCurrency.Core.Symbol
             {
                 var symbolCode = symbolCodeEnum.ToString();
 
-                var tradable = !symbolCode.EndsWith("SHORTS") && !symbolCode.EndsWit
+                var tradable = !symbolCode.EndsWith("SHORTS") && !symbolCode.EndsWith("LONGS");
+
+                var currencyPair = symbolCode.Replace("SHORTS", "").Replace("LONGS", "");
+                
+                ICurrency baseCurrency = null;
+                ICurrency quoteCurrency = null;
+
+                var baseCandidates = currencies.Where(c => currencyPair.StartsWith(c.Code.ToString()));
+
+                foreach(var baseCandidate in baseCandidates)
+                {
+                    var len = baseCandidate.Code.ToString().Length;
+
+                    var quoteCurrencyPair = currencyPair.Substring(len, currencyPair.Length - len);
+
+   
