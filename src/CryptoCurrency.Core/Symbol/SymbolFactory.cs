@@ -35,4 +35,18 @@ namespace CryptoCurrency.Core.Symbol
 
                     var quoteCurrencyPair = currencyPair.Substring(len, currencyPair.Length - len);
 
-   
+                    var quoteCandidate = currencies.Where(c => c.Code.ToString().Equals(quoteCurrencyPair)).FirstOrDefault();
+
+                    if(quoteCandidate != null)
+                    {
+                        baseCurrency = baseCandidate;
+                        quoteCurrency = quoteCandidate;
+                        break;
+                    }
+                }
+
+                if(baseCurrency != null && quoteCurrency != null)
+                {
+                    var symbol = new Symbol((SymbolCodeEnum)symbolCodeEnum, baseCurrency.Code, quoteCurrency.Code, tradable);
+
+                    Symbo
