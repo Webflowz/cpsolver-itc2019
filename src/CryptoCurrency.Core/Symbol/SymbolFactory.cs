@@ -49,4 +49,19 @@ namespace CryptoCurrency.Core.Symbol
                 {
                     var symbol = new Symbol((SymbolCodeEnum)symbolCodeEnum, baseCurrency.Code, quoteCurrency.Code, tradable);
 
-                    Symbo
+                    Symbols.Add(symbol);
+                }
+            }
+        }
+
+        public ISymbol Get(CurrencyCodeEnum baseCurrencyCode, CurrencyCodeEnum quoteCurrencyCode)
+        {
+            var matched = Symbols.Where(s => s.BaseCurrencyCode == baseCurrencyCode && s.QuoteCurrencyCode == quoteCurrencyCode).FirstOrDefault();
+
+            if (matched == null)
+                throw new ArgumentException($"No symbol could be found for base '{baseCurrencyCode}' & quote '{quoteCurrencyCode}'");
+
+            return matched;
+        }
+
+        public ISymb
