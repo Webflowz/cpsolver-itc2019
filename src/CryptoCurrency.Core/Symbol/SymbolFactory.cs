@@ -64,4 +64,24 @@ namespace CryptoCurrency.Core.Symbol
             return matched;
         }
 
-        public ISymb
+        public ISymbol Get(SymbolCodeEnum symbolCode)
+        {
+            var matched = Symbols.Where(s => s.Code == symbolCode).FirstOrDefault();
+
+            if (matched == null)
+                throw new ArgumentException($"No symbol could be found for symbol '{symbolCode}'");
+
+            return matched;
+        }
+
+        public ICollection<ISymbol> List()
+        {
+            return Symbols;
+        }
+
+        public ICollection<ISymbol> ListTradable()
+        {
+            return Symbols.Where(s => s.Tradable).ToList();
+        }
+    }
+}
