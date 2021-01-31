@@ -41,4 +41,8 @@ namespace CryptoCurrency.ExchangeClient.Binance.Http
                     return;
                 }
 
-                await T
+                await Task.Delay(5);
+            }
+        }
+    }
+}
