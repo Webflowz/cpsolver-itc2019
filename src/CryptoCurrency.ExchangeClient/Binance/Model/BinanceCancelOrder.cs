@@ -23,4 +23,12 @@ namespace CryptoCurrency.ExchangeClient.Binance.Model
         public string Status { get; set; }
 
         [JsonProperty("timeInForce")]
-     
+        public string TimeInForce { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("side")]
+        public string Side { get; set; }
+    }
+}
