@@ -33,4 +33,23 @@ namespace CryptoCurrency.ExchangeClient.Binance.Model
         [JsonProperty("transactTime")]
         public long TransactTime { get; set; }
 
-        [Js
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+
+        [JsonProperty("origQty")]
+        public decimal OriginalQuantity { get; set; }
+        
+        [JsonProperty("executedQty")]
+        public decimal ExecutedQuantity { get; set; }
+
+        [JsonProperty("cummulativeQuoteQty")]
+        public decimal CumulativeQuoteQuantity { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("timeInForce")]
+        public string TimeInForce { get; set; }
+
+        [JsonProperty("type")]
+        public s
