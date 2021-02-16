@@ -52,4 +52,12 @@ namespace CryptoCurrency.ExchangeClient.Binance.Model
         public string TimeInForce { get; set; }
 
         [JsonProperty("type")]
-        public s
+        public string Type { get; set; }
+
+        [JsonProperty("side")]
+        public string Side { get; set; }
+
+        [JsonProperty("fills")]
+        public ICollection<BinanceNewOrderFill> Fills { get; set; }
+    }
+}
