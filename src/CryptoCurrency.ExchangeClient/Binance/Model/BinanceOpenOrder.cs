@@ -34,4 +34,22 @@ namespace CryptoCurrency.ExchangeClient.Binance.Model
         [JsonProperty("type")]
         public string Type { get; set; }
 
-        
+        [JsonProperty("side")]
+        public string Side { get; set; }
+
+        [JsonProperty("stopPrice")]
+        public double StopPrice { get; set; }
+
+        [JsonProperty("icebergQty")]
+        public double IcebergQuantity { get; set; }
+
+        [JsonProperty("time")]
+        public long Time { get; set; }
+
+        [JsonProperty("updateTime")]
+        public long UpdateTime { get; set; }
+
+        [JsonProperty("isWorking")]
+        public long IsWorking { get; set; }
+    }
+}
