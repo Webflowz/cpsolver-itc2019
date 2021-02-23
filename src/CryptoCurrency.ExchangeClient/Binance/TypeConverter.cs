@@ -10,4 +10,18 @@ using CryptoCurrency.Core.Extensions;
 using CryptoCurrency.Core.Market;
 using CryptoCurrency.Core.OrderSide;
 using CryptoCurrency.Core.OrderType;
-usin
+using CryptoCurrency.Core.Symbol;
+
+using CryptoCurrency.ExchangeClient.Binance.Model;
+
+namespace CryptoCurrency.ExchangeClient.Binance
+{
+    public static class TypeConverter
+    {
+        public static T2 ChangeType<T, T2>(this Binance exchange, ICurrencyFactory currencyFactory, ISymbolFactory symbolFactory, NameValueCollection postData, T obj)
+        {
+            if (typeof(T) == typeof(ICollection<BinancePriceTicker>))
+            {
+                var ticks = new List<MarketTick>();
+
+                var priceTicks = obj as ICollection<BinancePriceTicke
