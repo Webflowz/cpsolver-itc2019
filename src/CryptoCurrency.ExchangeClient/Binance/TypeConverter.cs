@@ -50,4 +50,14 @@ namespace CryptoCurrency.ExchangeClient.Binance
             {
                 var ticks = new List<MarketTick>();
 
-                var bookTicks = (obj as ICollection<Binance
+                var bookTicks = (obj as ICollection<BinanceOrderBookTicker>);
+
+                foreach(var tick in bookTicks)
+                {
+                    var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == tick.Symbol).FirstOrDefault();
+
+                    var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
+                    var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
+                    var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
+
+                    ticks.Add(new Mark
