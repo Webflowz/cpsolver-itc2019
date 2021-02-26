@@ -24,4 +24,12 @@ namespace CryptoCurrency.ExchangeClient.Binance
             {
                 var ticks = new List<MarketTick>();
 
-                var priceTicks = obj as ICollection<BinancePriceTicke
+                var priceTicks = obj as ICollection<BinancePriceTicker>;
+
+                foreach(var tick in priceTicks)
+                {
+                    var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == tick.Symbol).FirstOrDefault();
+
+                    var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
+                    var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
+                    var symbol = symbolFactory.Get(baseCurrencyCode, quo
