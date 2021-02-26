@@ -32,4 +32,22 @@ namespace CryptoCurrency.ExchangeClient.Binance
 
                     var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
                     var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
-                    var symbol = symbolFactory.Get(baseCurrencyCode, quo
+                    var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
+
+                    ticks.Add(new MarketTick
+                    {
+                        Exchange = exchange.Name,
+                        SymbolCode = symbol.Code,
+                        Epoch = Epoch.Now,
+                        LastPrice = tick.Price,
+                    });
+                }
+
+                return (T2)(object)ticks;
+            }
+
+            if (typeof(T) == typeof(ICollection<BinanceOrderBookTicker>))
+            {
+                var ticks = new List<MarketTick>();
+
+                var bookTicks = (obj as ICollection<Binance
