@@ -86,4 +86,14 @@ namespace CryptoCurrency.ExchangeClient.Binance
                 var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
 
                 return (T2)(object)new TradeResult
-      
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = symbol.Code,                    
+                    Trades = trades.Select(t => new MarketTrade
+                    {
+                        Exchange = exchange.Name,
+                        SymbolCode = symbol.Code,
+                        Epoch = Epoch.FromMilliseconds(Convert.ToInt64(t["T"])),
+                        Price = Convert.ToDecimal(t["p"]),
+                        Volume = Convert.ToDecimal(t["q"]),
+                        Side = Convert.ToBoolean(t["m"]) ? OrderSideEnum
