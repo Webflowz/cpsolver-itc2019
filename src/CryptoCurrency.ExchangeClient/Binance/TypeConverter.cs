@@ -60,4 +60,21 @@ namespace CryptoCurrency.ExchangeClient.Binance
                     var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
                     var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
 
-                    ticks.Add(new Mark
+                    ticks.Add(new MarketTick
+                    {
+                        Exchange = exchange.Name,
+                        SymbolCode = symbol.Code,
+                        Epoch = Epoch.Now,
+                        BuyPrice = tick.AskPrice,
+                        SellPrice = tick.BidPrice
+                    });
+                }
+
+                return (T2)(object)ticks;
+            }
+
+            if (typeof(T2) == typeof(TradeResult))
+            {
+                var trades = obj as ICollection<Dictionary<string, object>>;
+
+                var f
