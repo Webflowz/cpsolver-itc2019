@@ -96,4 +96,16 @@ namespace CryptoCurrency.ExchangeClient.Binance
                         Epoch = Epoch.FromMilliseconds(Convert.ToInt64(t["T"])),
                         Price = Convert.ToDecimal(t["p"]),
                         Volume = Convert.ToDecimal(t["q"]),
-                        Side = Convert.ToBoolean(t["m"]) ? OrderSideEnum
+                        Side = Convert.ToBoolean(t["m"]) ? OrderSideEnum.Sell : OrderSideEnum.Buy,
+                        SourceTradeId = Convert.ToString(t["a"])
+                    }).ToList(),
+                    Filter = filter
+                };
+            }
+
+            if(typeof(T) == typeof(ICollection<BinanceTradeItem>))
+            {
+                var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == postData["symbol"]).FirstOrDefault();
+
+                var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
+                var quoteCurrencyCode = ex
