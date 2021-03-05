@@ -108,4 +108,16 @@ namespace CryptoCurrency.ExchangeClient.Binance
                 var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == postData["symbol"]).FirstOrDefault();
 
                 var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
-                var quoteCurrencyCode = ex
+                var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
+
+                var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
+
+                var trades = obj as ICollection<BinanceTradeItem>;
+
+                return (T2)(object)trades.Select(t => new TradeItem
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = symbol.Code,
+                    Created = Epoch.FromMilliseconds(t.Time),
+                    Id = t.Id.ToString(),
+                    OrderId = 
