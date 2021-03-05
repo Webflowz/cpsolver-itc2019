@@ -120,4 +120,15 @@ namespace CryptoCurrency.ExchangeClient.Binance
                     SymbolCode = symbol.Code,
                     Created = Epoch.FromMilliseconds(t.Time),
                     Id = t.Id.ToString(),
-                    OrderId = 
+                    OrderId = t.OrderId.ToString(),
+                    Fee = t.Commission,
+                    FeeCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, t.CommissionAsset),
+                    Price = t.Price,
+                    Volume = t.Quantity,
+                    Side = t.IsBuyer ? OrderSideEnum.Buy : OrderSideEnum.Sell
+                }).ToList();
+            }
+
+            if(typeof(T) == typeof(BinanceNewOrder))
+            {
+                var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == postData["symbol"]).FirstOrDefaul
