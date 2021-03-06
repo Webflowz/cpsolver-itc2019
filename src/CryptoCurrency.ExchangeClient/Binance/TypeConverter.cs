@@ -131,4 +131,17 @@ namespace CryptoCurrency.ExchangeClient.Binance
 
             if(typeof(T) == typeof(BinanceNewOrder))
             {
-                var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == postData["symbol"]).FirstOrDefaul
+                var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == postData["symbol"]).FirstOrDefault();
+
+                var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
+                var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
+
+                var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
+
+                var newOrder = obj as BinanceNewOrder;
+
+                var orderType = exchange.GetOrderType(newOrder.Type);
+
+                var price = orderType == OrderTypeEnum.Limit ? newOrder.Price : newOrder.Fills.Average(f => f.Price);
+
+  
