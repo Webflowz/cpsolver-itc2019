@@ -177,4 +177,20 @@ namespace CryptoCurrency.ExchangeClient.Binance
                     Side = exchange.GetOrderSide(o.Side),
                     Type = exchange.GetOrderType(o.Type),
                     State = exchange.GetOrderState(o.Status),
-                    OrderEpoch = Epoch.Fr
+                    OrderEpoch = Epoch.FromMilliseconds(o.Time),
+                    Price = o.Price,
+                    AvgPrice = o.Price,
+                    Volume = o.OriginalQuantity,
+                    RemainingVolume = o.OriginalQuantity - o.ExecutedQuantity
+                }).ToList();
+            }
+
+            if(typeof(T) == typeof(BinanceCancelOrder))
+            {
+                var cancelOrder = obj as BinanceCancelOrder;
+
+                return (T2)(object)new CancelOrder
+                {
+                    Exchange = exchange.Name,
+                    Id = cancelOrder.OrderId,
+          
