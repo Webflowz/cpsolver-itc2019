@@ -165,4 +165,16 @@ namespace CryptoCurrency.ExchangeClient.Binance
                 var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
                 var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
 
-                var symbol = symbolFactory.Get(bas
+                var symbol = symbolFactory.Get(baseCurrencyCode, quoteCurrencyCode);
+
+                var openOrders = obj as ICollection<BinanceOpenOrder>;
+
+                return (T2)(object)openOrders.Select(o => new OrderItem
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = symbol.Code,
+                    Id = o.OrderId,
+                    Side = exchange.GetOrderSide(o.Side),
+                    Type = exchange.GetOrderType(o.Type),
+                    State = exchange.GetOrderState(o.Status),
+                    OrderEpoch = Epoch.Fr
