@@ -144,4 +144,14 @@ namespace CryptoCurrency.ExchangeClient.Binance
 
                 var price = orderType == OrderTypeEnum.Limit ? newOrder.Price : newOrder.Fills.Average(f => f.Price);
 
-  
+                return (T2)(object)new CreateOrder
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = symbol.Code,
+                    Id = newOrder.OrderId,
+                    Side = exchange.GetOrderSide(newOrder.Side),
+                    Type = orderType,
+                    State = exchange.GetOrderState(newOrder.Status),
+                    OrderEpoch = Epoch.FromMilliseconds(newOrder.TransactTime),
+                    Price = price,
+                    V
