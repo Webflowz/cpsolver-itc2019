@@ -154,4 +154,15 @@ namespace CryptoCurrency.ExchangeClient.Binance
                     State = exchange.GetOrderState(newOrder.Status),
                     OrderEpoch = Epoch.FromMilliseconds(newOrder.TransactTime),
                     Price = price,
-                    V
+                    Volume = newOrder.OriginalQuantity
+                }; 
+            }
+
+            if(typeof(T) == typeof(ICollection<BinanceOpenOrder>))
+            {
+                var binanceSymbol = exchange.Info.Symbols.Where(x => x.Symbol == postData["symbol"]).FirstOrDefault();
+
+                var baseCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.BaseAsset);
+                var quoteCurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, binanceSymbol.QuoteAsset);
+
+                var symbol = symbolFactory.Get(bas
