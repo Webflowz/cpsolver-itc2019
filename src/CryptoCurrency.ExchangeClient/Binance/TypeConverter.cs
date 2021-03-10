@@ -193,4 +193,15 @@ namespace CryptoCurrency.ExchangeClient.Binance
                 {
                     Exchange = exchange.Name,
                     Id = cancelOrder.OrderId,
-          
+                    Epoch = Epoch.FromMilliseconds(cancelOrder.TransactTime),
+                    State = exchange.GetOrderState(cancelOrder.Status)
+                };
+            }
+
+            if (typeof(T) == typeof(T2))
+                return (T2)(object)obj;
+
+            throw new Exception("Invalid type provided - " + typeof(T2));
+        }
+    }
+}
