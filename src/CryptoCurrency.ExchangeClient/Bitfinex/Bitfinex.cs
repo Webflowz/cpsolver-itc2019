@@ -17,4 +17,22 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
         public Bitfinex(ICurrencyFactory currencyFactory, ISymbolFactory symbolFactory)
         {
             CurrencyFactory = currencyFactory;
-    
+            SymbolFactory = symbolFactory;
+        }
+
+        public int Id => 6;
+
+        public ExchangeEnum Name => ExchangeEnum.Bitfinex;
+
+        public ICollection<ExchangeCurrencyConverter> CurrencyConverter => new List<ExchangeCurrencyConverter>();
+
+        public ICollection<SymbolCodeEnum> Symbol
+        {
+            get
+            {
+                return new List<SymbolCodeEnum>
+                {
+                    SymbolCodeEnum.BTCUSD,
+                    SymbolCodeEnum.ETHUSD,
+                    SymbolCodeEnum.LTCUSD,
+      
