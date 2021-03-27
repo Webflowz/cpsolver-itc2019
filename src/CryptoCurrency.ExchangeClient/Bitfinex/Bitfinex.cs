@@ -35,4 +35,24 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
                     SymbolCodeEnum.BTCUSD,
                     SymbolCodeEnum.ETHUSD,
                     SymbolCodeEnum.LTCUSD,
-      
+                    SymbolCodeEnum.ETHBTC,
+                    SymbolCodeEnum.LTCBTC
+                };
+            }
+        }
+
+        public ICollection<ExchangeStatsKeyEnum> SupportedStatKeys
+        {
+            get
+            {
+                return new List<ExchangeStatsKeyEnum>
+                {
+                    ExchangeStatsKeyEnum.OpenShorts,
+                    ExchangeStatsKeyEnum.OpenLongs
+                };
+            }
+        }
+
+        public bool SupportsHistoricalLoad => true;
+
+        pub
