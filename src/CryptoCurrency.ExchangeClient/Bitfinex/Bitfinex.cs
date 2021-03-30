@@ -55,4 +55,24 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
 
         public bool SupportsHistoricalLoad => true;
 
-        pub
+        public bool Initialized { get; private set; }
+
+        public Task Initialize() => Task.Run(() =>
+        {
+            Initialized = true;
+        });
+
+        public IExchangeHttpClient GetHttpClient()
+        {
+            return new Http.Client(this, SymbolFactory);
+        }
+
+        public IExchangeWebSocketClient GetWebSocketClient()
+        {
+            return new WebSocket.Client(this, SymbolFactory);
+        }
+
+        #region Custom Functionality
+        public CurrencyCodeEnum[] DecodeSymbol(string symbol)
+        {
+            return new CurrencyCodeEnum[2]
