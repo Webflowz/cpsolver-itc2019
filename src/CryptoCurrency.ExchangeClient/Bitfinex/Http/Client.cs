@@ -252,3 +252,57 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex.Http
                             response.EnsureSuccessStatusCode();
 
                             var obj = JsonConvert.DeserializeObject<T>(json);
+
+                            json = null;
+
+                            response.Content.Dispose();
+
+                            return new WrappedResponse<T2>
+                            {
+                                StatusCode = WrappedResponseStatusCode.Ok,
+                                Data = Exchange.ChangeType<T, T2>(SymbolFactory, obj, query, additionalData)
+                            };
+                        }
+                        catch (HttpRequestException)
+                        {
+                            var parsed = JToken.Parse(json);
+
+                            if (parsed is JArray)
+                            {
+                                var error = JsonConvert.DeserializeObject<BitfinexApiErrorCollection>(json);
+
+                                return new WrappedResponse<T2>
+                                {
+                                    StatusCode = WrappedResponseStatusCode.ApiError,
+                                    ErrorCode = error[1],
+                                    ErrorMessage = error[2]
+                                };
+                            }
+                            else
+                            {
+                                var error = JsonConvert.DeserializeObject<BitfinexApiError>(json);
+
+                                return new WrappedResponse<T2>
+                                {
+                                    StatusCode = WrappedResponseStatusCode.ApiError,
+                                    ErrorCode = error.Code.ToString(),
+                                    ErrorMessage = error.ErrorDescription
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new WrappedResponse<T2>
+                    {
+                        StatusCode = WrappedResponseStatusCode.FatalError,
+                        ErrorCode = null,
+                        ErrorMessage = e.Message
+                    };
+                }
+            }
+        }
+        #endregion
+    }
+}
