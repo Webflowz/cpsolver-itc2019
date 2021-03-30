@@ -76,3 +76,11 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
         public CurrencyCodeEnum[] DecodeSymbol(string symbol)
         {
             return new CurrencyCodeEnum[2]
+            {
+                this.GetStandardisedCurrencyCode(CurrencyFactory, symbol.Substring(1, 3)),
+                this.GetStandardisedCurrencyCode(CurrencyFactory, symbol.Substring(4, 3))
+            };
+        }
+        #endregion
+    }
+}
