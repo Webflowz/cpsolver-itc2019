@@ -37,4 +37,17 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
 
             if (typeof(T2) == typeof(MarketTick))
             {
-  
+                var tick = obj as object[];
+
+                var symbolCode = (SymbolCodeEnum)Enum.Parse(typeof(SymbolCodeEnum), additionalData["SymbolCode"]);
+
+                return (T2)(object)new MarketTick
+                {
+                    Exchange = exchange.Name,
+                    Epoch = new Epoch(DateTime.UtcNow),
+                    SymbolCode = symbolCode,
+                    BuyPrice = Convert.ToDecimal(tick[0]),
+                    SellPrice = Convert.ToDecimal(tick[2]),
+                    LastPrice = Convert.ToDecimal(tick[6])
+                };
+      
