@@ -25,3 +25,16 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
                 var ticks = obj as List<object[]>;
                 
                 return (T2)(object)ticks.Select(t => new MarketTick
+                {
+                    Exchange = exchange.Name,
+                    Epoch = new Epoch(DateTime.UtcNow),
+                    SymbolCode = symbolFactory.Get(exchange.DecodeSymbol(t[0].ToString())[0], exchange.DecodeSymbol(t[0].ToString())[1]).Code,
+                    BuyPrice = Convert.ToDecimal(t[1]),
+                    SellPrice = Convert.ToDecimal(t[3]),
+                    LastPrice = Convert.ToDecimal(t[7])
+                }).ToList();
+            }
+
+            if (typeof(T2) == typeof(MarketTick))
+            {
+  
