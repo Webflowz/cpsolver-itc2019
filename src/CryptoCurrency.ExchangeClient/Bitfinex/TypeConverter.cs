@@ -73,4 +73,18 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
                         Volume = Math.Abs(Convert.ToDecimal(t[2])),
                         Side = Convert.ToDecimal(t[2]) > 0 ? OrderSideEnum.Buy : OrderSideEnum.Sell,
                         SourceTradeId = Convert.ToString(t[0])
-                    }).OrderBy(t => t.Epoch.TimestampMilliseconds).ThenBy(t => t.SourceTradeId)
+                    }).OrderBy(t => t.Epoch.TimestampMilliseconds).ThenBy(t => t.SourceTradeId).ToList(),
+                    Filter = filter
+                };
+            }
+
+            if(typeof(T2) == typeof(ICollection<ExchangeStats>))
+            {
+                var tradeStats = (obj as List<BitfinexMarketStats>);
+
+                var statKey = (ExchangeStatsKeyEnum)Enum.Parse(typeof(ExchangeStatsKeyEnum), additionalData["StatKey"]);
+                var symbolCode = (SymbolCodeEnum)Enum.Parse(typeof(SymbolCodeEnum), additionalData["SymbolCode"]);
+
+                return (T2)(object)tradeStats.Select(t => new ExchangeStats
+                {
+                    
