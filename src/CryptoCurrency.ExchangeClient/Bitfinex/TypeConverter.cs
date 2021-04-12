@@ -66,4 +66,11 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
                     SymbolCode = symbolCode,
                     Trades = trades.Select(t => new MarketTrade
                     {
-      
+                        Exchange = exchange.Name,
+                        SymbolCode = symbolCode,
+                        Epoch = Epoch.FromMilliseconds(Convert.ToInt64(t[1])),
+                        Price = Convert.ToDecimal(t[3]),
+                        Volume = Math.Abs(Convert.ToDecimal(t[2])),
+                        Side = Convert.ToDecimal(t[2]) > 0 ? OrderSideEnum.Buy : OrderSideEnum.Sell,
+                        SourceTradeId = Convert.ToString(t[0])
+                    }).OrderBy(t => t.Epoch.TimestampMilliseconds).ThenBy(t => t.SourceTradeId)
