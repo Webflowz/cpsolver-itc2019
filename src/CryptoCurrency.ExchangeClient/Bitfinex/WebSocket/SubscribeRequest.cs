@@ -11,4 +11,6 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex.WebSocket
         public string Channel { get; set; }
 
         [JsonProperty(PropertyName = "symbol")]
-        public
+        public string Symbol { get; set; }
+    }
+}
