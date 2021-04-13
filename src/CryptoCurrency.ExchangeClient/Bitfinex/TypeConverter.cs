@@ -87,4 +87,18 @@ namespace CryptoCurrency.ExchangeClient.Bitfinex
 
                 return (T2)(object)tradeStats.Select(t => new ExchangeStats
                 {
-                    
+                    Exchange = exchange.Name,
+                    SymbolCode = symbolCode,
+                    StatKey = statKey,
+                    Epoch = Epoch.FromMilliseconds(Convert.ToInt64(t[0])),
+                    Value = Convert.ToDecimal(t[1])
+                }).ToList();
+            }
+
+            if (typeof(T) == typeof(T2))
+                return (T2)(object)obj;
+
+            throw new Exception("Invalid type provided - " + typeof(T2));
+        }
+    }
+}
