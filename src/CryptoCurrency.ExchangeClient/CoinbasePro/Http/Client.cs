@@ -57,4 +57,17 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             return await InternalRequest<CoinbaseProCancelOrder, CancelOrder>(true, relativeUrl, HttpMethod.Delete, null);
         }
 
-        public async Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum o
+        public async Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum orderType, OrderSideEnum orderSide, decimal price, decimal volume)
+        {
+            var relativeUrl = "/orders";
+
+            var request = new CoinbaseProCreateOrderRequest
+            {
+                Size = volume,
+                Price = price,
+                Side = orderSide == OrderSideEnum.Buy ? "buy" : "sell",
+                ProductId = Exchange.EncodeProductId(symbol),
+                Type = orderType == OrderTypeEnum.Market ? "market" : "limit"
+            };
+
+            return await InternalRequest<CoinbaseProCrea
