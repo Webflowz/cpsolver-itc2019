@@ -41,4 +41,20 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             CurrencyFactory = currencyFactory;
             SymbolFactory = symbolFactory;
 
-            RateLimiter = new CoinbaseProRateLimi
+            RateLimiter = new CoinbaseProRateLimiter();
+        }
+
+        public string ApiUrl => "https://api.pro.coinbase.com";
+
+        public bool MultiTickSupported => false;
+
+        public string InitialTradeFilter => "100";
+        
+        public async Task<WrappedResponse<CancelOrder>> CancelOrder(ISymbol symbol, string[] orderIds)
+        {
+            var relativeUrl = $"/orders/{orderIds.First()}";
+
+            return await InternalRequest<CoinbaseProCancelOrder, CancelOrder>(true, relativeUrl, HttpMethod.Delete, null);
+        }
+
+        public async Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum o
