@@ -25,4 +25,20 @@ using CryptoCurrency.ExchangeClient.CoinbasePro.Model;
 
 namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
 {
-    public class Cli
+    public class Client : IExchangeHttpClient
+    {
+        private CoinbasePro Exchange { get; set; }
+
+        private ICurrencyFactory CurrencyFactory { get; set; }
+
+        private ISymbolFactory SymbolFactory { get; set; }
+
+        public IRateLimiter RateLimiter { get; set; }
+
+        public Client(CoinbasePro exchange, ICurrencyFactory currencyFactory, ISymbolFactory symbolFactory)
+        {
+            Exchange = exchange;
+            CurrencyFactory = currencyFactory;
+            SymbolFactory = symbolFactory;
+
+            RateLimiter = new CoinbaseProRateLimi
