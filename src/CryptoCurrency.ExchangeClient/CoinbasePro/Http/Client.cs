@@ -85,4 +85,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             throw new NotImplementedException();
         }
 
-        public Task<Wrappe
+        public Task<WrappedResponse<ICollection<Deposit>>> GetDeposits(CurrencyCodeEnum currencyCode, int limit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<WrappedResponse<ICollection<OrderItem>>> GetOpenOrders(ISymbol symbol, int pageNumber, int pageSize)
+        {
+            var relativeUrl = $"/orders?status=open&status=pending&status=active&product_id={Exchange.EncodeProductId(symbol)}";
+
+            return await InternalRequest<ICollection<CoinbaseProOrder>, ICollection<OrderItem>>(true, relativeUrl, HttpMethod.Get, null);
+        }
+
+        pub
