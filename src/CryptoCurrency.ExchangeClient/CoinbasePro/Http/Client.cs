@@ -70,4 +70,19 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
                 Type = orderType == OrderTypeEnum.Market ? "market" : "limit"
             };
 
-            return await InternalRequest<CoinbaseProCrea
+            return await InternalRequest<CoinbaseProCreateOrderResponse, CreateOrder>(true, relativeUrl, HttpMethod.Post, request);
+        }
+
+        public async Task<WrappedResponse<ICollection<AccountBalance>>> GetBalance()
+        {
+            var relativeUrl = "/accounts";
+
+            return await InternalRequest<ICollection<CoinbaseProAccount>, ICollection<AccountBalance>>(true, relativeUrl, HttpMethod.Get, null);
+        }
+
+        public Task<WrappedResponse<Deposit>> GetDeposit(CurrencyCodeEnum currencyCode, string transactionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Wrappe
