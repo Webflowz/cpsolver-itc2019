@@ -123,4 +123,21 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             throw new NotImplementedException();
         }
 
-        public async Task<WrappedResponse<TradeFee>> GetTradeFee(OrderSideEnum orderSide,
+        public async Task<WrappedResponse<TradeFee>> GetTradeFee(OrderSideEnum orderSide, ISymbol symbol)
+        {
+            return await Task.Run(() =>
+            {
+                return new WrappedResponse<TradeFee>
+                {
+                    StatusCode = WrappedResponseStatusCode.Ok,
+                    Data = new TradeFee
+                    {
+                        CurrencyCode = symbol.QuoteCurrencyCode,
+                        Taker = 0.003m,
+                        Maker = 0.0m
+                    }
+                };
+            });
+        }
+
+        public async Task<WrappedResponse<ICollection<TradeItem>>> GetTradeHistory(IS
