@@ -97,4 +97,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             return await InternalRequest<ICollection<CoinbaseProOrder>, ICollection<OrderItem>>(true, relativeUrl, HttpMethod.Get, null);
         }
 
-        pub
+        public async Task<WrappedResponse<OrderBook>> GetOrderBook(ISymbol symbol, int buyCount, int sellCount)
+        {
+            var relativeUrl = $"/products/{Exchange.EncodeProductId(symbol)}/book?level=2";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("product_id", Exchange.EncodeProductId(symbol));
+
+            return await InternalRequest<CoinbaseProOrderBook, OrderBook>(false, relativeUrl, HttpMethod.Get, nvc);
+        }
+
+        public async Task<WrappedResponse<MarketTick>> GetTick(ISymbol symbol)
+        {
+            var relativeUrl =
