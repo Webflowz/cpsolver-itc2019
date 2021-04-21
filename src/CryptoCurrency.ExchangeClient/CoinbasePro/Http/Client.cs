@@ -140,4 +140,18 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             });
         }
 
-        public async Task<WrappedResponse<ICollection<TradeItem>>> GetTradeHistory(IS
+        public async Task<WrappedResponse<ICollection<TradeItem>>> GetTradeHistory(ISymbol symbol, int pageNumber, int pageSize, string fromTradeId)
+        {
+            var relativeUrl = $"/fills?product_id={Exchange.EncodeProductId(symbol)}";
+
+            return await InternalRequest<ICollection<CoinbaseProFill>, ICollection<TradeItem>>(true, relativeUrl, HttpMethod.Get, null);
+        }
+
+        public void SetApiAccess(string privateKey, string publicKey, string passphrase)
+        {
+            PrivateKey = privateKey;
+            PublicKey = publicKey;
+            Passphrase = passphrase;
+        }
+
+        public Task<WrappedResponse<
