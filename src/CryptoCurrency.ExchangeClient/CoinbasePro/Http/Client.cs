@@ -109,4 +109,18 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
 
         public async Task<WrappedResponse<MarketTick>> GetTick(ISymbol symbol)
         {
-            var relativeUrl =
+            var relativeUrl = $"/products/{Exchange.EncodeProductId(symbol)}/ticker";
+
+            var nvc = new NameValueCollection();
+
+            nvc.Add("product_id", Exchange.EncodeProductId(symbol));
+
+            return await InternalRequest<CoinbaseProTick, MarketTick>(false, relativeUrl, HttpMethod.Get, nvc);
+        }
+
+        public Task<WrappedResponse<ICollection<MarketTick>>> GetTicks(ICollection<ISymbol> symbols)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<WrappedResponse<TradeFee>> GetTradeFee(OrderSideEnum orderSide,
