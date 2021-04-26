@@ -154,4 +154,18 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             Passphrase = passphrase;
         }
 
-        public Task<WrappedResponse<
+        public Task<WrappedResponse<WithdrawCrypto>> WithdrawCrypto(CurrencyCodeEnum cryptoCurrencyCode, decimal withdrawalFee, decimal volume, string address)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<WrappedResponse<TradeResult>> GetTrades(ISymbol symbol, int limit, string filter)
+        {
+            var safeLimit = (limit > 100 ? 100 : limit);
+
+            var relativeUrl = $"products/{Exchange.EncodeProductId(symbol)}/trades?limit={safeLimit}";
+
+            if (!string.IsNullOrEmpty(filter))
+                relativeUrl += $"&after={filter}";
+
+            var data = new Dic
