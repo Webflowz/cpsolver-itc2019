@@ -168,4 +168,17 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             if (!string.IsNullOrEmpty(filter))
                 relativeUrl += $"&after={filter}";
 
-            var data = new Dic
+            var data = new Dictionary<string, object>();
+            data.Add("SymbolCode", symbol.Code);
+            data.Add("Limit", safeLimit);
+            
+            return await InternalRequest<ICollection<CoinbaseProMarketTrade>, TradeResult>(false, relativeUrl, HttpMethod.Get, data);
+        }
+
+        public Task<WrappedResponse<ICollection<ExchangeStats>>> GetStats(ISymbol symbol, ExchangeStatsKeyEnum statsKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region Private Functionality     
+        private string PrivateKey { get;
