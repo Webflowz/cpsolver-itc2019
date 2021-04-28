@@ -181,4 +181,20 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
         }
 
         #region Private Functionality     
-        private string PrivateKey { get;
+        private string PrivateKey { get; set; }
+
+        private string PublicKey { get; set; }
+
+        private string Passphrase { get; set; }
+
+        private async Task<WrappedResponse<T2>> InternalRequest<T, T2>(bool authRequired, string relativeUrl, HttpMethod method, object requestData)
+        {
+            NameValueCollection headers = null;
+
+            var postData = requestData != null ? JsonConvert.SerializeObject(requestData) : null;
+
+            if (authRequired)
+            {
+                var timeStamp = Epoch.Now.Timestamp.ToString();
+
+                
