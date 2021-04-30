@@ -209,4 +209,21 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
 
                 var messageBytes = encoding.GetBytes(prehash);
 
-                using (var hmacsha256 = new HMACSHA256(Convert.FromBase64String(Privat
+                using (var hmacsha256 = new HMACSHA256(Convert.FromBase64String(PrivateKey)))
+                {
+                    var hash = hmacsha256.ComputeHash(messageBytes);
+                    var signature = Convert.ToBase64String(hash);
+
+                    headers.Add("CB-ACCESS-SIGN", signature);
+                }
+            }
+
+            var url = this.GetFullUrl(relativeUrl);
+
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri(url),
+                    Method = method
+               
