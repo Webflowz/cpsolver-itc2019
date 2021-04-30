@@ -197,4 +197,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
             {
                 var timeStamp = Epoch.Now.Timestamp.ToString();
 
-                
+                headers = new NameValueCollection();
+                headers.Add("CB-ACCESS-KEY", PublicKey);
+                headers.Add("CB-ACCESS-TIMESTAMP", timeStamp);
+                headers.Add("CB-ACCESS-PASSPHRASE", Passphrase);
+
+                var encoding = new UTF8Encoding();
+                //var keyByte = encoding.GetBytes(PrivateKey);
+
+                var prehash = $"{timeStamp}{method.ToString().ToUpper()}{relativeUrl}{postData}";
+
+                var messageBytes = encoding.GetBytes(prehash);
+
+                using (var hmacsha256 = new HMACSHA256(Convert.FromBase64String(Privat
