@@ -226,4 +226,17 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
                 {
                     RequestUri = new Uri(url),
                     Method = method
-               
+                };
+
+                if (method == HttpMethod.Post && postData != null)
+                    request.Content = new StringContent(postData, Encoding.UTF8, "application/json");
+
+                request.Headers.Add("User-Agent", "cryptocurrency Client");
+
+                if (headers != null)
+                {
+                    request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("UTF-8"));
+
+                    foreach (var header in headers.AllKeys)
+                    {
+                        request.Headers.Add(header, h
