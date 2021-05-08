@@ -256,4 +256,17 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
                             long? cbBefore = null;
 
                             if (response.Headers.Contains("cb-before"))
-                                cbBefore = Convert.ToInt64(response.Headers.GetV
+                                cbBefore = Convert.ToInt64(response.Headers.GetValues("cb-before").First());
+
+                            response.Content.Dispose();
+
+                            var obj = JsonConvert.DeserializeObject<T>(json);
+
+                            json = null;
+
+                            return new WrappedResponse<T2>
+                            {
+                                StatusCode = WrappedResponseStatusCode.Ok,
+                                Data = Exchange.ChangeType<T, T2>(CurrencyFactory, SymbolFactory, requestData, obj, cbBefore)
+                            };
+                     
