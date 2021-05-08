@@ -269,4 +269,17 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
                                 StatusCode = WrappedResponseStatusCode.Ok,
                                 Data = Exchange.ChangeType<T, T2>(CurrencyFactory, SymbolFactory, requestData, obj, cbBefore)
                             };
-                     
+                        }
+                        catch (HttpRequestException ex)
+                        {
+                            try
+                            {
+                                var error = JsonConvert.DeserializeObject<CoinbaseProRequestError>(json);
+
+                                return new WrappedResponse<T2>
+                                {
+                                    StatusCode = WrappedResponseStatusCode.ApiError,
+                                    ErrorMessage = error.Message
+                                };
+                            }
+       
