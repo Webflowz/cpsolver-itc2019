@@ -239,4 +239,21 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
 
                     foreach (var header in headers.AllKeys)
                     {
-                        request.Headers.Add(header, h
+                        request.Headers.Add(header, headers[header]);
+                    }
+                }
+
+                try
+                {
+                    using (var response = await client.SendAsync(request))
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+
+                        try
+                        {
+                            response.EnsureSuccessStatusCode();
+
+                            long? cbBefore = null;
+
+                            if (response.Headers.Contains("cb-before"))
+                                cbBefore = Convert.ToInt64(response.Headers.GetV
