@@ -296,4 +296,14 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
                 catch (Exception e)
                 {
                     return new WrappedResponse<T2>
-           
+                    {
+                        StatusCode = WrappedResponseStatusCode.FatalError,
+                        ErrorCode = null,
+                        ErrorMessage = e.Message
+                    };
+                }
+            }
+        }
+        #endregion
+    }
+}
