@@ -282,4 +282,18 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Http
                                     ErrorMessage = error.Message
                                 };
                             }
-       
+                            catch (Exception)
+                            {
+                                return new WrappedResponse<T2>
+                                {
+                                    StatusCode = WrappedResponseStatusCode.FatalError,
+                                    ErrorMessage = ex.Message
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new WrappedResponse<T2>
+           
