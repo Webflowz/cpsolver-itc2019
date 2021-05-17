@@ -21,4 +21,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Model
         [JsonProperty(PropertyName = "order_id")]
         public string OrderId { get; set; }
 
-        [JsonProperty(PropertyName = 
+        [JsonProperty(PropertyName = "created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [JsonProperty(PropertyName = "fee")]
+        public decimal Fee { get; set; }
+
+        [JsonProperty(PropertyName = "settled")]
+        public bool Settled { get; set; }
+
+        [JsonProperty(PropertyName = "side")]
+        public string Side { get; set; }
+    }
+}
