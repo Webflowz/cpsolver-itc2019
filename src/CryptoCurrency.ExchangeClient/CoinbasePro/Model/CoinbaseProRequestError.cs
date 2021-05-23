@@ -2,4 +2,9 @@
 
 namespace CryptoCurrency.ExchangeClient.CoinbasePro.Model
 {
-    publ
+    public class CoinbaseProRequestError
+    {
+        [JsonProperty(PropertyName = "message")]
+        public string Message { get; set; }
+    }
+}
