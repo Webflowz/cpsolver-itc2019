@@ -15,4 +15,10 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro.Model
         [JsonProperty(PropertyName = "ask")]
         public decimal Ask { get; set; }
 
-        [JsonProperty(PropertyName = "volum
+        [JsonProperty(PropertyName = "volume")]
+        public decimal Volume { get; set; }
+
+        [JsonProperty(PropertyName = "time")]
+        public DateTime Time { get; set; }
+    }
+}
