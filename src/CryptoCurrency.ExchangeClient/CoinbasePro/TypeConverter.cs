@@ -39,4 +39,20 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                     Volume = order.Size,
                     State = exchange.GetOrderState(order.Status)
                 };
-     
+            }
+
+            if (typeof(T) == typeof(ICollection<CoinbaseProAccount>))
+            {
+                var account = obj as ICollection<CoinbaseProAccount>;
+
+                return (T2)(object)account.Select(a => new AccountBalance
+                {
+                    CurrencyCode = exchange.GetStandardisedCurrencyCode(currencyFactory, a.Currency),
+                    Balance = a.Balance,
+                    PendingFunds = a.Hold
+                }).ToList();
+            }
+
+            if (typeof(T) == typeof(ICollection<CoinbaseProOrder>))
+            {
+    
