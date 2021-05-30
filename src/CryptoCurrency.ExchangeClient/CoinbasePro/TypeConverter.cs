@@ -11,4 +11,19 @@ using CryptoCurrency.Core.Market;
 using CryptoCurrency.Core.OrderSide;
 using CryptoCurrency.Core.Symbol;
 
-using CryptoCurrency.ExchangeCl
+using CryptoCurrency.ExchangeClient.CoinbasePro.Model;
+
+namespace CryptoCurrency.ExchangeClient.CoinbasePro
+{
+    public static class TypeConverter
+    {
+        public static T2 ChangeType<T, T2>(this CoinbasePro exchange, ICurrencyFactory currencyFactory, ISymbolFactory symbolFactory, object requestData, T obj, long? cbBefore)
+        {
+            if (typeof(T) == typeof(CoinbaseProCancelOrder))
+                return (T2)(object)new CancelOrder();
+
+            if (typeof(T) == typeof(CoinbaseProCreateOrderResponse))
+            {
+                var order = obj as CoinbaseProCreateOrderResponse;
+
+        
