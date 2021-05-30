@@ -26,4 +26,17 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
             {
                 var order = obj as CoinbaseProCreateOrderResponse;
 
-        
+                var symbol = exchange.DecodeProductId(order.ProductId);
+
+                return (T2)(object)new CreateOrder
+                {
+                    Id = order.Id,
+                    SymbolCode = symbol.Code,
+                    Side = exchange.GetOrderSide(order.Side),
+                    Type = exchange.GetOrderType(order.Type),
+                    OrderEpoch = new Epoch(order.CreatedAt.ToUniversalTime()),
+                    Price = order.Price,
+                    Volume = order.Size,
+                    State = exchange.GetOrderState(order.Status)
+                };
+     
