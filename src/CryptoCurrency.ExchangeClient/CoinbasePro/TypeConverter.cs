@@ -55,4 +55,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
 
             if (typeof(T) == typeof(ICollection<CoinbaseProOrder>))
             {
+                var orders = obj as ICollection<CoinbaseProOrder>;
+
+                return (T2)(object)orders.Select(o => new OrderItem
+                {
+                    Id = o.Id,
+                    SymbolCode = exchange.DecodeProductId(o.ProductId).Code,
+                    Side = exchange.GetOrderSide(o.Side),
+                    Type = exchange.GetOrderType(o.Type),
+                    Price = o.Price,
+                    Volume = o.Size,
+                    AvgPrice = o.Price,
+                    RemainingVolume = o.Size - o.FilledSize,
     
