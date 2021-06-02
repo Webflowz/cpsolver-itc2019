@@ -82,4 +82,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                 {
                     Exchange = exchange.Name,
                     SymbolCode = exchange.DecodeProductId(nvc["ProductId"]).Code,
-                    Ask = o
+                    Ask = orderBook.Asks.Select(a => new OrderBookItem
+                    {
+                        Side = OrderSideEnum.Buy,
+                        Price = a.ElementAt(0),
+                        AvgPrice = a.ElementAt(0),
+                        Volume = a.ElementAt(1)
+                    }).ToList(),
+                    Bid = orderBook.Bids.Select(a => new OrderBookItem
+                    {
+                        Side = OrderSideEnum.Sell,
+                        Price = a.ElementAt(0),
+                        AvgPrice = a.ElementAt(0),
+                        Volume = a.Elem
