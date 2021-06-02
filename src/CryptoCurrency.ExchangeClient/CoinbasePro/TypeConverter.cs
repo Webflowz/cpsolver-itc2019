@@ -111,4 +111,20 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                     SymbolCode = exchange.DecodeProductId(nvc["ProductId"]).Code,
                     Epoch = new Epoch(tick.Time.ToUniversalTime()),
                     BuyPrice = tick.Ask,
-          
+                    SellPrice = tick.Bid,
+                    LastPrice = tick.Price
+                };
+            }
+
+            if (typeof(T) == typeof(ICollection<CoinbaseProFill>))
+            {
+                var trades = obj as ICollection<CoinbaseProFill>;
+
+                return (T2)(object)trades.Select(t => new TradeItem
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = exchange.DecodeProductId(t.ProductId).Code,
+                    Id = t.TradeId,
+                    OrderId = t.OrderId,
+                    Created = new Epoch(t.CreatedAt.ToUniversalTime()),
+   
