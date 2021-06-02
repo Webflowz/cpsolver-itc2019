@@ -67,4 +67,19 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                     Volume = o.Size,
                     AvgPrice = o.Price,
                     RemainingVolume = o.Size - o.FilledSize,
-    
+                    Fee = o.FillFees,
+                    State = exchange.GetOrderState(o.Status)
+                }).ToList();
+            }
+
+            if (typeof(T) == typeof(CoinbaseProOrderBook))
+            {
+                var orderBook = obj as CoinbaseProOrderBook;
+
+                var nvc = requestData as NameValueCollection;
+
+                return (T2)(object)new OrderBook
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = exchange.DecodeProductId(nvc["ProductId"]).Code,
+                    Ask = o
