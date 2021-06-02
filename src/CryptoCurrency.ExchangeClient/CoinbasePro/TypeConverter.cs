@@ -94,4 +94,21 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                         Side = OrderSideEnum.Sell,
                         Price = a.ElementAt(0),
                         AvgPrice = a.ElementAt(0),
-                        Volume = a.Elem
+                        Volume = a.ElementAt(1)
+                    }).ToList()
+                };
+            }
+
+            if (typeof(T) == typeof(CoinbaseProTick))
+            {
+                var tick = obj as CoinbaseProTick;
+
+                var nvc = requestData as NameValueCollection;
+
+                return (T2)(object)new MarketTick
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = exchange.DecodeProductId(nvc["ProductId"]).Code,
+                    Epoch = new Epoch(tick.Time.ToUniversalTime()),
+                    BuyPrice = tick.Ask,
+          
