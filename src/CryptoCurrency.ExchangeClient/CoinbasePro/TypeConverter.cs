@@ -127,4 +127,21 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                     Id = t.TradeId,
                     OrderId = t.OrderId,
                     Created = new Epoch(t.CreatedAt.ToUniversalTime()),
-   
+                    Side = exchange.GetOrderSide(t.Side),
+                    Price = t.Price,
+                    Volume = t.Size,
+                    Fee = t.Fee
+                }).ToList();
+            }
+
+            if (typeof(T) == typeof(ICollection<CoinbaseProMarketTrade>))
+            {
+                var trades = obj as ICollection<CoinbaseProMarketTrade>;
+
+                var data = (Dictionary<string, object>)requestData;
+
+                var symbolCode = (SymbolCodeEnum)data["SymbolCode"];
+                var limit = (int)data["Limit"];
+
+                return (T2)(object)new TradeResult
+  
