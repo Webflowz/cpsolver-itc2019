@@ -144,4 +144,16 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                 var limit = (int)data["Limit"];
 
                 return (T2)(object)new TradeResult
-  
+                {
+                    Exchange = exchange.Name,
+                    SymbolCode = symbolCode,
+                    Filter = cbBefore.HasValue ? (cbBefore.Value + limit).ToString() : null,
+                    Trades = trades.Select(t => new MarketTrade
+                    {
+                        Exchange = exchange.Name,
+                        SymbolCode = symbolCode,
+                        Epoch = new Epoch(t.Time),
+                        Price = t.Price,
+                        Volume = t.Size,
+                        Side = exchange.GetOrderSide(t.Side),
+         
