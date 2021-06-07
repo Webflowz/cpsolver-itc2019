@@ -12,4 +12,4 @@
     <ProjectReference Include="..\CryptoCurrency.Core\CryptoCurrency.Core.csproj" />
   </ItemGroup>
 
-</Proje
+</Project>
