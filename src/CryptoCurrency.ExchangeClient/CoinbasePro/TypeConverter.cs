@@ -156,4 +156,12 @@ namespace CryptoCurrency.ExchangeClient.CoinbasePro
                         Price = t.Price,
                         Volume = t.Size,
                         Side = exchange.GetOrderSide(t.Side),
-         
+                        SourceTradeId = t.TradeId.ToString()
+                    }).ToList()
+                };
+            }
+
+            throw new Exception("Invalid type provided - " + typeof(T2));
+        }
+    }
+}
