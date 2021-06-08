@@ -20,4 +20,18 @@ namespace CryptoCurrency.ExchangeClient
         {
             var match = Exchanges.Where(e => e.Name == exchange).FirstOrDefault();
 
-           
+            if (match == null)
+                throw new ArgumentException($"Unable to find exchange '{exchange}'");
+
+            if (!match.Initialized)
+                await match.Initialize();
+
+            return match;
+        }
+
+        public ICollection<IExchange> List()
+        {
+            return Exchanges;
+        }
+    }
+}
