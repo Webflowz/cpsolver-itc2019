@@ -27,4 +27,21 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
 {
     public class Client : IExchangeHttpClient
     {
-        private Kraken Exchange { get; se
+        private Kraken Exchange { get; set; }
+        private ICurrencyFactory CurrencyFactory { get; set; }
+        private ISymbolFactory SymbolFactory { get; set; }
+
+        public IRateLimiter RateLimiter { get; set; }
+
+        public Client(Kraken exchange, ICurrencyFactory currencyFactory, ISymbolFactory symbolFactory)
+        {
+            Exchange = exchange;
+            CurrencyFactory = currencyFactory;
+            SymbolFactory = symbolFactory;
+
+            RateLimiter = new BinanceRateLimiter();
+        }
+
+        public string ApiUrl => "https://api.kraken.com";
+
+        public bool MultiTi
