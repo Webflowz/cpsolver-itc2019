@@ -44,4 +44,18 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
 
         public string ApiUrl => "https://api.kraken.com";
 
-        public bool MultiTi
+        public bool MultiTickSupported => true;
+
+        public string InitialTradeFilter => "0";
+
+        public async Task<WrappedResponse<CancelOrder>> CancelOrder(ISymbol symbol, string[] orderIds)
+        {
+            var relativeUrl = "CancelOrder";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("txid", orderIds.First());
+
+            return await InternalRequest<KrakenCancelOrderResult, CancelOrder>(true, relativeUrl, HttpMethod.Post, nvc);
+        }
+
+        public async Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum orderType, OrderSideEnum orderSide, deci
