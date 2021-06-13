@@ -58,4 +58,14 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             return await InternalRequest<KrakenCancelOrderResult, CancelOrder>(true, relativeUrl, HttpMethod.Post, nvc);
         }
 
-        public async Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum orderType, OrderSideEnum orderSide, deci
+        public async Task<WrappedResponse<CreateOrder>> CreateOrder(ISymbol symbol, OrderTypeEnum orderType, OrderSideEnum orderSide, decimal price, decimal volume)
+        {
+            Exchange.EnsureSymbol(symbol);
+
+            var relativeUrl = "AddOrder";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+            nvc.Add("type", orderSide == OrderSideEnum.Buy ? "buy" : "sell");
+            nvc.Add("ordertype", orderType == OrderTypeEnum.Market ? "market" : "limit");
+            if (orderType == Or
