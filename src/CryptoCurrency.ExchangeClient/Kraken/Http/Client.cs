@@ -68,4 +68,18 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
             nvc.Add("type", orderSide == OrderSideEnum.Buy ? "buy" : "sell");
             nvc.Add("ordertype", orderType == OrderTypeEnum.Market ? "market" : "limit");
-            if (orderType == Or
+            if (orderType == OrderTypeEnum.Limit)
+                nvc.Add("price", price.ToString());
+            nvc.Add("volume", volume.ToString());
+
+            return await InternalRequest<KrakenAddOrderResult, CreateOrder>(true, relativeUrl, HttpMethod.Post, nvc);
+        }
+
+        public async Task<WrappedResponse<ICollection<AccountBalance>>> GetBalance()
+        {
+            var relativeUrl = "Balance";
+
+            return await InternalRequest<KrakenAccount, ICollection<AccountBalance>>(true, relativeUrl, HttpMethod.Post, null);
+        }
+
+       
