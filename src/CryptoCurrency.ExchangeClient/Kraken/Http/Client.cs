@@ -82,4 +82,13 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             return await InternalRequest<KrakenAccount, ICollection<AccountBalance>>(true, relativeUrl, HttpMethod.Post, null);
         }
 
-       
+        public async Task<WrappedResponse<ICollection<OrderItem>>> GetOpenOrders(ISymbol symbol, int pageNumber, int pageSize)
+        {
+            Exchange.EnsureSymbol(symbol);
+
+            var relativeUrl = "OpenOrders";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+
+            return await InternalRequest<KrakenOpenOrders, ICollection<OrderItem>>(true, re
