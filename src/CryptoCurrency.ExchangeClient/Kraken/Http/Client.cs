@@ -91,4 +91,19 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             var nvc = new NameValueCollection();
             nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
 
-            return await InternalRequest<KrakenOpenOrders, ICollection<OrderItem>>(true, re
+            return await InternalRequest<KrakenOpenOrders, ICollection<OrderItem>>(true, relativeUrl, HttpMethod.Post, nvc);
+        }
+
+        public async Task<WrappedResponse<OrderBook>> GetOrderBook(ISymbol symbol, int buyCount, int sellCount)
+        {
+            Exchange.EnsureSymbol(symbol);
+
+            var relativeUrl = "Depth";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+
+            return await InternalRequest<KrakenOrderBook, OrderBook>(false, relativeUrl, HttpMethod.Get, nvc);
+        }
+
+        public async 
