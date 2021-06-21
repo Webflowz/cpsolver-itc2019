@@ -120,4 +120,16 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
         {
             var relativeUrl = "TradeVolume";
 
-            var nvc = new NameValueCo
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+            nvc.Add("fee-info", "true");
+
+            return await InternalRequest<KrakenTradeVolume, TradeFee>(true, relativeUrl, HttpMethod.Post, nvc);
+        }
+
+        public Task<WrappedResponse<WithdrawCrypto>> WithdrawCrypto(CurrencyCodeEnum cryptoCurrencyCode, decimal withdrawalFee, decimal volume, string address)
+        {
+            throw new NotImplementedException();
+        }
+
+        public voi
