@@ -106,4 +106,18 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             return await InternalRequest<KrakenOrderBook, OrderBook>(false, relativeUrl, HttpMethod.Get, nvc);
         }
 
-        public async 
+        public async Task<WrappedResponse<MarketTick>> GetTick(ISymbol symbol)
+        {
+            var relativeUrl = "Ticker";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+
+            return await InternalRequest<KrakenTick, MarketTick>(false, relativeUrl, HttpMethod.Get, nvc);
+        }
+
+        public async Task<WrappedResponse<TradeFee>> GetTradeFee(OrderSideEnum orderSide, ISymbol symbol)
+        {
+            var relativeUrl = "TradeVolume";
+
+            var nvc = new NameValueCo
