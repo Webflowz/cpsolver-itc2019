@@ -158,4 +158,15 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             throw new NotImplementedException();
         }
 
-        public async Task<WrappedResponse<ICollection<Mar
+        public async Task<WrappedResponse<ICollection<MarketTick>>> GetTicks(ICollection<ISymbol> symbols)
+        {
+            var relativeUrl = "Ticker";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", string.Join(",", symbols.Select(p => $"{Exchange.GetCurrencyCode(p.BaseCurrencyCode)}{Exchange.GetCurrencyCode(p.QuoteCurrencyCode)}")));
+
+            return await InternalRequest<KrakenTicks, ICollection<MarketTick>>(false, relativeUrl, HttpMethod.Get, nvc);
+        }
+
+        public async Task<WrappedResponse<TradeResult>> GetTrades(ISymbol symbol, int limit, string filter)
+    
