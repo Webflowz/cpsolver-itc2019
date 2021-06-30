@@ -169,4 +169,19 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
         }
 
         public async Task<WrappedResponse<TradeResult>> GetTrades(ISymbol symbol, int limit, string filter)
-    
+        {
+            var relativeUrl = "Trades";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+
+            if (!string.IsNullOrEmpty(filter))
+                nvc.Add("since", filter);
+
+            return await InternalRequest<KrakenTrade<string, List<List<object>>>, TradeResult>(false, relativeUrl, HttpMethod.Get, nvc);
+        }
+
+
+        public Task<WrappedResponse<ICollection<ExchangeStats>>> GetStats(ISymbol symbol, ExchangeStatsKeyEnum statsKey)
+        {
+            
