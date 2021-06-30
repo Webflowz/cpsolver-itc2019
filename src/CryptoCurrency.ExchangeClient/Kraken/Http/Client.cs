@@ -145,4 +145,17 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             var nvc = new NameValueCollection();
             nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
 
-            return await I
+            return await InternalRequest<KrakenTradeHistory, ICollection<TradeItem>>(true, relativeUrl, HttpMethod.Post, nvc);
+        }
+
+        public Task<WrappedResponse<ICollection<Deposit>>> GetDeposits(CurrencyCodeEnum currencyCode, int limit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WrappedResponse<Deposit>> GetDeposit(CurrencyCodeEnum currencyCode, string transactionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<WrappedResponse<ICollection<Mar
