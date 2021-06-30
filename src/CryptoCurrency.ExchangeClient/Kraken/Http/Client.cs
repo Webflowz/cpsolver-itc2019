@@ -132,4 +132,17 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             throw new NotImplementedException();
         }
 
-        public voi
+        public void SetApiAccess(string privateKey, string publicKey, string passphrase)
+        {
+            PrivateKey = privateKey;
+            PublicKey = publicKey;
+        }
+
+        public async Task<WrappedResponse<ICollection<TradeItem>>> GetTradeHistory(ISymbol symbol, int pageNumber, int pageSize, string fromTradeId)
+        {
+            var relativeUrl = "TradesHistory";
+
+            var nvc = new NameValueCollection();
+            nvc.Add("pair", $"{Exchange.GetCurrencyCode(symbol.BaseCurrencyCode)}{Exchange.GetCurrencyCode(symbol.QuoteCurrencyCode)}");
+
+            return await I
