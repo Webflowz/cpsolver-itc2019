@@ -202,4 +202,18 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             var array = (from key in nvc.AllKeys.OrderBy(k => k)
                          from value in nvc.GetValues(key)
                          select string.Format("{0}={1}", key, value))
-    
+                .ToArray();
+            return string.Join("&", array);
+        }
+        
+        private async Task<WrappedResponse<T2>> InternalRequest<T, T2>(bool authRequired, string relativeUrl, HttpMethod method, NameValueCollection extraParams)
+        {
+            await RateLimiter.Wait();
+
+            relativeUrl = $"/{ApiVersion}/{(authRequired ? "private" : "public")}/{relativeUrl}";
+
+            var url = this.GetFullUrl(relativeUrl);
+
+            string queryString = null;
+
+            var headers = new NameValueCollec
