@@ -184,4 +184,22 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
 
         public Task<WrappedResponse<ICollection<ExchangeStats>>> GetStats(ISymbol symbol, ExchangeStatsKeyEnum statsKey)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        #region Private Functionality
+        private string PublicKey { get; set; }
+
+        private string PrivateKey { get; set; }
+
+        private string ApiVersion { get { return "0"; } }
+
+        private string ToQueryString(NameValueCollection nvc)
+        {
+            if (nvc == null)
+                return null;
+
+            var array = (from key in nvc.AllKeys.OrderBy(k => k)
+                         from value in nvc.GetValues(key)
+                         select string.Format("{0}={1}", key, value))
+    
