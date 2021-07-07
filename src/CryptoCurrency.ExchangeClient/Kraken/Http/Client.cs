@@ -216,4 +216,24 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
 
             string queryString = null;
 
-            var headers = new NameValueCollec
+            var headers = new NameValueCollection();
+
+            if (authRequired)
+            {
+                var nonce = Epoch.Now.Timestamp;
+
+                if (extraParams == null)
+                    extraParams = new NameValueCollection();
+
+                extraParams.Add("nonce", nonce.ToString());
+
+                queryString = ToQueryString(extraParams);
+
+                headers.Add("API-Key", PublicKey);
+
+                var encoding = Encoding.UTF8;
+
+                var prehash = $"{nonce}{queryString}";
+                var messageBytes = encoding.GetBytes(prehash);
+
+                byt
