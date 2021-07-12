@@ -236,4 +236,17 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
                 var prehash = $"{nonce}{queryString}";
                 var messageBytes = encoding.GetBytes(prehash);
 
-                byt
+                byte[] hash256 = null;
+
+                using (var hash = SHA256.Create())
+                {
+                    hash256 = hash.ComputeHash(messageBytes);
+                }
+
+                var privateKeyBytes = Convert.FromBase64String(PrivateKey);
+
+                var pathBytes = encoding.GetBytes(relativeUrl);
+
+                var mergedMessageBytes = new byte[hash256.Count() + pathBytes.Count()];
+                Buffer.BlockCopy(pathBytes, 0, mergedMessageBytes, 0, pathBytes.Length);
+                Buffer.BlockCopy(hash256, 0, mergedMes
