@@ -249,4 +249,19 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
 
                 var mergedMessageBytes = new byte[hash256.Count() + pathBytes.Count()];
                 Buffer.BlockCopy(pathBytes, 0, mergedMessageBytes, 0, pathBytes.Length);
-                Buffer.BlockCopy(hash256, 0, mergedMes
+                Buffer.BlockCopy(hash256, 0, mergedMessageBytes, pathBytes.Length, hash256.Length);
+
+                using (var hmacsha512 = new HMACSHA512(privateKeyBytes))
+                {
+                    var signatureBytes = hmacsha512.ComputeHash(mergedMessageBytes);
+
+                    headers.Add("API-Sign", Convert.ToBase64String(signatureBytes));
+                }
+            }
+            else
+                queryString = ToQueryString(extraParams);
+
+            if (queryString != null && method == HttpMethod.Get)
+                url += "?" + queryString;
+
+            using
