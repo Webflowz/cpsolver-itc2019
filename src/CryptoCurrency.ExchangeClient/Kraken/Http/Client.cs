@@ -264,4 +264,19 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
             if (queryString != null && method == HttpMethod.Get)
                 url += "?" + queryString;
 
-            using
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri(url),
+                    Method = method
+                };
+
+                if (method == HttpMethod.Post && queryString != null)
+                    request.Content = new StringContent(queryString, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+                request.Headers.Add("User-Agent", "cryptocurrency Client");
+
+                if (headers != null)
+                {
+                    request.Headers.Accept
