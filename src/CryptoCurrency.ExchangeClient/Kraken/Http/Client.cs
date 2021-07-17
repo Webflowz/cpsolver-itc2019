@@ -279,4 +279,22 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
 
                 if (headers != null)
                 {
-                    request.Headers.Accept
+                    request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("UTF-8"));
+
+                    foreach (var header in headers.AllKeys)
+                    {
+                        request.Headers.Add(header, headers[header]);
+                    }
+                }
+
+                try
+                {
+                    using (var response = await client.SendAsync(request))
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+
+                        try
+                        {
+                            response.EnsureSuccessStatusCode();
+
+ 
