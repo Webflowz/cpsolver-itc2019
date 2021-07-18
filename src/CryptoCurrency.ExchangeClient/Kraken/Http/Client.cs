@@ -320,3 +320,17 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
                                 };
                             }
                         }
+                        catch (HttpRequestException ex)
+                        {
+                            return new WrappedResponse<T2>
+                            {
+                                StatusCode = WrappedResponseStatusCode.FatalError,
+                                ErrorCode = null,
+                                ErrorMessage = ex.Message
+                            };
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new WrappedResp
