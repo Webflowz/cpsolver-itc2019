@@ -297,4 +297,15 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
                         {
                             response.EnsureSuccessStatusCode();
 
- 
+                            var krakenResponse = JsonConvert.DeserializeObject<KrakenWrappedResponse<T>>(json);
+
+                            json = null;
+
+                            response.Content.Dispose();
+
+                            if (krakenResponse.Error != null && krakenResponse.Error.Count > 0)
+                            {
+                                return new WrappedResponse<T2>
+                                {
+                                    StatusCode = WrappedResponseStatusCode.ApiError,
+                                    ErrorMessage = string.J
