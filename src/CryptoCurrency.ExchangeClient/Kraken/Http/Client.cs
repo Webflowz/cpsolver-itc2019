@@ -308,4 +308,15 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Http
                                 return new WrappedResponse<T2>
                                 {
                                     StatusCode = WrappedResponseStatusCode.ApiError,
-                                    ErrorMessage = string.J
+                                    ErrorMessage = string.Join(". ", krakenResponse.Error)
+                                };
+                            }
+                            else
+                            {
+                                return new WrappedResponse<T2>
+                                {
+                                    StatusCode = WrappedResponseStatusCode.Ok,
+                                    Data = Exchange.ChangeType<T, T2>(CurrencyFactory, SymbolFactory, extraParams, krakenResponse.Result)
+                                };
+                            }
+                        }
