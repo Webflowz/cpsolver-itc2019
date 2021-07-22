@@ -13,4 +13,8 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Model
         public ICollection<ICollection<decimal>> Bids { get; set; }
     }
 
-    public class
+    public class KrakenOrderBook : Dictionary<string, KrakenOrderBookPair>
+    {
+
+    }
+}
