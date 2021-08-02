@@ -26,4 +26,19 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Model
             {
                 var key = reader.Value.ToString();
 
-        
+                reader.Read();
+
+                if (string.Equals(key, "last", StringComparison.CurrentCultureIgnoreCase))
+                    propLast.SetValue(result, serializer.Deserialize<long>(reader));
+                else
+                    methodAdd.Invoke(result, new[] { key, serializer.Deserialize(reader, typeValue) });
+
+                reader.Read();
+            }
+
+            return result;
+        }
+
+        public override bool CanWrite => false;
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer
