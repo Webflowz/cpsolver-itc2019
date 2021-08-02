@@ -41,4 +41,16 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Model
 
         public override bool CanWrite => false;
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    [JsonConverter(typeof(KrakenTradeConverter))]
+    public class KrakenTrade<TKey, TValue> : Dictionary<TKey, TValue>
+    {
+        [JsonProperty(PropertyName = "last")]
+        public long Last { get; set; }
+    }
+}
