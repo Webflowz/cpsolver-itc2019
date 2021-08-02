@@ -9,4 +9,23 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Model
         [JsonProperty(PropertyName = "trades")]
         public Dictionary<string, KrakenTradeItem> Trades { get; set; }
 
-        [JsonPrope
+        [JsonProperty(PropertyName = "count")]
+        public int Count { get; set; }
+    }
+
+    public class KrakenTradeItem
+    {
+        [JsonProperty(PropertyName = "ordertxid")]
+        public string OrderTxId { get; set; }
+
+        [JsonProperty(PropertyName = "pair")]
+        public string Pair { get; set; }
+
+        [JsonProperty(PropertyName = "time")]
+        public long Time { get; set; }
+
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
+
+        [JsonProperty(PropertyName = "ordertype")]
+        public s
