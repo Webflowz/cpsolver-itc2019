@@ -28,4 +28,18 @@ namespace CryptoCurrency.ExchangeClient.Kraken.Model
         public string Type { get; set; }
 
         [JsonProperty(PropertyName = "ordertype")]
-        public s
+        public string OrderType { get; set; }
+
+        [JsonProperty(PropertyName = "price")]
+        public decimal Price { get; set; }
+
+        [JsonProperty(PropertyName = "cost")]
+        public decimal Cost { get; set; }
+
+        [JsonProperty(PropertyName = "fee")]
+        public decimal Fee { get; set; }
+
+        [JsonProperty(PropertyName = "vol")]
+        public decimal Volume { get; set; }
+    }
+}
