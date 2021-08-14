@@ -22,4 +22,12 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
-  </ItemGr
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoCurrency.Core\CryptoCurrency.Core.csproj" />
+    <ProjectReference Include="..\CryptoCurrency.ExchangeClient\CryptoCurrency.ExchangeClient.csproj" />
+    <ProjectReference Include="..\CryptoCurrency.Repository\CryptoCurrency.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
