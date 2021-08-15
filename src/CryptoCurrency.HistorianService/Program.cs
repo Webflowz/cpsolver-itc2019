@@ -26,4 +26,18 @@ namespace CryptoCurrency.HistorianService
         private static ManualResetEvent ResetEvent = new ManualResetEvent(false);
 
         static async Task Main(string[] args)
-        
+        {
+            // Get configuration
+            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
+
+            var appConfig = builder.Build();
+
+            var historianConnectionString = appConfig.GetConnectionString("Historian");
+
+            var serviceProvider = new ServiceCollection()
+                .AddLogging(opt =>
+                {
+                    opt.AddConfiguration(appConfig.GetSection("Logging"));
+                    opt.AddConsole(options => options.IncludeScopes = true);
+                })
+                .AddFacto
