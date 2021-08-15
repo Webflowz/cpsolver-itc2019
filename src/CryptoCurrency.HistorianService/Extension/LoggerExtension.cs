@@ -24,4 +24,14 @@ namespace CryptoCurrency.HistorianService.Extension
             return logger.BeginScope(new { SymbolCode = symbolCode });
         }
 
-        public static IDisposable BeginExchangeStatsScope(this ILogger logger, ExchangeStatsKe
+        public static IDisposable BeginExchangeStatsScope(this ILogger logger, ExchangeStatsKeyEnum statsKey)
+        {
+            return logger.BeginScope(new { StatsKey = statsKey });
+        }
+
+        public static IDisposable BeginProtocolScope(this ILogger logger, string protocol)
+        {
+            return logger.BeginScope(new { Protocol = protocol });
+        }
+    }
+}
