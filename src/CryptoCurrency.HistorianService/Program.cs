@@ -48,4 +48,14 @@ namespace CryptoCurrency.HistorianService
                 .AddTransient<IExchangeWorker, ExchangeWorker>()
                 .AddTransient<IExchangeTradeWorker, ExchangeTradeWorker>()
                 .AddTransient<IExchangeTradeStatWorker, ExchangeTradeStatWorker>()
-                .AddTransient<IEx
+                .AddTransient<IExchangeTradeAggregateWorker, ExchangeTradeAggregateWorker>()
+                .AddTransient<IExchangeTradeStatAggregateWorker, ExchangeTradeStatAggregateWorker>()
+                .AddTransient<IExchangeTradeCatchupWorker, ExchangeTradeCatchupWorker>()
+                .BuildServiceProvider();
+
+            var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+            
+            var historianRepository = serviceProvider.GetService<IHistorianRepository>();
+
+            loggerFactory.AddProvider(new HistorianLoggerProvider(historianRepository));
+         
