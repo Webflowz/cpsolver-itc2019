@@ -40,4 +40,12 @@ namespace CryptoCurrency.HistorianService
                     opt.AddConfiguration(appConfig.GetSection("Logging"));
                     opt.AddConsole(options => options.IncludeScopes = true);
                 })
-                .AddFacto
+                .AddFactories()
+                .AddExchangeFactory()
+                .AddRepositories(historianConnectionString, historianConnectionString)
+                .AddSingleton<IRepositoryBootstrapper, RepositoryBootstrapper>()
+                .AddScoped<IExchangeTradeProvider, ExchangeTradeProvider>()
+                .AddTransient<IExchangeWorker, ExchangeWorker>()
+                .AddTransient<IExchangeTradeWorker, ExchangeTradeWorker>()
+                .AddTransient<IExchangeTradeStatWorker, ExchangeTradeStatWorker>()
+                .AddTransient<IEx
