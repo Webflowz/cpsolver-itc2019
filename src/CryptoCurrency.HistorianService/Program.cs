@@ -58,4 +58,18 @@ namespace CryptoCurrency.HistorianService
             var historianRepository = serviceProvider.GetService<IHistorianRepository>();
 
             loggerFactory.AddProvider(new HistorianLoggerProvider(historianRepository));
-         
+            
+            var logger = loggerFactory.CreateLogger("Historian");
+
+            logger.LogInformation("Starting service");
+                       
+            logger.LogInformation($"Connection String: {historianConnectionString}");
+            
+            // Warm up the EF core db contexts . . .
+            var dbContextWarmUpSuccess = serviceProvider.WarmUpDbContext(logger);
+
+            if (dbContextWarmUpSuccess)
+            {
+                var bootstrapper = serviceProvider.GetService<IRepositoryBootstrapper>();
+
+            
