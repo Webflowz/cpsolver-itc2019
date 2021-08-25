@@ -95,4 +95,23 @@ namespace CryptoCurrency.HistorianService
                             configuration.Symbol = configuration.Symbol.Count > 0 ? configuration.Symbol : exchange.Symbol;
 
                             worker.Start(exchange, configuration);
-  
+                        }
+                    }
+                    else
+                    {
+                        logger.LogWarning($"No exchanges found in the configuration. Check appsettings.json.");
+                    }
+                }
+            }
+
+            Console.CancelKeyPress += (sender, eventArgs) =>
+            {
+                logger.LogWarning("Manually stopping service");
+
+                ResetEvent.Set();
+            };
+
+            ResetEvent.WaitOne();
+        }
+    }
+}
