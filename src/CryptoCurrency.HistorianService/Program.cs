@@ -83,4 +83,16 @@ namespace CryptoCurrency.HistorianService
 
                     if (allowedExchanges.Count > 0)
                     {
-                        var filteredExchanges = exchangeFactory.List().Where(ex =
+                        var filteredExchanges = exchangeFactory.List().Where(ex => allowedExchanges.Keys.Contains(ex.Name.ToString())).ToList();
+
+                        foreach (var exchange in filteredExchanges)
+                        {
+                            await exchange.Initialize();
+
+                            var worker = serviceProvider.GetService<IExchangeWorker>();
+
+                            var configuration = allowedExchanges[exchange.Name.ToString()];
+                            configuration.Symbol = configuration.Symbol.Count > 0 ? configuration.Symbol : exchange.Symbol;
+
+                            worker.Start(exchange, configuration);
+  
