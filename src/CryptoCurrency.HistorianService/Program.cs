@@ -72,4 +72,15 @@ namespace CryptoCurrency.HistorianService
             {
                 var bootstrapper = serviceProvider.GetService<IRepositoryBootstrapper>();
 
-            
+                var bootstrapSuccess = await bootstrapper.Run(logger);
+
+                if (bootstrapSuccess)
+                {
+                    var exchangeFactory = serviceProvider.GetService<IExchangeFactory>();
+
+                    // Get exchanges that are valid for this instance
+                    var allowedExchanges = appConfig.GetSection("ExchangeWorkers").Get<Dictionary<string, ExchangeWorkerConfiguration>>();
+
+                    if (allowedExchanges.Count > 0)
+                    {
+                        var filteredExchanges = exchangeFactory.List().Where(ex =
