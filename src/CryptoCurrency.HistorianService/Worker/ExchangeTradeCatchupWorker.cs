@@ -19,4 +19,20 @@ using CryptoCurrency.Core.Exchange.Model;
 
 namespace CryptoCurrency.HistorianService.Worker
 {
-    public class Exchang
+    public class ExchangeTradeCatchupWorker : IExchangeTradeCatchupWorker
+    {
+        private ILoggerFactory LoggerFactory { get; set; }
+        
+        private ISymbolFactory SymbolFactory { get; set; }
+
+        private IStorageTransactionFactory<HistorianDbContext> StorageTransactionFactory { get; set; }
+
+        private IExchangeTradeProvider ExchangeTradeProvider { get; set; }
+
+        private IHistorianRepository HistorianRepository { get; set; }
+
+        private IExchangeWorker ExchangeWorker { get; set; }
+
+        private ILogger Logger { get; set; }
+
+        private IExchang
