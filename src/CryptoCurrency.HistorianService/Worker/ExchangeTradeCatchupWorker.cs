@@ -35,4 +35,17 @@ namespace CryptoCurrency.HistorianService.Worker
 
         private ILogger Logger { get; set; }
 
-        private IExchang
+        private IExchange Exchange { get { return ExchangeWorker.Exchange; } }
+
+        private IExchangeHttpClient HttpClient { get; set; }
+
+        public ExchangeTradeCatchupWorker(
+            ILoggerFactory loggerFactory,
+            ISymbolFactory symbolFactory,
+            IStorageTransactionFactory<HistorianDbContext> storageTransactionFactory,
+            IExchangeTradeProvider exchangeTradeProvider,
+            IHistorianRepository historianRepository)
+        {
+            LoggerFactory = loggerFactory;
+            SymbolFactory = symbolFactory;
+            StorageT
