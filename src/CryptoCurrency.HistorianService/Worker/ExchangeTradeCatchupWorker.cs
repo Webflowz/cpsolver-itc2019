@@ -48,4 +48,19 @@ namespace CryptoCurrency.HistorianService.Worker
         {
             LoggerFactory = loggerFactory;
             SymbolFactory = symbolFactory;
-            StorageT
+            StorageTransactionFactory = storageTransactionFactory;
+            ExchangeTradeProvider = exchangeTradeProvider;
+            HistorianRepository = historianRepository;
+        }
+
+        public void Start(IExchangeWorker exchangeWorker, int limit)
+        {
+            ExchangeWorker = exchangeWorker;
+
+            HttpClient = Exchange.GetHttpClient();
+
+            Logger = LoggerFactory.CreateLogger($"Historian.{Exchange.Name}.Worker.TradeCatchup");
+
+            using (Logger.BeginExchangeScope(Exchange.Name))
+            {
+                EnsureHistoric
