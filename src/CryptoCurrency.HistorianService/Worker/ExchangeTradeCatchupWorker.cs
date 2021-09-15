@@ -79,4 +79,18 @@ namespace CryptoCurrency.HistorianService.Worker
             foreach (var symbolCode in ExchangeWorker.Configuration.Symbol)
             {
                 var symbol = SymbolFactory.Get(symbolCode);
-                var lastTradeFilter = await HistorianRepository.GetTradeFilter(Exchange.Name, sym
+                var lastTradeFilter = await HistorianRepository.GetTradeFilter(Exchange.Name, symbolCode);
+
+                var priority = string.Equals(lastTradeFilter, Exchange.GetHttpClient().InitialTradeFilter) ? 2 : 1;
+                
+                var catchup = new HistorianTradeCatchup
+                {
+                    Exchange = Exchange.Name,
+                    SymbolCode = symbolCode,
+                    TradeFilter = lastTradeFilter,
+                    EpochTo = Epoch.Now,
+                    CurrentTradeFilter = lastTradeFilter,
+                    Priority = priority
+                };
+
+                await HistorianRepository.Add
