@@ -93,4 +93,20 @@ namespace CryptoCurrency.HistorianService.Worker
                     Priority = priority
                 };
 
-                await HistorianRepository.Add
+                await HistorianRepository.AddTradeCatchup(catchup);
+            }
+        }
+
+        private void BeginTradeCatchupWorker(int limit) => Task.Run(async () =>
+        {
+            using (Logger.BeginProtocolScope("Https"))
+            {
+                while (true)
+                {
+                    foreach (var symbolCode in ExchangeWorker.Configuration.Symbol)
+                    {
+                        using (Logger.BeginSymbolScope(symbolCode))
+                        {
+                            var symbol = SymbolFactory.Get(symbolCode);
+
+                      
