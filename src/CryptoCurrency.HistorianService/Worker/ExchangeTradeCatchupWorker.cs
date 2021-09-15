@@ -109,4 +109,19 @@ namespace CryptoCurrency.HistorianService.Worker
                         {
                             var symbol = SymbolFactory.Get(symbolCode);
 
-                      
+                            if (!symbol.Tradable)
+                                continue;
+
+                            try
+                            {
+                                if (!ExchangeWorker.Online)
+                                {
+                                    await Task.Delay(2000);
+
+                                    continue;
+                                }
+
+                                var current = await HistorianRepository.GetNextTradeCatchup(Exchange.Name, symbolCode);
+
+                                if (current == null)
+                    
