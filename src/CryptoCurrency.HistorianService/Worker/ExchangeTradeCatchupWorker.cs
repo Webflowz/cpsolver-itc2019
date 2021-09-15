@@ -63,4 +63,20 @@ namespace CryptoCurrency.HistorianService.Worker
 
             using (Logger.BeginExchangeScope(Exchange.Name))
             {
-                EnsureHistoric
+                EnsureHistoricalTrades();
+
+                BeginTradeCatchupWorker(limit);
+            }
+        }
+
+        private async void EnsureHistoricalTrades()
+        {
+            if (!Exchange.SupportsHistoricalLoad)
+                return;
+
+            Logger.LogInformation("Ensure historical trades are captured.");
+
+            foreach (var symbolCode in ExchangeWorker.Configuration.Symbol)
+            {
+                var symbol = SymbolFactory.Get(symbolCode);
+                var lastTradeFilter = await HistorianRepository.GetTradeFilter(Exchange.Name, sym
