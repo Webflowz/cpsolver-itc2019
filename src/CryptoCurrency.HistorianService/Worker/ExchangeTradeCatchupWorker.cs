@@ -124,4 +124,15 @@ namespace CryptoCurrency.HistorianService.Worker
                                 var current = await HistorianRepository.GetNextTradeCatchup(Exchange.Name, symbolCode);
 
                                 if (current == null)
-                    
+                                    continue;
+
+                                TradeResult result = null;
+
+                                using (var transaction = await StorageTransactionFactory.Begin())
+                                {
+                                    result = await ExchangeTradeProvider.ReceiveTradesHttp(transaction, Logger, Exchange.Name, symbol, HttpClient, limit, current.CurrentTradeFilter);
+
+                                    await transaction.Commit();
+                                }
+
+                                if (result == null)
