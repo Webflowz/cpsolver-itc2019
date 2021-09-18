@@ -136,3 +136,15 @@ namespace CryptoCurrency.HistorianService.Worker
                                 }
 
                                 if (result == null)
+                                    continue;
+
+                                var lastTrade = result.Trades.LastOrDefault();
+
+                                if (lastTrade.Epoch.TimestampMilliseconds > current.EpochTo.TimestampMilliseconds)
+                                {
+                                    await HistorianRepository.RemoveTradeCatchup(current);
+                                }
+                                else
+                                {
+                                    current.CurrentTradeFilter = result.Filter;
+         
