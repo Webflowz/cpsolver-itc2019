@@ -147,4 +147,17 @@ namespace CryptoCurrency.HistorianService.Worker
                                 else
                                 {
                                     current.CurrentTradeFilter = result.Filter;
-         
+                                    await HistorianRepository.UpdateTradeCatchup(current);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.LogError(ex, "Unable to get trade catchup jobs.");
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
