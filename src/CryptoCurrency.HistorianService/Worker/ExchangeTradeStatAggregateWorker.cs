@@ -106,3 +106,24 @@ namespace CryptoCurrency.HistorianService.Worker
 
                                         await transaction.Commit();
                                     }
+
+                                    var e = DateTime.Now;
+
+                                    logger.LogInformation($"Aggregation up to trade stat id {tradeStatId} took {(e.Subtract(s).TotalMilliseconds)}ms.");
+                                }
+
+                                await Task.Delay(5);
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.LogCritical(ex, "Aggregation failed.");
+
+                                await Task.Delay(250);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
