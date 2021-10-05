@@ -2,4 +2,6 @@
 {
     public interface IExchangeTradeWorker
     {
-     
+        void Start(IExchangeWorker exchangeWorker, int limit);
+    }
+}
