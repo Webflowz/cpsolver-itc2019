@@ -12,4 +12,18 @@ namespace CryptoCurrency.Repository.Edm.Historian
         public int SymbolId { get; set; }
 
         [Column("timestamp")]
-        pu
+        public long Timestamp { get; set; }
+
+        [Column("trade_id")]
+        public long TradeId { get; set; }
+
+        [Column("order_side_id")]
+        public int? OrderSideId { get; set; }
+        
+        [Column("price")]
+        public decimal Price { get; set; }
+
+        [Column("volume")]
+        public decimal Volume { get; set; }
+    }
+}
