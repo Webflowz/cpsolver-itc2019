@@ -45,4 +45,18 @@ namespace CryptoCurrency.Repository.Edm.Historian
                 .HasKey(k => new { k.ExchangeId, k.SymbolId, k.Timestamp, k.TradeId });
 
             modelBuilder.Entity<ExchangeTradeStatEntity>()
-                .HasKey(k => new { k.ExchangeId, k.SymbolId, k.StatKey
+                .HasKey(k => new { k.ExchangeId, k.SymbolId, k.StatKeyId, k.Timestamp, k.TradeStatId });
+
+            modelBuilder.Entity<ExchangeTradeAggregateEntity>()
+                .HasKey(k => new { k.ExchangeId, k.SymbolId, k.IntervalKey, k.Timestamp });
+
+            modelBuilder.Entity<ExchangeSymbolEntity>()
+                .HasKey(k => new { k.ExchangeId, k.SymbolId });
+            
+            modelBuilder.Entity<IntervalEntity>()
+                .HasKey(k => new { k.IntervalKey, k.FromTimestamp });
+
+            modelBuilder.Entity<HistorianExchangeSymbolEntity>()
+                .HasKey(k => new { k.ExchangeId, k.SymbolId });
+
+    
