@@ -33,4 +33,16 @@ namespace CryptoCurrency.Repository.Edm.Historian
 
         public DbSet<OrderSideEntity> OrderSide { get; set; }
 
-        public HistorianDbContext(DbContextOptions<Hist
+        public HistorianDbContext(DbContextOptions<HistorianDbContext> options, ILoggerFactory loggerFactory) : base(options)
+        {
+            LoggerFactory = loggerFactory;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Define any composite key tables
+            modelBuilder.Entity<ExchangeTradeEntity>()
+                .HasKey(k => new { k.ExchangeId, k.SymbolId, k.Timestamp, k.TradeId });
+
+            modelBuilder.Entity<ExchangeTradeStatEntity>()
+                .HasKey(k => new { k.ExchangeId, k.SymbolId, k.StatKey
