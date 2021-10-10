@@ -19,4 +19,18 @@ namespace CryptoCurrency.Repository.Edm.Historian
 
         public DbSet<ExchangeTradeStatEntity> ExchangeTradeStat { get; set; }
 
-        public DbSet<Exchange
+        public DbSet<ExchangeTradeAggregateEntity> ExchangeTradeAggregate { get; set; }
+
+        public DbSet<IntervalKeyEntity> IntervalKey { get; set; }
+
+        public DbSet<IntervalEntity> Interval { get; set; }
+
+        public DbSet<HistorianExchangeSymbolEntity> HistorianExchangeSymbol { get; set; }
+
+        public DbSet<HistorianTradeCatchupEntity> HistorianTradeCatchup { get; set; }
+
+        public DbSet<HistorianLogEntity> HistorianLog { get; set; }
+
+        public DbSet<OrderSideEntity> OrderSide { get; set; }
+
+        public HistorianDbContext(DbContextOptions<Hist
