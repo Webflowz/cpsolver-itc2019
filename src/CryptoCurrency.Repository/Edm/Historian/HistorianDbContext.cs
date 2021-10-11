@@ -59,4 +59,8 @@ namespace CryptoCurrency.Repository.Edm.Historian
             modelBuilder.Entity<HistorianExchangeSymbolEntity>()
                 .HasKey(k => new { k.ExchangeId, k.SymbolId });
 
-    
+            modelBuilder.Entity<HistorianTradeCatchupEntity>()
+                .HasKey(k => new { k.ExchangeId, k.SymbolId, k.TradeFilter });
+        }
+    }
+}
