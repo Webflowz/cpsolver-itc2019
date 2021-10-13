@@ -23,4 +23,18 @@ namespace CryptoCurrency.Repository.Edm.Historian
 
             var connectionString = Configuration.Value.HistorianConnectionString;
 
-            builder.UseLoggerFactory(LoggerFa
+            builder.UseLoggerFactory(LoggerFactory);
+
+            builder.UseMySQL(connectionString);
+
+            builder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+            Options = builder.Options;
+        }
+
+        public HistorianDbContext CreateDbContext(string[] args)
+        {
+            return new HistorianDbContext(Options, LoggerFactory);
+        }
+    }
+}
