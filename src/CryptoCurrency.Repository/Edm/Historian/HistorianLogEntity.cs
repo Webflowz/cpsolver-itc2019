@@ -1,10 +1,11 @@
+
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CryptoCurrency.Repository.Edm.Historian
 {
-    [Table("historian_exchange_log")]
-    public class HistorianExchangeLogEntity
+    [Table("historian_log")]
+    public class HistorianLogEntity
     {
         [Key]
         [Column("log_id")]
@@ -30,7 +31,7 @@ namespace CryptoCurrency.Repository.Edm.Historian
 
         [Column("symbol_id")]
         public int? SymbolId { get; set; }
-
+        
         [Column("protocol")]
         public string Protocol { get; set; }
     }
