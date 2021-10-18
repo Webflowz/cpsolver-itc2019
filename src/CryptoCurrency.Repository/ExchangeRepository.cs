@@ -58,4 +58,7 @@ namespace CryptoCurrency.Repository
 
                     await context.SaveChangesAsync();
                 }
-     
+            }
+        }
+    }
+}
