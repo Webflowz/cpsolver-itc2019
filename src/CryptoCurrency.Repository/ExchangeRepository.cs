@@ -42,4 +42,20 @@ namespace CryptoCurrency.Repository
             }
         }
 
-        public async Task AddSymbol(ExchangeEnum exchange
+        public async Task AddSymbol(ExchangeEnum exchange, SymbolCodeEnum symbolCode)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var entity = new ExchangeSymbolEntity
+                {
+                    ExchangeId = (int)exchange,
+                    SymbolId = (int)symbolCode
+                };
+
+                if(await context.ExchangeSymbol.FindAsync(entity.ExchangeId, entity.SymbolId) == null)
+                {
+                    await context.ExchangeSymbol.AddAsync(entity);
+
+                    await context.SaveChangesAsync();
+                }
+     
