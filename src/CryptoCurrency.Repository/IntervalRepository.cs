@@ -12,4 +12,19 @@ using CryptoCurrency.Repository.Edm.Historian;
 
 namespace CryptoCurrency.Repository
 {
-    public class I
+    public class IntervalRepository : IIntervalRepository
+    {
+        private IIntervalFactory IntervalFactory { get; set; }
+
+        private IDesignTimeDbContextFactory<HistorianDbContext> ContextFactory { get; set; }
+
+        public IntervalRepository(IIntervalFactory intervalFactory, IDesignTimeDbContextFactory<HistorianDbContext> contextFactory)
+        {
+            IntervalFactory = intervalFactory;
+
+            ContextFactory = contextFactory;
+        }
+
+        public async Task Add(IntervalKey intervalKey)
+        {
+            using (var context = ContextFactory.Cr
