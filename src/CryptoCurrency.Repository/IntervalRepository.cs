@@ -27,4 +27,18 @@ namespace CryptoCurrency.Repository
 
         public async Task Add(IntervalKey intervalKey)
         {
-            using (var context = ContextFactory.Cr
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                if (await context.IntervalKey.FindAsync(intervalKey.Key) == null)
+                {
+                    await context.IntervalKey.AddAsync(new IntervalKeyEntity
+                    {
+                        IntervalKey = intervalKey.Key,
+                        IntervalGroupId = (int)intervalKey.IntervalGroup,
+                        Label = intervalKey.Label
+                    });
+
+                    await context.SaveChangesAsync();
+
+                    var from = new DateTime(2008, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                    var to = new
