@@ -31,4 +31,13 @@ namespace CryptoCurrency.Repository
         }
 
         public void Dispose()
-  
+        {
+            Rollback().Wait();
+        }
+
+        public Task Rollback() => Task.Run(() =>
+        {
+            Context.Dispose();
+        });
+    }
+}
