@@ -41,4 +41,22 @@ namespace CryptoCurrency.Repository
                     await context.SaveChangesAsync();
 
                     var from = new DateTime(2008, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                    var to = new
+                    var to = new DateTime(DateTime.Now.Year + 2, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+                    var cursor = from;
+
+                    while (cursor < to)
+                    {
+                        var intervals = IntervalFactory.GenerateIntervals(intervalKey, new Epoch(cursor), new Epoch(cursor.AddYears(1)));
+
+                        await AddInterval(intervals);
+
+                        cursor = cursor.AddYears(1);
+                    }
+                }
+            }
+        }
+
+        public async Task AddInterval(ICollection<Interval> interval)
+        {
+            using 
