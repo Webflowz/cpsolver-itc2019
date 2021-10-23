@@ -59,4 +59,18 @@ namespace CryptoCurrency.Repository
 
         public async Task AddInterval(ICollection<Interval> interval)
         {
-            using 
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                // Process 100k at a time to manage memory
+                var cursor = 0;
+                var chunkCount = 100000;
+
+                using (var cmd = context.Database.GetDbConnection().CreateCommand())
+                {
+                    await cmd.Connection.OpenAsync();
+
+                    while (cursor <= interval.Count)
+                    {
+                        var chunk = interval.Skip(cursor).Take(chunkCount);
+
+                        var sql = $"insert ignore into `interval` 
