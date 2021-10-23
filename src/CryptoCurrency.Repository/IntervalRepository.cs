@@ -73,4 +73,16 @@ namespace CryptoCurrency.Repository
                     {
                         var chunk = interval.Skip(cursor).Take(chunkCount);
 
-                        var sql = $"insert ignore into `interval` 
+                        var sql = $"insert ignore into `interval` (`interval_key`, `from_timestamp`, `to_timestamp`) values {string.Join(",", chunk.Select(i => $"('{i.IntervalKey.Key}',{i.From.TimestampMilliseconds},{i.To.TimestampMilliseconds})"))}";
+
+                        cmd.CommandText = sql;
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        cursor += chunkCount;
+                    }
+                }
+            }
+        }
+    }
+}
