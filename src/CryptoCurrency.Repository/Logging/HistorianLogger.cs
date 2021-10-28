@@ -22,4 +22,22 @@ namespace CryptoCurrency.Repository.Logging
         
         public HistorianLogger(HistorianLoggerProvider loggerProvider, string categoryName)
         {
-     
+            LoggerProvider = loggerProvider;
+            CategoryName = categoryName;
+            State = new Dictionary<string, object>();
+        }
+
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            if (!ValidCategory())
+                return state as IDisposable;
+
+            var properties =
+                from property in state.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                select new
+                {
+                    Name = property.Name,
+                    Value = property.GetValue(state, null)
+                };
+
+            foreach (var propert
