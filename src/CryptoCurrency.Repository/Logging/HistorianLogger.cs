@@ -56,4 +56,17 @@ namespace CryptoCurrency.Repository.Logging
             return !(new[] { LogLevel.Debug, LogLevel.Trace }).Contains(logLevel);
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+            if (!ValidCategory())
+                return;
+
+            var logItem = new HistorianLogItem
+            {
+                Epoch = Epoch.Now,
+                LogLevel = logLevel,
+                Category = CategoryName,
+                Message = formatter(state, exception),
+                Exception = exception,
+                Exchange = State.ContainsKey("Exchange") ? (ExchangeEnum)State["Exchange"] : (ExchangeEnum?)null,
+                SymbolCode = State.ContainsKey("SymbolCode") ? (SymbolCodeEnum)State["SymbolCode"] : 
