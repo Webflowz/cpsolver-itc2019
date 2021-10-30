@@ -40,4 +40,20 @@ namespace CryptoCurrency.Repository.Logging
                     Value = property.GetValue(state, null)
                 };
 
-            foreach (var propert
+            foreach (var property in properties)
+            {
+                if (!State.ContainsKey(property.Name))
+                    State.Add(property.Name, property.Value);
+                else
+                    State[property.Name] = property.Value;
+            }
+
+            return state as IDisposable;
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return !(new[] { LogLevel.Debug, LogLevel.Trace }).Contains(logLevel);
+        }
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func
