@@ -69,4 +69,22 @@ namespace CryptoCurrency.Repository.Logging
                 Message = formatter(state, exception),
                 Exception = exception,
                 Exchange = State.ContainsKey("Exchange") ? (ExchangeEnum)State["Exchange"] : (ExchangeEnum?)null,
-                SymbolCode = State.ContainsKey("SymbolCode") ? (SymbolCodeEnum)State["SymbolCode"] : 
+                SymbolCode = State.ContainsKey("SymbolCode") ? (SymbolCodeEnum)State["SymbolCode"] : (SymbolCodeEnum?)null,
+                Worker = State.ContainsKey("Worker") ? (string)State["Worker"] : null,
+                Protocol = State.ContainsKey("Protocol") ? (string)State["Protocol"] : null
+            };
+
+            LoggerProvider.Enqueue(logItem);
+        }
+
+        private bool ValidCategory()
+        {
+            if (string.IsNullOrEmpty(CategoryName))
+                return false;
+
+            var parts = CategoryName.Split(".");
+
+            return string.Equals(parts[0], "Historian");
+        }
+    }
+}
