@@ -16,4 +16,21 @@ using CryptoCurrency.Core.Symbol;
 using CryptoCurrency.Core.StorageTransaction;
 
 using CryptoCurrency.Repository.Edm.Historian;
-using Syste
+using System;
+
+namespace CryptoCurrency.Repository
+{
+    public class MarketRepository : IMarketRepository
+    {
+        private ILogger Logger { get; set; }
+
+        private IIntervalFactory IntervalFactory { get; set; }
+
+        private IDesignTimeDbContextFactory<HistorianDbContext> ContextFactory { get; set; }
+
+        private IStorageTransactionFactory<HistorianDbContext> StorageTransactionFactory { get; set; }
+
+        public MarketRepository(
+            ILoggerFactory loggerFactory, 
+            IIntervalFactory intervalFactory, 
+            IDesignTimeDbContextFactory<Histo
