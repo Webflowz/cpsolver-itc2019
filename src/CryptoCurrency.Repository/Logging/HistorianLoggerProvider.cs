@@ -44,3 +44,14 @@ namespace CryptoCurrency.Repository.Logging
             {
                 if (Queue.Count > 0)
                 {
+                    HistorianLogItem logItem;
+
+                    if (Queue.TryDequeue(out logItem))
+                        await HistorianRepository.WriteLog(logItem);
+                }
+
+                await Task.Delay(25);
+            }
+        });
+    }
+}
