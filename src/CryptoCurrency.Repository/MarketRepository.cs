@@ -33,4 +33,17 @@ namespace CryptoCurrency.Repository
         public MarketRepository(
             ILoggerFactory loggerFactory, 
             IIntervalFactory intervalFactory, 
-            IDesignTimeDbContextFactory<Histo
+            IDesignTimeDbContextFactory<HistorianDbContext> contextFactory,
+            IStorageTransactionFactory<HistorianDbContext> storageTransactionFactory)
+        {
+            IntervalFactory = intervalFactory;
+            ContextFactory = contextFactory;
+            StorageTransactionFactory = storageTransactionFactory;
+
+            Logger = loggerFactory.CreateLogger<MarketRepository>();
+        }
+
+        public async Task<MarketTick> GetTick(ExchangeEnum exchange, SymbolCodeEnum symbolCode, Epoch at)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+         
