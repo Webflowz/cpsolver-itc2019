@@ -59,4 +59,21 @@ namespace CryptoCurrency.Repository
                         t.SymbolId == (int)symbolCode && 
                         t.Timestamp >= minAt.TimestampMilliseconds &&
                         t.Timestamp <= at.TimestampMilliseconds && 
-                        t.OrderSideId == (in
+                        t.OrderSideId == (int)OrderSideEnum.Buy
+                    orderby
+                        t.ExchangeId,
+                        t.SymbolId,
+                        t.Timestamp descending
+                    select 
+                        t;
+
+                var buyTrade = await buyTradeQuery.FirstOrDefaultAsync();
+
+                var sellTradeQuery = 
+                    from 
+                        t 
+                    in 
+                        context.ExchangeTrade
+                    where 
+                        t.ExchangeId == (int)exchange && 
+                        t.SymbolId == 
