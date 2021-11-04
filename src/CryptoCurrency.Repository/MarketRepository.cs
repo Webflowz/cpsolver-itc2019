@@ -46,4 +46,17 @@ namespace CryptoCurrency.Repository
         public async Task<MarketTick> GetTick(ExchangeEnum exchange, SymbolCodeEnum symbolCode, Epoch at)
         {
             using (var context = ContextFactory.CreateDbContext(null))
-         
+            {
+                var minAt = at.AddSeconds((int)TimeSpan.FromDays(-1).TotalSeconds);
+
+                var buyTradeQuery = 
+                    from 
+                        t 
+                    in 
+                        context.ExchangeTrade
+                    where 
+                        t.ExchangeId == (int)exchange && 
+                        t.SymbolId == (int)symbolCode && 
+                        t.Timestamp >= minAt.TimestampMilliseconds &&
+                        t.Timestamp <= at.TimestampMilliseconds && 
+                        t.OrderSideId == (in
