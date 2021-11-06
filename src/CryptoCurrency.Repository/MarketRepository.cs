@@ -91,4 +91,18 @@ namespace CryptoCurrency.Repository
 
                 ExchangeTradeEntity lastTrade = null;
 
-             
+                if (buyTrade != null && sellTrade != null)
+                {
+                    lastTrade = buyTrade.Timestamp <= sellTrade.Timestamp ? buyTrade : sellTrade;
+                }
+                else
+                {
+                    var lastTradeQuery = 
+                        from 
+                            t 
+                        in 
+                            context.ExchangeTrade
+                        where
+                            t.ExchangeId == (int)exchange && 
+                            t.SymbolId == (int)symbolCode &&
+                            t.Timestamp >= min
