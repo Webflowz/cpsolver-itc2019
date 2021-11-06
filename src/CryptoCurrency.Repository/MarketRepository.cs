@@ -76,4 +76,19 @@ namespace CryptoCurrency.Repository
                         context.ExchangeTrade
                     where 
                         t.ExchangeId == (int)exchange && 
-                        t.SymbolId == 
+                        t.SymbolId == (int)symbolCode &&
+                        t.Timestamp >= minAt.TimestampMilliseconds &&
+                        t.Timestamp <= at.TimestampMilliseconds && 
+                        t.OrderSideId == (int)OrderSideEnum.Sell
+                    orderby
+                        t.ExchangeId,
+                        t.SymbolId,
+                        t.Timestamp descending
+                    select 
+                        t;
+
+                var sellTrade = await sellTradeQuery.FirstOrDefaultAsync();
+
+                ExchangeTradeEntity lastTrade = null;
+
+             
