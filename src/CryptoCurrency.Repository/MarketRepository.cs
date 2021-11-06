@@ -105,4 +105,21 @@ namespace CryptoCurrency.Repository
                         where
                             t.ExchangeId == (int)exchange && 
                             t.SymbolId == (int)symbolCode &&
-                            t.Timestamp >= min
+                            t.Timestamp >= minAt.TimestampMilliseconds &&
+                            t.Timestamp <= at.TimestampMilliseconds
+                        orderby
+                            t.ExchangeId,
+                            t.SymbolId,
+                            t.Timestamp descending
+                        select 
+                            t;
+
+                    lastTrade = await lastTradeQuery.FirstOrDefaultAsync();
+                }
+
+                if (lastTrade == null)
+                    return null;
+
+                return new MarketTick
+                {
+                    Exchange = exchange
