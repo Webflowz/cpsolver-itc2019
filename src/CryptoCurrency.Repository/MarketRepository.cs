@@ -122,4 +122,18 @@ namespace CryptoCurrency.Repository
 
                 return new MarketTick
                 {
-                    Exchange = exchange
+                    Exchange = exchange,
+                    SymbolCode = symbolCode,
+                    Epoch = at,
+                    BuyPrice = buyTrade != null ? buyTrade.Price : lastTrade.Price,
+                    SellPrice = sellTrade != null ? sellTrade.Price : lastTrade.Price,
+                    LastPrice = lastTrade.Price
+                };
+            }
+        }
+
+        public async Task<MarketTickAverage> GetTickAverage(ICollection<ExchangeEnum> exchanges, SymbolCodeEnum symbolCode, Epoch at)
+        {
+            var ticks = new Dictionary<ExchangeEnum, MarketTick>();
+
+            foreach(var e
