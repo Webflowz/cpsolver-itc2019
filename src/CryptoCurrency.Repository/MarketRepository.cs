@@ -136,4 +136,21 @@ namespace CryptoCurrency.Repository
         {
             var ticks = new Dictionary<ExchangeEnum, MarketTick>();
 
-            foreach(var e
+            foreach(var exchange in exchanges)
+            {
+                var tick = await GetTick(exchange, symbolCode, at);
+
+                if(tick != null)
+                    ticks.Add(exchange, tick);
+            }
+
+            if (ticks.Count == 0)
+                return null;
+
+            return new MarketTickAverage
+            {
+                Epoch = at,
+                SymbolCode = symbolCode,
+                BuyPrice = ticks.Values.Average(t => t.BuyPrice),
+                SellPrice = ticks.Values.Average(t => t.SellPrice),
+                LastP
