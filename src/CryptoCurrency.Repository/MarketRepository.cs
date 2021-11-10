@@ -153,4 +153,20 @@ namespace CryptoCurrency.Repository
                 SymbolCode = symbolCode,
                 BuyPrice = ticks.Values.Average(t => t.BuyPrice),
                 SellPrice = ticks.Values.Average(t => t.SellPrice),
-                LastP
+                LastPrice = ticks.Values.Average(t => t.LastPrice),
+                Exchanges = ticks.Keys.ToList()
+            };
+        }
+
+        public async Task<PagedCollection<MarketTrade>> GetTrades(ExchangeEnum exchange, SymbolCodeEnum symbolCode, Epoch from, Epoch to, int? pageSize, int? pageNumber)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var query =
+                    from
+                        t
+                    in
+                        context.ExchangeTrade
+                    where
+                        t.ExchangeId == (int)exchange &&
+     
