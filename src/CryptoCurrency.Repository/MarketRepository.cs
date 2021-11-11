@@ -169,4 +169,15 @@ namespace CryptoCurrency.Repository
                         context.ExchangeTrade
                     where
                         t.ExchangeId == (int)exchange &&
-     
+                        t.SymbolId == (int)symbolCode &&
+                        t.Timestamp >= @from.TimestampMilliseconds &&
+                        t.Timestamp <= to.TimestampMilliseconds
+                    select new
+                    {
+                        Exchange = exchange,
+                        SymbolCode = symbolCode,
+                        Timestamp = t.Timestamp,
+                        TradeId = t.TradeId,
+                        Side = t.OrderSideId.HasValue ? (OrderSideEnum)t.OrderSideId : (OrderSideEnum?)null,
+                        Price = t.Price,
+            
