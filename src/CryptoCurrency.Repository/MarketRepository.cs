@@ -180,4 +180,20 @@ namespace CryptoCurrency.Repository
                         TradeId = t.TradeId,
                         Side = t.OrderSideId.HasValue ? (OrderSideEnum)t.OrderSideId : (OrderSideEnum?)null,
                         Price = t.Price,
-            
+                        Volume = t.Volume
+                    };
+
+                var totalCount = 0;
+
+                if (pageSize.HasValue)
+                {
+                    totalCount = await query.CountAsync();
+
+                    query = query.Skip(pageNumber.GetValueOrDefault(0) * pageSize.Value).Take(pageSize.Value);
+                }
+
+                var trades = await query.ToListAsync();
+
+                return new PagedCollection<MarketTrade>()
+                {
+                    PageNumber = pageNumber.GetValueOrDefault(0),
