@@ -197,3 +197,14 @@ namespace CryptoCurrency.Repository
                 return new PagedCollection<MarketTrade>()
                 {
                     PageNumber = pageNumber.GetValueOrDefault(0),
+                    PageSize = pageSize.GetValueOrDefault(0),
+                    ItemCount = pageSize.HasValue ? totalCount : trades.Count,
+                    Items = trades.Select(t => new MarketTrade
+                    {
+                        Exchange = t.Exchange,
+                        SymbolCode = t.SymbolCode,
+                        Epoch = Epoch.FromMilliseconds(t.Timestamp),
+                        TradeId = t.TradeId,
+                        Side = t.Side,
+                        Price = t.Price,
+       
