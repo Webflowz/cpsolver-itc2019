@@ -207,4 +207,18 @@ namespace CryptoCurrency.Repository
                         TradeId = t.TradeId,
                         Side = t.Side,
                         Price = t.Price,
-       
+                        Volume = t.Volume
+                    }).ToList()
+                };
+            }
+        }
+
+        public async Task SaveTrades(IStorageTransaction transaction, ICollection<MarketTrade> trades)
+        {
+            var context = (HistorianDbContext)transaction.GetContext();
+
+            using (var cmd = context.Database.GetDbConnection().CreateCommand())
+            {
+                cmd.Transaction = context.Database.CurrentTransaction.GetDbTransaction();
+                
+                var sql = @"insert ignore
