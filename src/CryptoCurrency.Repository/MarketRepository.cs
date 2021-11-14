@@ -221,4 +221,17 @@ namespace CryptoCurrency.Repository
             {
                 cmd.Transaction = context.Database.CurrentTransaction.GetDbTransaction();
                 
-                var sql = @"insert ignore
+                var sql = @"insert ignore into `exchange_trade`
+                (`exchange_id`,
+                `symbol_id`,
+                `timestamp`,
+                `order_side_id`,
+                `price`,
+                `volume`,
+                `source_trade_id`) values ";
+
+                sql += string.Join(",", trades.Select(trade => $"({(int)trade.Exchange}," +
+                $"{(int)trade.SymbolCode}," +
+                $"{trade.Epoch.TimestampMilliseconds}," +
+                $"{(trade.Side.HasValue ? ((int)trade.Side).ToString() : "NULL")}," +
+                $
