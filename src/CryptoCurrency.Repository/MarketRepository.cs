@@ -259,4 +259,23 @@ namespace CryptoCurrency.Repository
                         Timestamp = t.Timestamp,
                         TradeId = (long)t.TradeId,
                         Side = t.OrderSideId.HasValue ? (OrderSideEnum)t.OrderSideId : (OrderSideEnum?)null,
+                        Price = t.Price,
+                        Volume = t.Volume
+                    });
+                
+                var raw = await trades.ToListAsync();
+
+                return raw.Select(t => new MarketTrade
+                {
+                    Exchange = t.Exchange,
+                    SymbolCode = t.SymbolCode,
+                    Epoch = Epoch.FromMilliseconds(t.Timestamp),
+                    TradeId = t.TradeId,
+                    Side = t.Side,
+                    Price = t.Price,
+                    Volume = t.Volume
+                }).ToList();
+            }
+        }
+
      
