@@ -234,4 +234,18 @@ namespace CryptoCurrency.Repository
                 $"{(int)trade.SymbolCode}," +
                 $"{trade.Epoch.TimestampMilliseconds}," +
                 $"{(trade.Side.HasValue ? ((int)trade.Side).ToString() : "NULL")}," +
-                $
+                $"{trade.Price}," +
+                $"{trade.Volume}," +
+                $"{(trade.SourceTradeId != null ? trade.SourceTradeId : "NULL")})"));
+
+                cmd.CommandText = sql;
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task<ICollection<MarketTrade>> GetNextTrades(ExchangeEnum exchange, SymbolCodeEnum symbolCode, long tradeId, int limit = 1)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var trades = context.Exchange
