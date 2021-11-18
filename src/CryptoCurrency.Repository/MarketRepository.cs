@@ -278,4 +278,12 @@ namespace CryptoCurrency.Repository
             }
         }
 
-     
+        public async Task<ICollection<MarketTrade>> GetNextTrades(ExchangeEnum exchange, SymbolCodeEnum symbolCode, Epoch from, long tradeId, int limit = 1)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var trades = context.ExchangeTrade
+                    .Where(t => t.ExchangeId == (int)exchange && t.SymbolId == (int)symbolCode && t.Timestamp >= from.TimestampMilliseconds && t.TradeId > tradeId)
+                    .OrderBy(t => t.TradeId)
+                    .Take(limit)
+                    .S
