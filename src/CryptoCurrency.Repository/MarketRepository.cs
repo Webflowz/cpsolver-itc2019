@@ -286,4 +286,17 @@ namespace CryptoCurrency.Repository
                     .Where(t => t.ExchangeId == (int)exchange && t.SymbolId == (int)symbolCode && t.Timestamp >= from.TimestampMilliseconds && t.TradeId > tradeId)
                     .OrderBy(t => t.TradeId)
                     .Take(limit)
-                    .S
+                    .Select(t => new
+                    {
+                        Exchange = exchange,
+                        SymbolCode = symbolCode,
+                        Timestamp = t.Timestamp,
+                        TradeId = (long)t.TradeId,
+                        Side = t.OrderSideId.HasValue ? (OrderSideEnum)t.OrderSideId : (OrderSideEnum?)null,
+                        Price = t.Price,
+                        Volume = t.Volume
+                    });
+
+                var raw = await trades.ToListAsync();
+
+                return raw.Select(t => new MarketT
