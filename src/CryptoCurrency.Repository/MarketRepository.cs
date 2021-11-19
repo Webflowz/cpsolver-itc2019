@@ -312,4 +312,17 @@ namespace CryptoCurrency.Repository
             }
         }
 
-        public async Task<ICollection<MarketAggregate>> GetTradeAggregates(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int
+        public async Task<ICollection<MarketAggregate>> GetTradeAggregates(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int dataPoints)
+        {
+            var intervals = IntervalFactory.GenerateIntervals(intervalKey, from, dataPoints);
+
+            var min = intervals.First();
+            var max = intervals.Last();
+
+            var aggs = await GetTradeAggregates(exchange, symbolCode, intervalKey, min.From, max.From, null, null);
+
+            return aggs.Items;
+        }
+
+        public async Task<PagedCollection<MarketAggregate>> GetTradeAggregates(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, Epoch to, int? pageSize, int? pageNumber)
+        {
