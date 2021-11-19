@@ -299,4 +299,17 @@ namespace CryptoCurrency.Repository
 
                 var raw = await trades.ToListAsync();
 
-                return raw.Select(t => new MarketT
+                return raw.Select(t => new MarketTrade
+                {
+                    Exchange = t.Exchange,
+                    SymbolCode = t.SymbolCode,
+                    Epoch = Epoch.FromMilliseconds(t.Timestamp),
+                    TradeId = t.TradeId,
+                    Side = t.Side,
+                    Price = t.Price,
+                    Volume = t.Volume
+                }).ToList();
+            }
+        }
+
+        public async Task<ICollection<MarketAggregate>> GetTradeAggregates(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, int
