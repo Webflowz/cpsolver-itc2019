@@ -326,3 +326,16 @@ namespace CryptoCurrency.Repository
 
         public async Task<PagedCollection<MarketAggregate>> GetTradeAggregates(ExchangeEnum exchange, SymbolCodeEnum symbolCode, IntervalKey intervalKey, Epoch from, Epoch to, int? pageSize, int? pageNumber)
         {
+            var intervals = IntervalFactory.GenerateIntervals(intervalKey, from, to);
+
+            var min = intervals.First();
+            var max = intervals.Last();
+
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var query = context.ExchangeTradeAggregate
+                    .Where(a => a.ExchangeId == (int)exchange && a.SymbolId == (int)symbolCode && a.IntervalKey == intervalKey.Key && a.Timestamp >= min.From.TimestampMilliseconds && a.Timestamp <= max.From.TimestampMilliseconds);
+
+                var totalCount = 0;
+
+  
