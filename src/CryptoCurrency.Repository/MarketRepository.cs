@@ -338,4 +338,17 @@ namespace CryptoCurrency.Repository
 
                 var totalCount = 0;
 
-  
+                if(pageSize.HasValue)
+                {
+                    totalCount = await query.CountAsync();
+
+                    query = query.Skip(pageNumber.GetValueOrDefault(0) * pageSize.Value).Take(pageSize.Value);
+                }
+
+                var aggs = await query.ToListAsync();
+
+                return new PagedCollection<MarketAggregate>()
+                {
+                    PageNumber = pageNumber.GetValueOrDefault(0),
+                    PageSize = pageSize.GetValueOrDefault(0),
+                    ItemCount = pageSize.Ha
