@@ -377,4 +377,18 @@ namespace CryptoCurrency.Repository
 
         private class TradeCartesian : MarketTrade
         {
-            public IntervalKey IntervalKe
+            public IntervalKey IntervalKey { get; set; }
+
+            public Epoch IntervalEpoch { get; set; }
+        }
+
+        public async Task SaveTradeAggregates(IStorageTransaction transaction, ExchangeEnum exchange, SymbolCodeEnum symbolCode, ICollection<MarketTrade> trades)
+        {
+            var min = trades.Min(t => t.Epoch);
+            var max = trades.Max(t => t.Epoch);
+
+            var expanded = new List<TradeCartesian>();
+
+            foreach(var group in IntervalFactory.ListGroups())
+            {
+                foreach(var ik in Interval
