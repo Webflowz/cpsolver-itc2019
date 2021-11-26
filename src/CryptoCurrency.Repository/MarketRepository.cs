@@ -351,4 +351,15 @@ namespace CryptoCurrency.Repository
                 {
                     PageNumber = pageNumber.GetValueOrDefault(0),
                     PageSize = pageSize.GetValueOrDefault(0),
-                    ItemCount = pageSize.Ha
+                    ItemCount = pageSize.HasValue ? totalCount : aggs.Count,
+                    Items = aggs.Select(a => new MarketAggregate
+                    {
+                        Exchange = exchange,
+                        Symbol = symbolCode,
+                        IntervalKey = a.IntervalKey,
+                        Epoch = Epoch.FromMilliseconds(a.Timestamp),
+                        Open = a.Open,
+                        OpenEpoch = Epoch.FromMilliseconds(a.OpenTimestamp),
+                        High = a.High,
+                        Low = a.Low,
+                        Close = a.Close
