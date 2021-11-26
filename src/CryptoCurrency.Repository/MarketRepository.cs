@@ -362,4 +362,19 @@ namespace CryptoCurrency.Repository
                         OpenEpoch = Epoch.FromMilliseconds(a.OpenTimestamp),
                         High = a.High,
                         Low = a.Low,
-                        Close = a.Close
+                        Close = a.Close,
+                        CloseEpoch = Epoch.FromMilliseconds(a.CloseTimestamp),
+                        BuyVolume = a.BuyVolume,
+                        SellVolume = a.SellVolume,
+                        TotalVolume = a.TotalVolume,
+                        BuyCount = a.BuyCount,
+                        SellCount = a.SellCount,
+                        TotalCount = a.TotalCount
+                    }).ToList()
+                };
+            }
+        }
+
+        private class TradeCartesian : MarketTrade
+        {
+            public IntervalKey IntervalKe
