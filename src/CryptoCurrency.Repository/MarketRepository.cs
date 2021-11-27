@@ -403,4 +403,21 @@ namespace CryptoCurrency.Repository
                             IntervalEpoch = period.From,
                             Exchange = trade.Exchange,
                             SymbolCode = trade.SymbolCode,
-  
+                            Epoch = trade.Epoch,
+                            TradeId = trade.TradeId,
+                            Price = trade.Price,
+                            Volume = trade.Volume,
+                            Side = trade.Side
+                        });
+
+                    }
+                }
+            }
+
+            var context = (HistorianDbContext)transaction.GetContext();
+
+            using (var cmd = context.Database.GetDbConnection().CreateCommand())
+            {
+                cmd.Transaction = context.Database.CurrentTransaction.GetDbTransaction();
+
+    
