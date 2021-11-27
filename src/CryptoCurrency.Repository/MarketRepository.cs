@@ -391,4 +391,16 @@ namespace CryptoCurrency.Repository
 
             foreach(var group in IntervalFactory.ListGroups())
             {
-                foreach(var ik in Interval
+                foreach(var ik in IntervalFactory.ListIntervalKeys(group.IntervalGroup))
+                {
+                    foreach(var trade in trades)
+                    {
+                        var period = IntervalFactory.GenerateIntervals(ik, trade.Epoch, trade.Epoch).FirstOrDefault();
+
+                        expanded.Add(new TradeCartesian
+                        {
+                            IntervalKey = period.IntervalKey,
+                            IntervalEpoch = period.From,
+                            Exchange = trade.Exchange,
+                            SymbolCode = trade.SymbolCode,
+  
