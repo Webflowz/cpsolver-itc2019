@@ -420,4 +420,22 @@ namespace CryptoCurrency.Repository
             {
                 cmd.Transaction = context.Database.CurrentTransaction.GetDbTransaction();
 
-    
+                var sql = @"insert into `exchange_trade_aggregate`
+                (`exchange_id`,
+                `symbol_id`,
+                `interval_key`,
+                `timestamp`,
+                `open`,
+                `open_timestamp`,
+                `high`,
+                `low`,
+                `close`,
+                `close_timestamp`,
+                `buy_volume`,
+                `sell_volume`,
+                `total_volume`,
+                `buy_count`,
+                `sell_count`,
+                `total_count`) values ";
+
+                sql += string.Join
