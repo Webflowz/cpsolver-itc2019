@@ -449,4 +449,14 @@ namespace CryptoCurrency.Repository
                     $"{t.Price}," +
                     $"{t.Price}," +
                     $"{t.Epoch.TimestampMilliseconds}," +
-                    $"{(t.Side == OrderSideEnu
+                    $"{(t.Side == OrderSideEnum.Buy ? t.Volume.ToString() : "NULL")}," +
+                    $"{(t.Side == OrderSideEnum.Sell ? t.Volume.ToString() : "NULL")}," +
+                    $"{t.Volume}," +
+                    $"{(t.Side == OrderSideEnum.Buy ? "1" : "NULL")}," +
+                    $"{(t.Side == OrderSideEnum.Sell ? "1" : "NULL")}," +
+                    $"1)"));
+
+                sql += @"
+                on duplicate key update
+	                `open` = case when values(`open_timestamp`) < `open_timestamp` then values(`open`) else `open` end,
+	                `open_timestamp` = case when values(`open_timestamp
