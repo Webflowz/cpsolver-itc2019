@@ -438,4 +438,15 @@ namespace CryptoCurrency.Repository
                 `sell_count`,
                 `total_count`) values ";
 
-                sql += string.Join
+                sql += string.Join(",\r\n", expanded.Select(t => $"(" +
+                    $"{(int)t.Exchange}," +
+                    $"{(int)t.SymbolCode}," +
+                    $"'{t.IntervalKey.Key}'," +
+                    $"{t.IntervalEpoch.TimestampMilliseconds}," +
+                    $"{t.Price}," +
+                    $"{t.Epoch.TimestampMilliseconds}," +
+                    $"{t.Price}," +
+                    $"{t.Price}," +
+                    $"{t.Price}," +
+                    $"{t.Epoch.TimestampMilliseconds}," +
+                    $"{(t.Side == OrderSideEnu
