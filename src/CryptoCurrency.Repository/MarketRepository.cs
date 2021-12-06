@@ -468,4 +468,17 @@ namespace CryptoCurrency.Repository
                     `sell_volume` = case when values(`sell_volume`) is not null then ifnull(`sell_volume`, 0) + values(`sell_volume`) else `sell_volume` end,
                     `total_volume` = `total_volume` + values(`total_volume`),
                     `buy_count` = case when values(`buy_count`) is not null then ifnull(`buy_count`, 0) + values(`buy_count`) else `buy_count` end,
-                    `sell_count` = case w
+                    `sell_count` = case when values(`sell_count`) is not null then ifnull(`sell_count`, 0) + values(`sell_count`) else `sell_count` end,
+                    `total_count` = `total_count` + values(`total_count`)";
+
+                cmd.CommandText = sql;
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+        
+        public async Task SaveTradeStats(IStorageTransaction transaction, ICollection<MarketTradeStat> tradeStats)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                using (var cmd = context.Database.GetDbConnection().
