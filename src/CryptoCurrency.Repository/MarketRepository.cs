@@ -481,4 +481,15 @@ namespace CryptoCurrency.Repository
         {
             using (var context = ContextFactory.CreateDbContext(null))
             {
-                using (var cmd = context.Database.GetDbConnection().
+                using (var cmd = context.Database.GetDbConnection().CreateCommand())
+                {
+                    cmd.CommandText = $@"insert ignore into `exchange_trade_stat`
+                    (`exchange_id`,
+                    `symbol_id`,
+                    `stat_key_id`,
+                    `timestamp`,
+                    `value`)
+                    values {string.Join(",\r\n", tradeStats.Select(t => $"({(int)t.Exchange},{(int)t.SymbolCode},{(int)t.StatKey},{t.Epoch.TimestampMilliseconds},{t.Value})"))}
+                    on duplicate key update `value` = values(`value`)";
+
+                    aw
