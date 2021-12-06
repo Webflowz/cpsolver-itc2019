@@ -492,4 +492,18 @@ namespace CryptoCurrency.Repository
                     values {string.Join(",\r\n", tradeStats.Select(t => $"({(int)t.Exchange},{(int)t.SymbolCode},{(int)t.StatKey},{t.Epoch.TimestampMilliseconds},{t.Value})"))}
                     on duplicate key update `value` = values(`value`)";
 
-                    aw
+                    await cmd.Connection.OpenAsync();
+
+                    await cmd.ExecuteNonQueryAsync();
+
+                    cmd.Connection.Close();
+                }
+            }
+        }
+
+        public async Task<ICollection<MarketTradeStat>> GetNextTradeStats(ExchangeEnum exchange, SymbolCodeEnum symbolCode, ExchangeStatsKeyEnum statKey, long tradeStatId, int limit = 1)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var tradeStats = context.ExchangeTradeStat
+                    .Where(t => t.ExchangeId == (int
