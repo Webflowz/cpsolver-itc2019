@@ -506,4 +506,14 @@ namespace CryptoCurrency.Repository
             using (var context = ContextFactory.CreateDbContext(null))
             {
                 var tradeStats = context.ExchangeTradeStat
-                    .Where(t => t.ExchangeId == (int
+                    .Where(t => t.ExchangeId == (int)exchange && t.SymbolId == (int)symbolCode && t.StatKeyId == (int)statKey && t.TradeStatId > tradeStatId)
+                    .OrderBy(t => t.TradeStatId)
+                    .Take(limit)
+                    .Select(t => new
+                    {
+                        Exchange = exchange,
+                        SymbolCode = symbolCode,
+                        StatKey = statKey,
+                        Timestamp = t.Timestamp,
+                        TradeStatId = (long)t.TradeStatId,
+                 
