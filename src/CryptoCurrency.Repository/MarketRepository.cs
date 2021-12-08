@@ -547,4 +547,15 @@ namespace CryptoCurrency.Repository
 
             var expanded = new List<TradeStatCartesian>();
 
-            foreach (var g
+            foreach (var group in IntervalFactory.ListGroups())
+            {
+                foreach (var ik in IntervalFactory.ListIntervalKeys(group.IntervalGroup))
+                {
+                    foreach (var tradeStat in tradeStats)
+                    {
+                        var period = IntervalFactory.GenerateIntervals(ik, tradeStat.Epoch, tradeStat.Epoch).FirstOrDefault();
+
+                        expanded.Add(new TradeStatCartesian
+                        {
+                            IntervalKey = period.IntervalKey,
+                            IntervalEpo
