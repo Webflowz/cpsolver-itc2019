@@ -516,4 +516,21 @@ namespace CryptoCurrency.Repository
                         StatKey = statKey,
                         Timestamp = t.Timestamp,
                         TradeStatId = (long)t.TradeStatId,
-                 
+                        Value = t.Value
+                    });
+
+                var raw = await tradeStats.ToListAsync();
+
+                return raw.Select(t => new MarketTradeStat
+                {
+                    Exchange = t.Exchange,
+                    SymbolCode = t.SymbolCode,
+                    StatKey = t.StatKey,
+                    Epoch = Epoch.FromMilliseconds(t.Timestamp),
+                    TradeStatId = t.TradeStatId,
+                    Value = t.Value
+                }).ToList();
+            }
+        }
+
+        private
