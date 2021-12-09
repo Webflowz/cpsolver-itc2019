@@ -590,3 +590,16 @@ namespace CryptoCurrency.Repository
                     sql += string.Join(",\r\n", expanded.Select(t => $"(" +
                         $"{(int)t.Exchange}," +
                         $"{(int)t.SymbolCode}," +
+                        $"'{t.IntervalKey.Key}'," +
+                        $"{t.IntervalEpoch.TimestampMilliseconds}," +
+                        $"{t.Value}," +
+                        $"{t.Epoch.TimestampMilliseconds}," +
+                        $"{t.Value}," +
+                        $"{t.Value}," +
+                        $"{t.Value}," +
+                        $"{t.Epoch.TimestampMilliseconds}," +
+                        $"1)"));
+
+                    sql += @"
+                    on duplicate key update
+	                    `open` = case when values(`open_t
