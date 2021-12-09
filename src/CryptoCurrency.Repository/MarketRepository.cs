@@ -558,4 +558,20 @@ namespace CryptoCurrency.Repository
                         expanded.Add(new TradeStatCartesian
                         {
                             IntervalKey = period.IntervalKey,
-                            IntervalEpo
+                            IntervalEpoch = period.From,
+                            Exchange = tradeStat.Exchange,
+                            SymbolCode = symbolCode,
+                            StatKey = tradeStat.StatKey,
+                            Epoch = tradeStat.Epoch,
+                            Value = tradeStat.Value
+                        });
+
+                    }
+                }
+            }
+
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                using (var cmd = context.Database.GetDbConnection().CreateCommand())
+                {
+                    var sql = @"insert into `exch
