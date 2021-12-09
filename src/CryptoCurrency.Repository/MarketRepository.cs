@@ -574,4 +574,19 @@ namespace CryptoCurrency.Repository
             {
                 using (var cmd = context.Database.GetDbConnection().CreateCommand())
                 {
-                    var sql = @"insert into `exch
+                    var sql = @"insert into `exchange_trade_aggregate`
+                    (`exchange_id`,
+                    `symbol_id`,
+                    `interval_key`,
+                    `timestamp`,
+                    `open`,
+                    `open_timestamp`,
+                    `high`,
+                    `low`,
+                    `close`,
+                    `close_timestamp`,
+                    `total_count`) values ";
+
+                    sql += string.Join(",\r\n", expanded.Select(t => $"(" +
+                        $"{(int)t.Exchange}," +
+                        $"{(int)t.SymbolCode}," +
