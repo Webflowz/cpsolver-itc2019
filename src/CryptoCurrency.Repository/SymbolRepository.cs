@@ -15,4 +15,20 @@ namespace CryptoCurrency.Repository
         private IDesignTimeDbContextFactory<HistorianDbContext> ContextFactory { get; set; }
 
         public SymbolRepository(ILoggerFactory loggerFactory, IDesignTimeDbContextFactory<HistorianDbContext> contextFactory)
-       
+        {
+            LoggerFactory = loggerFactory;
+
+            ContextFactory = contextFactory;
+        }
+
+        public async Task Add(ISymbol symbol)
+        {
+            using (var context = ContextFactory.CreateDbContext(null))
+            {
+                var entity = new SymbolEntity
+                {
+                    Id = (int)symbol.Code,
+                    Code = symbol.Code.ToString(),
+                    BaseCurrencyId = (int)symbol.BaseCurrencyCode,
+                    QuoteCurrencyId = (int)symbol.QuoteCurrencyCode,
+           
