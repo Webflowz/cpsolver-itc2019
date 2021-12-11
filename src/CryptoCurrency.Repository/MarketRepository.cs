@@ -607,4 +607,18 @@ namespace CryptoCurrency.Repository
                         `high` = case when values(`high`) > `high` then values(`high`) else `high` end,
                         `low` = case when values(`low`) < `low` then values(`low`) else `low` end,
                         `close` = case when values(`close_timestamp`) > `close_timestamp` then values(`close`) else `close` end,
-	                    `close_timestamp` = case when values(`cl
+	                    `close_timestamp` = case when values(`close_timestamp`) > `close_timestamp` then values(`close_timestamp`) else `close_timestamp` end,
+	                    `total_count` = `total_count` + values(`total_count`)";
+
+                     cmd.CommandText = sql;
+
+                    await cmd.Connection.OpenAsync();
+
+                    await cmd.ExecuteNonQueryAsync();
+
+                    cmd.Connection.Close();
+                }
+            }
+        }
+    }
+}
