@@ -602,4 +602,9 @@ namespace CryptoCurrency.Repository
 
                     sql += @"
                     on duplicate key update
-	                    `open` = case when values(`open_t
+	                    `open` = case when values(`open_timestamp`) < `open_timestamp` then values(`open`) else `open` end,
+	                    `open_timestamp` = case when values(`open_timestamp`) < `open_timestamp` then values(`open_timestamp`) else `open_timestamp` end,
+                        `high` = case when values(`high`) > `high` then values(`high`) else `high` end,
+                        `low` = case when values(`low`) < `low` then values(`low`) else `low` end,
+                        `close` = case when values(`close_timestamp`) > `close_timestamp` then values(`close`) else `close` end,
+	                    `close_timestamp` = case when values(`cl
