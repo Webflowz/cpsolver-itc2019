@@ -29,4 +29,14 @@ namespace CryptoCurrency.ExchangeClient.Tests
         }
 
         [Test]
-        public async Ta
+        public async Task GetTradesRequestIsValid()
+        {
+            foreach (var symbolCode in Exchange.Symbol)
+            {
+                var symbol = SymbolFactory.Get(symbolCode);
+
+                await ExchangeHttpClientTests.HttpGetTradeRequestIsValid(Exchange, symbol);
+            }
+        }
+    }
+}
