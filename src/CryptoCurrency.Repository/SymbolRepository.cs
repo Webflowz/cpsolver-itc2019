@@ -31,4 +31,16 @@ namespace CryptoCurrency.Repository
                     Code = symbol.Code.ToString(),
                     BaseCurrencyId = (int)symbol.BaseCurrencyCode,
                     QuoteCurrencyId = (int)symbol.QuoteCurrencyCode,
-           
+                    Tradable = symbol.Tradable ? 1 : 0
+                };
+
+                if (await context.Symbol.FindAsync(entity.Id) == null)
+                {
+                    await context.Symbol.AddAsync(entity);
+
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+    }
+}
