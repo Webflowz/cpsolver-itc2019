@@ -29,4 +29,15 @@ namespace CryptoCurrency.ExchangeClient.Tests
 
             await Exchange.Initialize();
 
-            WebSocketTes
+            WebSocketTest = new ExchangeWebSocketClientTests(Exchange);
+        }
+
+        [Test]
+        public void CanReceiveTrades()
+        {
+            var symbol = SymbolFactory.Get(CurrencyCodeEnum.ETH, CurrencyCodeEnum.BTC);
+
+            WebSocketTest.CanReceiveTrades(symbol);
+        }
+    }
+}
