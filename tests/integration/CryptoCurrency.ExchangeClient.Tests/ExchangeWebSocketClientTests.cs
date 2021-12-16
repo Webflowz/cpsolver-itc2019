@@ -17,4 +17,27 @@ namespace CryptoCurrency.ExchangeClient.Tests
 
         public ExchangeWebSocketClientTests(IExchange exchange)
         {
-            Exchange = exchan
+            Exchange = exchange;
+
+            SymbolFactory = CommonMock.GetSymbolFactory();
+        }
+
+        [TestMethod]
+        public void CanConnect()
+        {
+            var resetEvent = new ManualResetEvent(false);
+
+            var webSocketClient = Exchange.GetWebSocketClient();
+
+            if (webSocketClient == null)
+            {
+                Assert.Fail($"Web Socket client not available for {Exchange.Name}");
+
+                return;
+            }
+
+            var retry = 0;
+
+            webSocketClient.OnOpen += delegate (object sender, EventArgs e)
+            {
+                resetEv
