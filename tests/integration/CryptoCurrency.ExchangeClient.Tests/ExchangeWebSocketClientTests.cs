@@ -40,4 +40,28 @@ namespace CryptoCurrency.ExchangeClient.Tests
 
             webSocketClient.OnOpen += delegate (object sender, EventArgs e)
             {
-                resetEv
+                resetEvent.Set();
+            };
+
+            webSocketClient.OnClose += delegate (object sender, CloseEventArgs e)
+            {
+                if(retry >= 3)
+                {
+                    Assert.Fail($"Unable to connect to web socket client after {retry} attempts");
+
+                    resetEvent.Set();
+                }
+                else
+                {
+                    retry++;
+
+                    webSocketClient.Connect();
+                }
+            };
+
+            webSocketClient.Begin();
+
+            resetEvent.WaitOne(3000);
+        }
+
+        [TestMethod
