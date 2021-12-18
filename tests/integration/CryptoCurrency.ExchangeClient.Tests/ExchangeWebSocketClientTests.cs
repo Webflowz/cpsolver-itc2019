@@ -96,4 +96,18 @@ namespace CryptoCurrency.ExchangeClient.Tests
             };
 
             webSocketClient.OnTradesReceived += delegate (object sender, TradesReceivedEventArgs e)
-         
+            {
+                webSocketClient = null;
+
+                resetEvent.Set();
+            };
+
+            webSocketClient.Begin();
+
+            if (!webSocketClient.IsSubscribeModel)
+                webSocketClient.BeginListenTrades(new[] { symbol });
+
+            resetEvent.WaitOne();
+        }
+    }
+}
