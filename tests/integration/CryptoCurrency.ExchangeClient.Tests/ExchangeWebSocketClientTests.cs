@@ -64,4 +64,19 @@ namespace CryptoCurrency.ExchangeClient.Tests
             resetEvent.WaitOne(3000);
         }
 
-        [TestMethod
+        [TestMethod]
+        public void CanReceiveTrades(ISymbol symbol)
+        {
+            var resetEvent = new ManualResetEvent(false);
+
+            var webSocketClient = Exchange.GetWebSocketClient();
+            
+            webSocketClient.OnOpen += delegate (object sender, EventArgs e)
+            {
+                if (webSocketClient.IsSubscribeModel)
+                    webSocketClient.BeginListenTrades(new[] { symbol });
+            };
+
+            var retry = 0;
+
+            webSocketClient.OnClose += deleg
