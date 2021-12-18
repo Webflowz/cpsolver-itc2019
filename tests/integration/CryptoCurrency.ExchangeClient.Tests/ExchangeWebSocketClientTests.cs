@@ -79,4 +79,21 @@ namespace CryptoCurrency.ExchangeClient.Tests
 
             var retry = 0;
 
-            webSocketClient.OnClose += deleg
+            webSocketClient.OnClose += delegate (object sender, CloseEventArgs e)
+            {
+                if (retry >= 3)
+                {
+                    Assert.Fail($"Unable to connect to web socket client after {retry} attempts");
+
+                    resetEvent.Set();
+                }
+                else
+                {
+                    retry++;
+
+                    webSocketClient.Connect();
+                }
+            };
+
+            webSocketClient.OnTradesReceived += delegate (object sender, TradesReceivedEventArgs e)
+         
