@@ -25,4 +25,19 @@ namespace CryptoCurrency.ExchangeClient.Tests
             CurrencyFactory = CommonMock.GetCurrencyFactory();
             SymbolFactory = CommonMock.GetSymbolFactory();
 
-            Exchange = new Kraken.Kraken(CurrencyFactory, S
+            Exchange = new Kraken.Kraken(CurrencyFactory, SymbolFactory);
+
+            await Exchange.Initialize();
+
+            WebSocketTest = new ExchangeWebSocketClientTests(Exchange);
+        }
+
+        [Test]
+        public void CanReceiveTrades()
+        {
+            var symbol = SymbolFactory.Get(CurrencyCodeEnum.BTC, CurrencyCodeEnum.USD);
+
+            WebSocketTest.CanReceiveTrades(symbol);
+        }
+    }
+}
