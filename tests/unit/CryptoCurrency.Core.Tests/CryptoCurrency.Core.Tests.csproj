@@ -17,4 +17,12 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-  
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\marketaggregate.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
