@@ -18,3 +18,16 @@ namespace CryptoCurrency.Core.Tests
         }
 
         private void ResolveLocalDateTime()
+        {
+            var dateTime = new DateTime(2000, 1, 1);
+
+            new Epoch(dateTime);
+        }
+
+        [Test]
+        public void OnlyAllowUtc()
+        {
+            Assert.Throws<Exception>(new TestDelegate(ResolveLocalDateTime));
+        }
+    }
+}
