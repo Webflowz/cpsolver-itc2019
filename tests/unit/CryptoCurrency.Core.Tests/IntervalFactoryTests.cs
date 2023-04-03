@@ -30,4 +30,18 @@ namespace CryptoCurrency.Core.Tests
         [Test]
         public void GeneratesExpectedIntervalCountFor1d()
         {
-            var from = new Epoch(new DateTime(2018, 1, 1, 0, 30, 0, Da
+            var from = new Epoch(new DateTime(2018, 1, 1, 0, 30, 0, DateTimeKind.Utc));
+            var to = from.AddSeconds((int)TimeSpan.FromDays(5).TotalSeconds);
+
+            var intervalKey = IntervalFactory.GetIntervalKey("1D");
+
+            var intervals = IntervalFactory.GenerateIntervals(intervalKey, from, to);
+            
+            Assert.AreEqual(6, intervals.Count);
+        }
+
+        [Test]
+        public void GeneratesExpectedWeekEpoch()
+        {
+            var from = new Epoch(new DateTime(2018, 1, 3, 0, 30, 0, DateTimeKind.Utc));
+            var to = new Epoch(new DateTime(2018, 1, 3, 0, 30, 0, DateTimeKind.Utc
