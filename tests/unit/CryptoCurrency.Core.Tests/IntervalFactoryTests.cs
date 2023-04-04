@@ -44,4 +44,20 @@ namespace CryptoCurrency.Core.Tests
         public void GeneratesExpectedWeekEpoch()
         {
             var from = new Epoch(new DateTime(2018, 1, 3, 0, 30, 0, DateTimeKind.Utc));
-            var to = new Epoch(new DateTime(2018, 1, 3, 0, 30, 0, DateTimeKind.Utc
+            var to = new Epoch(new DateTime(2018, 1, 3, 0, 30, 0, DateTimeKind.Utc));
+
+            var expected = new Epoch(new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+
+            var intervalKey = IntervalFactory.GetIntervalKey("1W");
+
+            var intervals = IntervalFactory.GenerateIntervals(intervalKey, from, to);
+            var firstInterval = intervals.First();
+
+            Assert.AreEqual(1, intervals.Count);
+            Assert.AreEqual(expected.DateTime, firstInterval.From.DateTime);
+        }
+
+        [Test]
+        public void GeneratesExpectedMonthEpoch()
+        {
+            var from = new Epoch(new DateTime(2018, 1,
