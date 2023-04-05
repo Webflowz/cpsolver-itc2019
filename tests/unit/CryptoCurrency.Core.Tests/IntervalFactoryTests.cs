@@ -75,4 +75,20 @@ namespace CryptoCurrency.Core.Tests
         }
 
         [Test]
-        public void GetsExpecte
+        public void GetsExpectedDayIntervalNegativeOffset()
+        {
+            var epoch = new Epoch(new DateTime(2018, 1, 3, 12, 0, 0, DateTimeKind.Utc));
+
+            var expected = new Epoch(new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+
+            var intervalKey = IntervalFactory.GetIntervalKey("1D");
+
+            var evaluated = IntervalFactory.GetInterval(intervalKey, epoch, -2);
+
+            Assert.AreEqual(expected.DateTime, evaluated.From.DateTime);
+        }
+
+        [Test]
+        public void GetsExpectedDayIntervalPositiveOffset()
+        {
+            var epoch = new Epoch(new 
