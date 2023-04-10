@@ -55,4 +55,17 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new Golem());
             currency.Add(new Status());
             currency.Add(new DigixDAO());
-           
+            currency.Add(new Augur());
+            currency.Add(new Zrx());
+            currency.Add(new IOStoken());
+            currency.Add(new Nano());
+            currency.Add(new BasicAttentionToken());
+            currency.Add(new Monaco());
+            currency.Add(new Steem());
+            currency.Add(new Civic());
+            currency.Add(new Aelf());
+            currency.Add(new PowerLedger());
+            currency.Add(new Poet());
+            currency.Add(new Cindicator());
+            currency.Add(new Storj());
+            curre
