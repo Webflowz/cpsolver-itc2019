@@ -40,4 +40,19 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new EOS());
             currency.Add(new Zcash());
             currency.Add(new TRON());
-            currency
+            currency.Add(new Qtum());
+            currency.Add(new Verge());
+            currency.Add(new OmiseGo());
+            currency.Add(new NEM());
+            currency.Add(new Cardano());
+            currency.Add(new Lisk());
+            currency.Add(new ICON());
+            currency.Add(new Stratis());
+            currency.Add(new BitShares());
+            currency.Add(new Siacoin());
+            currency.Add(new AdEx());
+            currency.Add(new Waves());
+            currency.Add(new Golem());
+            currency.Add(new Status());
+            currency.Add(new DigixDAO());
+           
