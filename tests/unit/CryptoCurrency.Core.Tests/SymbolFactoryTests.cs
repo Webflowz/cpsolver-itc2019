@@ -81,4 +81,18 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new Tierion());
             currency.Add(new TimeNewBank());
             currency.Add(new district0x());
-            currency.Add(new Bancor
+            currency.Add(new Bancor());
+            currency.Add(new Gas());
+            currency.Add(new BlockMason());
+            currency.Add(new NucleusVision());
+            currency.Add(new Decred());
+            currency.Add(new Ardor());
+            currency.Add(new Neblio());
+            currency.Add(new Viberate());
+            currency.Add(new RequestNetwork());
+            currency.Add(new Gifto());
+            currency.Add(new AppCoins());
+            currency.Add(new Viacoin());
+            currency.Add(new Quantstamp());
+            currency.Add(new ETHLend());
+            currency.A
