@@ -68,4 +68,17 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new Poet());
             currency.Add(new Cindicator());
             currency.Add(new Storj());
-            curre
+            currency.Add(new Decentraland());
+            currency.Add(new Rcoin());
+            currency.Add(new FunFair());
+            currency.Add(new Syscoin());
+            currency.Add(new Ark());
+            currency.Add(new Enigma());
+            currency.Add(new Walton());
+            currency.Add(new Ontology());
+            currency.Add(new NAVCoin());
+            currency.Add(new BitcoinDiamond());
+            currency.Add(new Tierion());
+            currency.Add(new TimeNewBank());
+            currency.Add(new district0x());
+            currency.Add(new Bancor
