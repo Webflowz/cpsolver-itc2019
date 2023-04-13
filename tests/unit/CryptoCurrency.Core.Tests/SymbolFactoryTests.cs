@@ -95,4 +95,17 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new Viacoin());
             currency.Add(new Quantstamp());
             currency.Add(new ETHLend());
+            currency.Add(new Komodo());
+            currency.Add(new SingularDTV());
+            currency.Add(new ChainLink());
+            currency.Add(new ZCoin());
+            currency.Add(new Lunyr());
+            currency.Add(new Zilliqa());
+            currency.Add(new PIVX());
+            currency.Add(new KyberNetwork());
+            currency.Add(new AirSwap());
+            currency.Add(new CyberMiles());
+            currency.Add(new SimpleToken());
+            currency.Add(new Nebulas());
+            currency.Add(new VIBE());
             currency.A
