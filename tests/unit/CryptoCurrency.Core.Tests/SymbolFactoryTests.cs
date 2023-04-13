@@ -108,4 +108,18 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new SimpleToken());
             currency.Add(new Nebulas());
             currency.Add(new VIBE());
-            currency.A
+            currency.Add(new Aion());
+            currency.Add(new Storm());
+            currency.Add(new Bluzelle());
+            currency.Add(new SONM());
+            currency.Add(new iExecRLC());
+            currency.Add(new EnjinCoin());
+            currency.Add(new Eidoo());
+            currency.Add(new GenesisVision());
+            currency.Add(new Loopring());
+            currency.Add(new CoinDash());
+            currency.Add(new INSEcosystem());
+            currency.Add(new Everex());
+            currency.Add(new Groestlcoin());
+            currency.Add(new RaidenNetworkToken());
+            currency
