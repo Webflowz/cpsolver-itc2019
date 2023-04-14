@@ -122,4 +122,17 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new Everex());
             currency.Add(new Groestlcoin());
             currency.Add(new RaidenNetworkToken());
-            currency
+            currency.Add(new ThetaToken());
+            currency.Add(new Aeternity());
+            currency.Add(new Nuls());
+            currency.Add(new Populous());
+            currency.Add(new Nexus());
+            currency.Add(new Ambrosus());
+            currency.Add(new Aeron());
+            currency.Add(new ZenCash());
+            currency.Add(new WaBi());
+            currency.Add(new Etherparty());
+            currency.Add(new OpenAnx());
+            currency.Add(new POANetwork());
+            currency.Add(new Bread());
+            currency.Add(new Agrel
