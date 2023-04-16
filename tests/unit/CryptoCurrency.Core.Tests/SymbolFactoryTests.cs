@@ -135,4 +135,17 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new OpenAnx());
             currency.Add(new POANetwork());
             currency.Add(new Bread());
-            currency.Add(new Agrel
+            currency.Add(new Agrello());
+            currency.Add(new Monetha());
+            currency.Add(new Mithril());
+            currency.Add(new WePower());
+            currency.Add(new GXShares());
+            currency.Add(new MoedaLoyaltyPoints());
+            currency.Add(new Dent());
+            currency.Add(new Skycoin());
+            currency.Add(new QLINK());
+            currency.Add(new SingularityNET());
+            currency.Add(new RepublicProtocol());
+            currency.Add(new Selfkey());
+            currency.Add(new TrueUSD());
+            currency.Add(new StreamrDATA
