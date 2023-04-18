@@ -148,4 +148,19 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new RepublicProtocol());
             currency.Add(new Selfkey());
             currency.Add(new TrueUSD());
-            currency.Add(new StreamrDATA
+            currency.Add(new StreamrDATAcoin());
+            currency.Add(new Polymath());
+            currency.Add(new PhoenixCoin());
+            currency.Add(new VeChain());
+            currency.Add(new Dock());
+            currency.Add(new GoChain());
+            currency.Add(new onGsocial());
+            currency.Add(new PaxosStandardToken());
+            currency.Add(new HyperCash());
+            currency.Add(new IoTeX());
+            currency.Add(new Mainframe());
+            currency.Add(new LoomNetwork());
+            currency.Add(new Holo());
+            currency.Add(new PundiX());
+            currency.Add(new MalteseLira());
+            currency.Add(new Sta
