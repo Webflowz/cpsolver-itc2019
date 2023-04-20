@@ -163,4 +163,22 @@ namespace CryptoCurrency.Core.Tests
             currency.Add(new Holo());
             currency.Add(new PundiX());
             currency.Add(new MalteseLira());
-            currency.Add(new Sta
+            currency.Add(new StableUSD());
+            currency.Add(new Ravencoin());
+            currency.Add(new QuarkChain());
+            currency.Add(new USDC());
+            currency.Add(new Wanchain());
+            currency.Add(new Yoyow());
+            currency.Add(new Ethos());
+
+            CurrencyFactory = new CurrencyFactory(currency);
+            SymbolFactory = new SymbolFactory(CurrencyFactory);
+        }
+
+        [Test]
+        public void ContainsAllSymbols()
+        {
+            var symbolCount = Enum.GetValues(typeof(SymbolCodeEnum)).Length;
+            var resolvedSymbols = SymbolFactory.List().Count;
+
+    
