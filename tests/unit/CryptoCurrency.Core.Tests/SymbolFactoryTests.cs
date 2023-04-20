@@ -181,4 +181,24 @@ namespace CryptoCurrency.Core.Tests
             var symbolCount = Enum.GetValues(typeof(SymbolCodeEnum)).Length;
             var resolvedSymbols = SymbolFactory.List().Count;
 
-    
+            foreach(var s in Enum.GetValues(typeof(SymbolCodeEnum)))
+            {
+                if(!SymbolFactory.List().Any(s2 => s2.Code == (SymbolCodeEnum)s))
+                {
+
+                }
+            }
+
+            Assert.AreEqual(symbolCount, resolvedSymbols);
+        }
+
+        [Test]
+        public void ResolvesTradableBtc()
+        {
+            var symbol = SymbolFactory.Get(CurrencyCodeEnum.BTC, CurrencyCodeEnum.USD);
+
+            Assert.IsTrue(symbol.Code == SymbolCodeEnum.BTCUSD);
+            Assert.IsTrue(symbol.Tradable);
+        }
+    }
+}
